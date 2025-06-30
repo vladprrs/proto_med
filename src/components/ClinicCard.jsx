@@ -11,14 +11,14 @@ const ResultCardLink = styled(Link)`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 12px;
-  background: #FFF;
+  background: #fff;
   position: relative;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-  
+
   &:hover {
-    background: #F8F8F8;
+    background: #f8f8f8;
   }
 `;
 
@@ -168,8 +168,19 @@ const StarBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: #E0E0E0;
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background: #e0e0e0;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
 `;
 
 const StarFill = styled.div`
@@ -179,7 +190,18 @@ const StarFill = styled.div`
   width: ${props => props.fill};
   height: 100%;
   background: ${props => props.color || '#EFA701'};
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
   overflow: hidden;
 `;
 
@@ -215,7 +237,7 @@ const TimeIcon = styled.div`
   width: 16px;
   height: 16px;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -224,7 +246,8 @@ const TimeIcon = styled.div`
     width: 16px;
     height: 16px;
     background: #898989;
-    mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1ZM8 2C11.3137 2 14 4.68629 14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2ZM7.5 4V8.41421L10.2929 11.2071L11 10.5L8.5 8V4H7.5Z' fill='%23898989'/%3E%3C/svg%3E") no-repeat center;
+    mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1ZM8 2C11.3137 2 14 4.68629 14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2ZM7.5 4V8.41421L10.2929 11.2071L11 10.5L8.5 8V4H7.5Z' fill='%23898989'/%3E%3C/svg%3E")
+      no-repeat center;
   }
 `;
 
@@ -270,18 +293,18 @@ const BookingButton = styled.div`
   padding: 12px 24px;
   justify-content: center;
   align-items: center;
-  background: #1BA136;
+  background: #1ba136;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 16px;
-  
+
   &:hover {
-    background: #169A2E;
+    background: #169a2e;
   }
 `;
 
 const BookingButtonText = styled.div`
-  color: #FFF;
+  color: #fff;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -292,7 +315,7 @@ const DoctorSection = styled.div`
   align-items: flex-start;
   margin-top: 16px;
   padding: 16px;
-  background: #F8F8F8;
+  background: #f8f8f8;
   border-radius: 12px;
 `;
 
@@ -353,7 +376,7 @@ const CheckIcon = styled.div`
 `;
 
 const FirstVisitText = styled.div`
-  color: #1BA136;
+  color: #1ba136;
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -383,17 +406,17 @@ const SlotButton = styled.div`
   padding: 6px 12px;
   justify-content: center;
   align-items: center;
-  background: #1BA136;
+  background: #1ba136;
   border-radius: 8px;
   cursor: pointer;
-  
+
   &:hover {
-    background: #169A2E;
+    background: #169a2e;
   }
 `;
 
 const SlotText = styled.div`
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -408,7 +431,7 @@ const AdSection = styled.div`
   gap: 8px;
   align-self: stretch;
   border-radius: 0px 0px 12px 12px;
-  background: linear-gradient(90deg, rgba(240, 240, 240, 0.00) 0%, #F0F0F0 100%);
+  background: linear-gradient(90deg, rgba(240, 240, 240, 0) 0%, #f0f0f0 100%);
   position: relative;
 `;
 
@@ -458,11 +481,11 @@ const AdButton = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: #1BA136;
+  background: #1ba136;
   cursor: pointer;
-  
+
   &:hover {
-    background: #169A2E;
+    background: #169a2e;
   }
 `;
 
@@ -476,7 +499,7 @@ const AdButtonContent = styled.div`
 `;
 
 const AdButtonText = styled.div`
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: 'SB Sans Text';
   font-size: 14px;
@@ -494,7 +517,7 @@ const LogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: #FFF;
+  background: #fff;
   position: relative;
 `;
 
@@ -509,14 +532,20 @@ const ClinicCard = ({ clinic, onCardClick }) => {
   const navigate = useNavigate();
 
   // Функция для отрисовки звездочек рейтинга
-  const renderStars = (rating) => {
+  const renderStars = rating => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
       stars.push(
         <StarIcon key={i}>
           <StarBackground />
-          <StarFill 
-            fill={i < Math.floor(rating) ? '16px' : i === Math.floor(rating) ? `${(rating % 1) * 16}px` : '0px'}
+          <StarFill
+            fill={
+              i < Math.floor(rating)
+                ? '16px'
+                : i === Math.floor(rating)
+                  ? `${(rating % 1) * 16}px`
+                  : '0px'
+            }
             color="#EFA701"
           />
         </StarIcon>
@@ -529,7 +558,7 @@ const ClinicCard = ({ clinic, onCardClick }) => {
   const handleSlotClick = (slot, event) => {
     event.preventDefault(); // Предотвращаем переход по ссылке клиники
     event.stopPropagation(); // Останавливаем всплытие события
-    
+
     // Переходим на визард с предзаполненными данными
     navigate(`/clinic/${clinic.id}/services`, {
       state: {
@@ -537,10 +566,19 @@ const ClinicCard = ({ clinic, onCardClick }) => {
           clinic: clinic,
           doctor: clinic.availableDoctor,
           selectedTime: slot,
-          skipSteps: ['specialist'] // Пропускаем выбор специалиста, но проходим через услуги
-        }
-      }
+          skipSteps: ['specialist'], // Пропускаем выбор специалиста, но проходим через услуги
+        },
+      },
     });
+  };
+
+  // Функция для обработки клика кнопки "Записаться" для клиник без короны
+  const handleBookingClick = event => {
+    event.preventDefault(); // Предотвращаем переход по ссылке клиники
+    event.stopPropagation(); // Останавливаем всплытие события
+
+    // Переходим к выбору услуг для записи
+    navigate(`/clinic/${clinic.id}/services`);
   };
 
   return (
@@ -555,8 +593,11 @@ const ClinicCard = ({ clinic, onCardClick }) => {
                   {clinic.hasCrown && (
                     <CrownBadge>
                       <CrownIcon width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M7.42163 0.410057C7.76809 0.164421 8.23191 0.164421 8.57837 0.410058L9.49903 1.06279C9.69411 1.2011 9.9323 1.26493 10.1704 1.24269L11.2941 1.13773C11.7169 1.09823 12.1186 1.33015 12.2959 1.7161L12.7668 2.74172C12.8666 2.95904 13.041 3.13341 13.2583 3.2332L14.2839 3.70414C14.6699 3.88137 14.9018 4.28305 14.8623 4.70591L14.7573 5.8296C14.7351 6.0677 14.7989 6.30588 14.9372 6.50097L15.5899 7.42163C15.8356 7.76809 15.8356 8.23191 15.5899 8.57837L14.9372 9.49903C14.7989 9.69411 14.7351 9.9323 14.7573 10.1704L14.8623 11.2941C14.9018 11.7169 14.6699 12.1186 14.2839 12.2959L13.2583 12.7668C13.041 12.8666 12.8666 13.041 12.7668 13.2583L12.2959 14.2839C12.1186 14.6699 11.7169 14.9018 11.2941 14.8623L10.1704 14.7573C9.9323 14.7351 9.69411 14.7989 9.49903 14.9372L8.57837 15.5899C8.23191 15.8356 7.76809 15.8356 7.42163 15.5899L6.50097 14.9372C6.30588 14.7989 6.0677 14.7351 5.82959 14.7573L4.70591 14.8623C4.28305 14.9018 3.88137 14.6699 3.70414 14.2839L3.2332 13.2583C3.13341 13.041 2.95904 12.8666 2.74172 12.7668L1.7161 12.2959C1.33015 12.1186 1.09823 11.7169 1.13773 11.2941L1.24269 10.1704C1.26493 9.9323 1.2011 9.69411 1.06279 9.49903L0.410057 8.57837C0.164421 8.23191 0.164421 7.76809 0.410058 7.42163L1.06279 6.50097C1.2011 6.30588 1.26493 6.0677 1.24269 5.8296L1.13773 4.70591C1.09823 4.28305 1.33015 3.88137 1.7161 3.70414L2.74172 3.2332C2.95904 3.13341 3.13341 2.95904 3.2332 2.74172L3.70414 1.7161C3.88137 1.33014 4.28305 1.09823 4.70591 1.13773L5.8296 1.24269C6.0677 1.26493 6.30588 1.2011 6.50097 1.06279L7.42163 0.410057Z" fill="#1BA136"/>
-                        <path d="M4 5L5 11H11L12 5L10 6L8 4L6 6L4 5Z" fill="white"/>
+                        <path
+                          d="M7.42163 0.410057C7.76809 0.164421 8.23191 0.164421 8.57837 0.410058L9.49903 1.06279C9.69411 1.2011 9.9323 1.26493 10.1704 1.24269L11.2941 1.13773C11.7169 1.09823 12.1186 1.33015 12.2959 1.7161L12.7668 2.74172C12.8666 2.95904 13.041 3.13341 13.2583 3.2332L14.2839 3.70414C14.6699 3.88137 14.9018 4.28305 14.8623 4.70591L14.7573 5.8296C14.7351 6.0677 14.7989 6.30588 14.9372 6.50097L15.5899 7.42163C15.8356 7.76809 15.8356 8.23191 15.5899 8.57837L14.9372 9.49903C14.7989 9.69411 14.7351 9.9323 14.7573 10.1704L14.8623 11.2941C14.9018 11.7169 14.6699 12.1186 14.2839 12.2959L13.2583 12.7668C13.041 12.8666 12.8666 13.041 12.7668 13.2583L12.2959 14.2839C12.1186 14.6699 11.7169 14.9018 11.2941 14.8623L10.1704 14.7573C9.9323 14.7351 9.69411 14.7989 9.49903 14.9372L8.57837 15.5899C8.23191 15.8356 7.76809 15.8356 7.42163 15.5899L6.50097 14.9372C6.30588 14.7989 6.0677 14.7351 5.82959 14.7573L4.70591 14.8623C4.28305 14.9018 3.88137 14.6699 3.70414 14.2839L3.2332 13.2583C3.13341 13.041 2.95904 12.8666 2.74172 12.7668L1.7161 12.2959C1.33015 12.1186 1.09823 11.7169 1.13773 11.2941L1.24269 10.1704C1.26493 9.9323 1.2011 9.69411 1.06279 9.49903L0.410057 8.57837C0.164421 8.23191 0.164421 7.76809 0.410058 7.42163L1.06279 6.50097C1.2011 6.30588 1.26493 6.0677 1.24269 5.8296L1.13773 4.70591C1.09823 4.28305 1.33015 3.88137 1.7161 3.70414L2.74172 3.2332C2.95904 3.13341 3.13341 2.95904 3.2332 2.74172L3.70414 1.7161C3.88137 1.33014 4.28305 1.09823 4.70591 1.13773L5.8296 1.24269C6.0677 1.26493 6.30588 1.2011 6.50097 1.06279L7.42163 0.410057Z"
+                          fill="#1BA136"
+                        />
+                        <path d="M4 5L5 11H11L12 5L10 6L8 4L6 6L4 5Z" fill="white" />
                       </CrownIcon>
                     </CrownBadge>
                   )}
@@ -568,15 +609,16 @@ const ClinicCard = ({ clinic, onCardClick }) => {
                 </SubtitleContent>
               </Subtitle>
             </HeaderSection>
-            
+
             <SecondaryLine>
               <SecondaryContent>
                 <RatingSection>
-                  <StarsContainer>
-                    {renderStars(clinic.rating)}
-                  </StarsContainer>
+                  <StarsContainer>{renderStars(clinic.rating)}</StarsContainer>
                   <RatingText>{clinic.rating}</RatingText>
-                  <ReviewCount>{clinic.reviewCount} отзыв{clinic.reviewCount === 1 ? '' : clinic.reviewCount < 5 ? 'а' : 'ов'}</ReviewCount>
+                  <ReviewCount>
+                    {clinic.reviewCount} отзыв
+                    {clinic.reviewCount === 1 ? '' : clinic.reviewCount < 5 ? 'а' : 'ов'}
+                  </ReviewCount>
                 </RatingSection>
                 <RideTime>
                   <TimeIcon />
@@ -584,22 +626,20 @@ const ClinicCard = ({ clinic, onCardClick }) => {
                 </RideTime>
               </SecondaryContent>
             </SecondaryLine>
-            
+
             <AddressLine>
               <AddressText>{clinic.address}</AddressText>
             </AddressLine>
-            
-            {clinic.locations && (
-              <LocationsText>{clinic.locations}</LocationsText>
-            )}
-            
+
+            {clinic.locations && <LocationsText>{clinic.locations}</LocationsText>}
+
             {/* Для обычных клиник (без короны) - показываем кнопку "Записаться" только если есть онлайн запись */}
             {!clinic.hasCrown && clinic.hasOnlineBooking && (
-              <BookingButton>
+              <BookingButton onClick={handleBookingClick}>
                 <BookingButtonText>Записаться</BookingButtonText>
               </BookingButton>
             )}
-            
+
             {/* Для рекламодателей (с короной) с онлайн записью - показываем доступного врача и слоты */}
             {clinic.hasCrown && clinic.hasOnlineBooking && clinic.availableDoctor && (
               <DoctorSection>
@@ -607,7 +647,7 @@ const ClinicCard = ({ clinic, onCardClick }) => {
                   <DoctorName>{clinic.availableDoctor.name}</DoctorName>
                   <DoctorSpecialty>{clinic.availableDoctor.specialty}</DoctorSpecialty>
                   <DoctorExperience>{clinic.availableDoctor.experience}</DoctorExperience>
-                  
+
                   <PriceSection>
                     <PriceText>{clinic.availableDoctor.price}</PriceText>
                     {clinic.availableDoctor.firstVisitPrice && (
@@ -617,12 +657,12 @@ const ClinicCard = ({ clinic, onCardClick }) => {
                       </FirstVisitBadge>
                     )}
                   </PriceSection>
-                  
+
                   <SlotsSection>
                     <SlotsDate>{clinic.availableDoctor.todaySlots}</SlotsDate>
                     <SlotsContainer>
                       {clinic.availableDoctor.availableSlots?.map((slot, index) => (
-                        <SlotButton key={index} onClick={(e) => handleSlotClick(slot, e)}>
+                        <SlotButton key={index} onClick={e => handleSlotClick(slot, e)}>
                           <SlotText>{slot}</SlotText>
                         </SlotButton>
                       ))}
@@ -633,14 +673,16 @@ const ClinicCard = ({ clinic, onCardClick }) => {
             )}
           </CardMainContent>
         </CardTop>
-        
+
         {/* Рекламный блок показывается для рекламодателей без онлайн записи */}
         {clinic.hasAd && !clinic.hasOnlineBooking && (
           <AdSection>
             <AdContent>
               <AdTextContent>
                 <AdText>{clinic.adText}</AdText>
-                <AdDisclaimer>Реклама • Есть противопоказания, нужна консультация врача</AdDisclaimer>
+                <AdDisclaimer>
+                  Реклама • Есть противопоказания, нужна консультация врача
+                </AdDisclaimer>
                 <div style={{ padding: '6px 0px' }}>
                   <AdButton>
                     <AdButtonContent>
@@ -660,4 +702,4 @@ const ClinicCard = ({ clinic, onCardClick }) => {
   );
 };
 
-export default ClinicCard; 
+export default ClinicCard;

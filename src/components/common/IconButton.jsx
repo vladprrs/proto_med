@@ -17,7 +17,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 10px;
@@ -34,7 +34,7 @@ const CloseIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::before,
   &::after {
     content: '';
@@ -46,11 +46,11 @@ const CloseIcon = styled.div`
     background-color: ${theme.colors.textPrimary};
     transform-origin: center;
   }
-  
+
   &::before {
     transform: translate(-50%, -50%) rotate(45deg);
   }
-  
+
   &::after {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
@@ -73,7 +73,7 @@ const MenuIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::before,
   &::after {
     content: '';
@@ -84,10 +84,12 @@ const MenuIcon = styled.div`
     background-color: ${theme.colors.textPrimary};
     border-radius: 1px;
   }
-  
+
   &::before {
     top: 7px;
-    box-shadow: 0 5px 0 ${theme.colors.textPrimary}, 0 10px 0 ${theme.colors.textPrimary};
+    box-shadow:
+      0 5px 0 ${theme.colors.textPrimary},
+      0 10px 0 ${theme.colors.textPrimary};
   }
 `;
 
@@ -101,9 +103,11 @@ const iconComponents = {
 
 const IconButton = ({ icon, onClick, disabled, ...props }) => {
   const IconComponent = iconComponents[icon];
-  
+
   if (!IconComponent) {
-    console.warn(`Icon "${icon}" not found. Available icons: ${Object.keys(iconComponents).join(', ')}`);
+    console.warn(
+      `Icon "${icon}" not found. Available icons: ${Object.keys(iconComponents).join(', ')}`
+    );
     return null;
   }
 
@@ -114,4 +118,4 @@ const IconButton = ({ icon, onClick, disabled, ...props }) => {
   );
 };
 
-export default IconButton; 
+export default IconButton;

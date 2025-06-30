@@ -19,8 +19,8 @@ const SegmentButton = styled.button`
   align-items: flex-start;
   flex: 1 0 0;
   border-radius: ${theme.borderRadius.medium};
-  background: ${props => props.selected ? theme.colors.backgroundSecondary : 'transparent'};
-  box-shadow: ${props => props.selected ? theme.shadows.card : 'none'};
+  background: ${props => (props.selected ? theme.colors.backgroundSecondary : 'transparent')};
+  box-shadow: ${props => (props.selected ? theme.shadows.card : 'none')};
   border: none;
   cursor: pointer;
   padding: 6px 8px 8px 8px;
@@ -36,15 +36,10 @@ const SegmentLabel = styled.div`
   ${typography.footnote}
 `;
 
-const SegmentedControl = ({ 
-  options = [], 
-  selectedValue, 
-  onChange, 
-  ...props 
-}) => {
+const SegmentedControl = ({ options = [], selectedValue, onChange, ...props }) => {
   return (
     <SegmentedContainer {...props}>
-      {options.map((option) => (
+      {options.map(option => (
         <SegmentButton
           key={option.value}
           selected={selectedValue === option.value}
@@ -57,4 +52,4 @@ const SegmentedControl = ({
   );
 };
 
-export default SegmentedControl; 
+export default SegmentedControl;

@@ -6,10 +6,16 @@ import { useDoctorsByClinic, useClinic } from '../hooks/useApi';
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%), 
-              url('/assets/map_stub.png') lightgray 50% / cover no-repeat;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
+    url('/assets/map_stub.png') lightgray 50% / cover no-repeat;
   position: relative;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   margin: 0 auto;
   max-width: 100vw;
   overflow-x: hidden;
@@ -27,7 +33,7 @@ const BottomSheet = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   min-height: calc(100vh - 64px);
   overflow: hidden;
@@ -78,7 +84,7 @@ const BackButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  
+
   &:hover {
     background: rgba(20, 20, 20, 0.12);
   }
@@ -88,7 +94,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 10px;
@@ -138,7 +144,7 @@ const Content = styled.div`
   align-items: flex-start;
   gap: 12px;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
 `;
 
 const AnySpecialistButton = styled.button`
@@ -147,13 +153,20 @@ const AnySpecialistButton = styled.button`
   align-items: center;
   align-self: stretch;
   border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   border: none;
   padding: 13px 16px 15px 16px;
   cursor: pointer;
   color: #141414;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -164,8 +177,10 @@ const SpecialistCard = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 12px;
-  background: #FFF;
-  box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   padding: 15px 16px;
   gap: 10px;
@@ -175,7 +190,7 @@ const Avatar = styled.img`
   width: 48px;
   height: 48px;
   border-radius: 24px;
-  border: 0.5px solid rgba(137, 137, 137, 0.40);
+  border: 0.5px solid rgba(137, 137, 137, 0.4);
   object-fit: cover;
 `;
 
@@ -189,7 +204,12 @@ const SpecialistInfo = styled.div`
 
 const SpecialistName = styled.div`
   color: #141414;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -197,7 +217,12 @@ const SpecialistName = styled.div`
 
 const SpecialistSpecialty = styled.div`
   color: #898989;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -211,7 +236,12 @@ const RatingContainer = styled.div`
 
 const Rating = styled.span`
   color: #141414;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 13px;
   font-weight: 600;
   line-height: 16px;
@@ -219,7 +249,12 @@ const Rating = styled.span`
 
 const ReviewCount = styled.span`
   color: #898989;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 13px;
   font-weight: 400;
   line-height: 16px;
@@ -231,7 +266,7 @@ function SpecialistsScreen() {
   const location = useLocation();
 
   const photos = ['/assets/Photo1.png', '/assets/Photo2.png'];
-  
+
   // Получаем данные о выбранных услугах, клинике и предзаполненные данные из state
   const { selectedServices = [], clinicData = null, prefilledData = null } = location.state || {};
 
@@ -242,22 +277,22 @@ function SpecialistsScreen() {
   // Если есть предзаполненные данные и нужно пропустить выбор специалиста
   useEffect(() => {
     console.log('🔸 SpecialistsScreen: Mounted with prefilledData:', prefilledData);
-    
+
     if (prefilledData && prefilledData.skipSteps?.includes('specialist')) {
       console.log('🔸 SpecialistsScreen: Skipping specialist selection step');
-      
+
       const fallbackClinicId = clinicId || prefilledData.clinic.id || '1';
       const navigationState = {
         selectedServices: prefilledData.selectedServices || [],
         selectedSpecialist: prefilledData.specialist || prefilledData.doctor,
         clinicData: clinicData || prefilledData.clinic,
-        prefilledData: prefilledData
+        prefilledData: prefilledData,
       };
-      
+
       console.log('🔸 SpecialistsScreen: Navigating to datetime with:', navigationState);
-      
+
       navigate(`/clinic/${fallbackClinicId}/datetime`, {
-        state: navigationState
+        state: navigationState,
       });
       return;
     }
@@ -266,48 +301,48 @@ function SpecialistsScreen() {
   // Добавляем фотографии к специалистам
   const specialists = specialistsData.map((specialist, index) => ({
     ...specialist,
-    photo: photos[index % photos.length]
+    photo: photos[index % photos.length],
   }));
 
   const handleBack = () => navigate(-1);
 
-  const handleSpecialistSelect = (specialist) => {
+  const handleSpecialistSelect = specialist => {
     const fallbackClinicId = clinicId || prefilledData?.clinic.id || '1';
-    const navigationState = { 
-      selectedServices, 
+    const navigationState = {
+      selectedServices,
       selectedSpecialist: specialist,
-      clinicData: clinicData || currentClinicData || prefilledData?.clinic
+      clinicData: clinicData || currentClinicData || prefilledData?.clinic,
     };
-    
+
     // Если есть предзаполненные данные, передаем их дальше
     if (prefilledData) {
       navigationState.prefilledData = {
         ...prefilledData,
         doctor: specialist,
-        selectedServices
+        selectedServices,
       };
     }
-    
+
     navigate(`/clinic/${fallbackClinicId}/datetime`, { state: navigationState });
   };
 
   const handleAnySpecialist = () => {
     const fallbackClinicId = clinicId || prefilledData?.clinic.id || '1';
-    const navigationState = { 
-      selectedServices, 
+    const navigationState = {
+      selectedServices,
       selectedSpecialist: null,
-      clinicData: clinicData || currentClinicData || prefilledData?.clinic
+      clinicData: clinicData || currentClinicData || prefilledData?.clinic,
     };
-    
+
     // Если есть предзаполненные данные, передаем их дальше
     if (prefilledData) {
       navigationState.prefilledData = {
         ...prefilledData,
         doctor: null,
-        selectedServices
+        selectedServices,
       };
     }
-    
+
     navigate(`/clinic/${fallbackClinicId}/datetime`, { state: navigationState });
   };
 
@@ -321,11 +356,11 @@ function SpecialistsScreen() {
     );
   }
 
-      return (
-      <Container>
-        <BottomSheet>
-          <Dragger />
-          <NavBar>
+  return (
+    <Container>
+      <BottomSheet>
+        <Dragger />
+        <NavBar>
           <NavContent>
             <BackButton onClick={handleBack}>
               <BackIcon />
@@ -342,8 +377,11 @@ function SpecialistsScreen() {
               Любой свободный специалист
             </AnySpecialistButton>
 
-            {specialists.map((specialist) => (
-              <SpecialistCard key={specialist.id} onClick={() => handleSpecialistSelect(specialist)}>
+            {specialists.map(specialist => (
+              <SpecialistCard
+                key={specialist.id}
+                onClick={() => handleSpecialistSelect(specialist)}
+              >
                 <Avatar src={specialist.photo} alt={specialist.name} />
                 <SpecialistInfo>
                   <SpecialistName>{specialist.name}</SpecialistName>
@@ -351,7 +389,12 @@ function SpecialistsScreen() {
                   {specialist.rating && (
                     <RatingContainer>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M9.57326 5.04119C9.71094 5.45481 10.1067 5.73472 10.553 5.73472H14.6896C14.9897 5.73472 15.1146 6.10909 14.8715 6.28075L11.5247 8.64946C11.1639 8.90522 11.0129 9.35808 11.1506 9.7717L12.4287 13.6034C12.5217 13.8816 12.195 14.1128 11.9519 13.9411L8.60551 11.5724C8.24426 11.3171 7.75552 11.3171 7.39472 11.5724L4.04788 13.9411C3.80483 14.1128 3.47856 13.8816 3.57108 13.6034L4.84917 9.7717C4.98729 9.35808 4.83633 8.90522 4.47508 8.64946L1.12825 6.28075C0.885644 6.10909 1.01004 5.73472 1.31064 5.73472H5.44726C5.89351 5.73472 6.28884 5.45481 6.42697 5.04119L7.70505 1.20864C7.79802 0.930453 8.20221 0.930453 8.29473 1.20864L9.57326 5.04119Z" fill="#EFA701"/>
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M9.57326 5.04119C9.71094 5.45481 10.1067 5.73472 10.553 5.73472H14.6896C14.9897 5.73472 15.1146 6.10909 14.8715 6.28075L11.5247 8.64946C11.1639 8.90522 11.0129 9.35808 11.1506 9.7717L12.4287 13.6034C12.5217 13.8816 12.195 14.1128 11.9519 13.9411L8.60551 11.5724C8.24426 11.3171 7.75552 11.3171 7.39472 11.5724L4.04788 13.9411C3.80483 14.1128 3.47856 13.8816 3.57108 13.6034L4.84917 9.7717C4.98729 9.35808 4.83633 8.90522 4.47508 8.64946L1.12825 6.28075C0.885644 6.10909 1.01004 5.73472 1.31064 5.73472H5.44726C5.89351 5.73472 6.28884 5.45481 6.42697 5.04119L7.70505 1.20864C7.79802 0.930453 8.20221 0.930453 8.29473 1.20864L9.57326 5.04119Z"
+                          fill="#EFA701"
+                        />
                       </svg>
                       <Rating>{specialist.rating}</Rating>
                       <ReviewCount>{specialist.reviewCount} оценок</ReviewCount>
@@ -367,4 +410,4 @@ function SpecialistsScreen() {
   );
 }
 
-export default SpecialistsScreen; 
+export default SpecialistsScreen;

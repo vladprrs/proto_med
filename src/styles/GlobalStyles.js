@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components'
-import { theme } from './theme'
-import { typography, focusVisible, textSelection } from './mixins'
+import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
+import { typography, focusVisible, textSelection } from './mixins';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -200,6 +200,6 @@ const GlobalStyles = createGlobalStyle`
   @media (prefers-color-scheme: dark) {
     /* Will be implemented when dark theme is required */
   }
-`
+`;
 
-export default GlobalStyles 
+export default GlobalStyles;

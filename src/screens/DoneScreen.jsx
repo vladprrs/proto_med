@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppContext } from '../contexts/AppContext';
+import {
+  useBookingContext,
+  useUserContext,
+  useAppointmentsContext,
+  useUIContext,
+} from '../contexts/index.jsx';
 import { MapScreenLayout } from '../components/layout';
 
 // Удален Container - заменен на MapScreenLayout
@@ -13,7 +18,7 @@ const BottomSheet = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   min-height: calc(100vh - 64px);
 `;
@@ -72,7 +77,7 @@ const Title = styled.div`
   align-items: flex-start;
   flex: 1 0 0;
   position: relative;
-  
+
   color: #141414;
   font-family: 'SB Sans Text';
   font-size: 19px;
@@ -91,7 +96,7 @@ const CloseButton = styled.button`
   cursor: pointer;
   padding: 8px;
   background: rgba(20, 20, 20, 0.06);
-  
+
   &:hover {
     background: rgba(20, 20, 20, 0.1);
   }
@@ -101,7 +106,7 @@ const CloseIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::before,
   &::after {
     content: '';
@@ -113,11 +118,11 @@ const CloseIcon = styled.div`
     background: #141414;
     transform: translate(-50%, -50%);
   }
-  
+
   &::before {
     transform: translate(-50%, -50%) rotate(45deg);
   }
-  
+
   &::after {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
@@ -131,7 +136,7 @@ const ContentArea = styled.div`
   gap: 12px;
   flex: 1;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
 `;
 
@@ -141,8 +146,10 @@ const InfoCard = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 12px;
-  background: #FFF;
-  box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   position: relative;
 `;
 
@@ -161,7 +168,7 @@ const InfoTitle = styled.div`
   align-items: flex-start;
   align-self: stretch;
   position: relative;
-  
+
   div {
     flex: 1 0 0;
     color: #141414;
@@ -177,10 +184,10 @@ const InfoTitle = styled.div`
 
 const InfoDetail = styled.div`
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   align-self: stretch;
   position: relative;
-  
+
   div {
     flex: 1 0 0;
     color: #141414;
@@ -199,8 +206,10 @@ const ServicesCard = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 12px;
-  background: #FFF;
-  box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   position: relative;
 `;
 
@@ -219,7 +228,7 @@ const ServiceItem = styled.div`
   align-items: flex-start;
   align-self: stretch;
   position: relative;
-  
+
   div {
     flex: 1 0 0;
     font-family: 'SB Sans Text';
@@ -229,11 +238,11 @@ const ServiceItem = styled.div`
     line-height: 20px;
     letter-spacing: -0.24px;
     padding: 8px 0px 4px 0px;
-    
+
     .service-name {
       color: #141414;
     }
-    
+
     .service-price {
       color: #898989;
     }
@@ -250,7 +259,7 @@ const SuccessIllustration = styled.div`
   flex: 1 0 0;
   align-self: stretch;
   position: relative;
-  
+
   svg {
     max-width: 351px;
     width: 100%;
@@ -264,7 +273,7 @@ const Bottom = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  background: #FFF;
+  background: #fff;
   position: relative;
   margin-top: auto;
 `;
@@ -287,23 +296,23 @@ const DoneButton = styled.button`
   position: relative;
   border: none;
   cursor: pointer;
-  
+
   &:hover {
     opacity: 0.9;
   }
-  
+
   div {
     display: flex;
     padding: 13px 16px 15px 16px;
     align-items: flex-start;
     gap: 8px;
     flex: 1 0 0;
-    background: #1DB93C;
+    background: #1db93c;
     border-radius: 10px;
-    
+
     span {
       flex: 1 0 0;
-      color: #FFF;
+      color: #fff;
       text-align: center;
       font-family: 'SB Sans Text';
       font-size: 16px;
@@ -323,11 +332,11 @@ const CancelButton = styled.button`
   position: relative;
   border: none;
   cursor: pointer;
-  
+
   &:hover {
     opacity: 0.9;
   }
-  
+
   div {
     display: flex;
     padding: 13px 16px 15px 16px;
@@ -335,12 +344,12 @@ const CancelButton = styled.button`
     gap: 8px;
     flex: 1 0 0;
     background: rgba(239, 68, 68, 0.1);
-    border: 1px solid #EF4444;
+    border: 1px solid #ef4444;
     border-radius: 10px;
-    
+
     span {
       flex: 1 0 0;
-      color: #EF4444;
+      color: #ef4444;
       text-align: center;
       font-family: 'SB Sans Text';
       font-size: 16px;
@@ -360,7 +369,7 @@ const HomeIndicator = styled.div`
   align-items: center;
   align-self: stretch;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 146px;
@@ -379,34 +388,42 @@ function DoneScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const { state, actions } = useAppContext();
-  
+  const booking = useBookingContext();
+  const user = useUserContext();
+  const appointments = useAppointmentsContext();
+  const ui = useUIContext();
+
   // Если мы попали сюда через маршрут /appointment, показываем данные из activeAppointment
   const isAppointmentView = location.pathname === '/appointment';
-  
+
   let displayData;
-  if (isAppointmentView && state.activeAppointment) {
+  if (isAppointmentView && appointments.activeAppointment) {
     displayData = {
-      selectedServices: state.activeAppointment.services || [],
-      selectedSpecialist: state.activeAppointment.specialist,
-      selectedDateTime: state.activeAppointment.dateTime,
-              clinicData: state.activeAppointment.clinic || { name: 'МедЦентр «Здоровье»' },
-      contactInfo: state.activeAppointment.patient || {}
+      selectedServices: appointments.activeAppointment.services || [],
+      selectedSpecialist: appointments.activeAppointment.specialist,
+      selectedDateTime: appointments.activeAppointment.dateTime,
+      clinicData: appointments.activeAppointment.clinic || { name: 'МедЦентр «Здоровье»' },
+      contactInfo: appointments.activeAppointment.patient || {},
     };
   } else {
-    // Получаем данные из контекста или из предыдущего экрана
+    // Получаем данные из контекста бронирования или из предыдущего экрана
     const bookingData = location.state || {};
-    displayData = { 
-      selectedServices: bookingData.selectedServices || state.selectedServices || [], 
-      selectedSpecialist: bookingData.selectedSpecialist || state.selectedSpecialist || null, 
-      selectedDateTime: bookingData.selectedDateTime || (state.selectedDate && state.selectedTime ? 
-        { date: state.selectedDate, time: state.selectedTime } : null), 
-              clinicData: bookingData.clinicData || state.selectedClinic || { name: 'МедЦентр «Здоровье»' },
-      contactInfo: bookingData.contactInfo || state.patientInfo || {}
+    displayData = {
+      selectedServices: bookingData.selectedServices || booking.selectedServices || [],
+      selectedSpecialist: bookingData.selectedSpecialist || booking.selectedSpecialist || null,
+      selectedDateTime:
+        bookingData.selectedDateTime ||
+        (booking.selectedDate && booking.selectedTime
+          ? { date: booking.selectedDate, time: booking.selectedTime }
+          : null),
+      clinicData: bookingData.clinicData ||
+        booking.selectedClinic || { name: 'МедЦентр «Здоровье»' },
+      contactInfo: bookingData.contactInfo || user.patientInfo || {},
     };
   }
-  
-  const { selectedServices, selectedSpecialist, selectedDateTime, clinicData, contactInfo } = displayData;
+
+  const { selectedServices, selectedSpecialist, selectedDateTime, clinicData, contactInfo } =
+    displayData;
 
   const handleClose = () => {
     navigate('/');
@@ -427,54 +444,64 @@ function DoneScreen() {
         patient: contactInfo,
         status: 'active',
         createdAt: new Date().toISOString(),
-        bookingNumber: `MP${Date.now().toString().slice(-6)}` // Номер бронирования
+        bookingNumber: `MP${Date.now().toString().slice(-6)}`, // Номер бронирования
       };
-      
+
       // Добавляем запись в массив appointments для отображения на дашборде
-      actions.addAppointment(appointmentData);
-      
+      appointments.actions.addAppointment(appointmentData);
+
       // Также сохраняем как активную запись
-      actions.setActiveAppointment(appointmentData);
-      
+      appointments.actions.setActiveAppointment(appointmentData);
+
       // Показываем уведомление об успешной записи
-      actions.showToast('Запись успешно создана!', 'success');
-      
+      ui.actions.showSuccess('Запись успешно создана!');
+
       // Очищаем данные о текущем бронировании
-      actions.resetBookingFlow();
-      
+      booking.actions.resetBookingFlow();
+
       console.log('🔸 DoneScreen: Appointment created successfully:', appointmentData);
-      
+
       navigate('/');
     }
   };
 
-  const formatDateTime = (dateTime) => {
+  const formatDateTime = dateTime => {
     if (!dateTime) return '14 июня, вт, 10:30';
-    
+
     const date = new Date(dateTime.date);
     const dayNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
     const monthNames = [
-      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря',
     ];
-    
+
     const dayName = dayNames[date.getDay()];
     const day = date.getDate();
     const month = monthNames[date.getMonth()];
-    
+
     return `${day} ${month}, ${dayName}, ${dateTime.time}`;
   };
 
   // Данные по умолчанию для демонстрации
   const defaultServices = [
     { name: 'Маникюр (только форма)', price: 700 },
-    { name: 'Маникюр с покрытием лак', price: 1100 }
+    { name: 'Маникюр с покрытием лак', price: 1100 },
   ];
-  
+
   const displayServices = selectedServices.length ? selectedServices : defaultServices;
 
   return (
-    <MapScreenLayout 
+    <MapScreenLayout
       mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
       contentTop="64px"
       contentMinHeight="calc(100vh - 64px)"
@@ -482,7 +509,7 @@ function DoneScreen() {
     >
       <BottomSheet>
         <Dragger />
-        
+
         <NavBar>
           <NavContent>
             <HeaderTitle>
@@ -530,23 +557,58 @@ function DoneScreen() {
           {/* Иллюстрация успеха */}
           <SuccessIllustration>
             <svg viewBox="0 0 351 262" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M174.348 125.049C165.46 152.48 178.199 186.896 206.634 191.673C238.345 197.001 264.794 184.664 273.681 157.234C275.794 150.711 276.602 143.837 276.059 137.002C275.515 130.168 273.631 123.507 270.513 117.401C267.395 111.294 263.105 105.862 257.888 101.414C252.671 96.9653 246.629 93.5881 240.107 91.4749C231.535 88.6975 222.381 88.2959 214.222 88.0222C196.014 91.4164 180.458 106.191 174.348 125.049Z" fill="url(#paint0_linear)"/>
-              <path d="M215.566 192.436C186.732 192.436 163.358 169.062 163.358 140.228C163.358 111.394 186.732 88.0192 215.566 88.0192C244.4 88.0192 267.775 111.394 267.775 140.228C267.775 169.062 244.4 192.436 215.566 192.436Z" fill="url(#paint1_linear)"/>
-              <path d="M213.933 118.515C210.843 124.002 208.764 130 207.794 136.223" stroke="black" strokeWidth="2.1213" strokeMiterlimit="10"/>
-              <path d="M228.317 123.495C225.406 128.713 223.641 134.492 223.138 140.446" stroke="black" strokeWidth="2.1213" strokeMiterlimit="10"/>
-              <path d="M241.987 151.291C224.409 179.054 183.208 163.881 186.771 134.056" stroke="black" strokeWidth="2.1213" strokeMiterlimit="10"/>
+              <path
+                d="M174.348 125.049C165.46 152.48 178.199 186.896 206.634 191.673C238.345 197.001 264.794 184.664 273.681 157.234C275.794 150.711 276.602 143.837 276.059 137.002C275.515 130.168 273.631 123.507 270.513 117.401C267.395 111.294 263.105 105.862 257.888 101.414C252.671 96.9653 246.629 93.5881 240.107 91.4749C231.535 88.6975 222.381 88.2959 214.222 88.0222C196.014 91.4164 180.458 106.191 174.348 125.049Z"
+                fill="url(#paint0_linear)"
+              />
+              <path
+                d="M215.566 192.436C186.732 192.436 163.358 169.062 163.358 140.228C163.358 111.394 186.732 88.0192 215.566 88.0192C244.4 88.0192 267.775 111.394 267.775 140.228C267.775 169.062 244.4 192.436 215.566 192.436Z"
+                fill="url(#paint1_linear)"
+              />
+              <path
+                d="M213.933 118.515C210.843 124.002 208.764 130 207.794 136.223"
+                stroke="black"
+                strokeWidth="2.1213"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M228.317 123.495C225.406 128.713 223.641 134.492 223.138 140.446"
+                stroke="black"
+                strokeWidth="2.1213"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M241.987 151.291C224.409 179.054 183.208 163.881 186.771 134.056"
+                stroke="black"
+                strokeWidth="2.1213"
+                strokeMiterlimit="10"
+              />
               <defs>
-                <linearGradient id="paint0_linear" x1="276.237" y1="140.455" x2="171.555" y2="140.455" gradientUnits="userSpaceOnUse">
-                  <stop offset="0.09" stopColor="#195441"/>
-                  <stop offset="0.1" stopColor="#195640"/>
-                  <stop offset="0.36" stopColor="#197A31"/>
-                  <stop offset="0.61" stopColor="#198E27"/>
-                  <stop offset="0.83" stopColor="#199E20"/>
-                  <stop offset="1" stopColor="#19A41E"/>
+                <linearGradient
+                  id="paint0_linear"
+                  x1="276.237"
+                  y1="140.455"
+                  x2="171.555"
+                  y2="140.455"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.09" stopColor="#195441" />
+                  <stop offset="0.1" stopColor="#195640" />
+                  <stop offset="0.36" stopColor="#197A31" />
+                  <stop offset="0.61" stopColor="#198E27" />
+                  <stop offset="0.83" stopColor="#199E20" />
+                  <stop offset="1" stopColor="#19A41E" />
                 </linearGradient>
-                <linearGradient id="paint1_linear" x1="267.789" y1="140.228" x2="163.344" y2="140.228" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#19A41E"/>
-                  <stop offset="0.97622" stopColor="#23C629"/>
+                <linearGradient
+                  id="paint1_linear"
+                  x1="267.789"
+                  y1="140.228"
+                  x2="163.344"
+                  y2="140.228"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#19A41E" />
+                  <stop offset="0.97622" stopColor="#23C629" />
                 </linearGradient>
               </defs>
             </svg>
@@ -562,15 +624,17 @@ function DoneScreen() {
                     <span>Назад</span>
                   </div>
                 </DoneButton>
-                <CancelButton onClick={() => {
-                  // Удаляем запись из массива appointments
-                  if (state.activeAppointment?.id) {
-                    actions.removeAppointment(state.activeAppointment.id);
-                  }
-                  // Очищаем активную запись
-                  actions.clearActiveAppointment();
-                  navigate('/');
-                }}>
+                <CancelButton
+                  onClick={() => {
+                    // Удаляем запись из массива appointments
+                    if (state.activeAppointment?.id) {
+                      actions.removeAppointment(state.activeAppointment.id);
+                    }
+                    // Очищаем активную запись
+                    actions.clearActiveAppointment();
+                    navigate('/');
+                  }}
+                >
                   <div>
                     <span>Отменить запись</span>
                   </div>
@@ -584,7 +648,7 @@ function DoneScreen() {
               </DoneButton>
             )}
           </ButtonContainer>
-          
+
           <HomeIndicator />
         </Bottom>
       </BottomSheet>
@@ -592,4 +656,4 @@ function DoneScreen() {
   );
 }
 
-export default DoneScreen; 
+export default DoneScreen;

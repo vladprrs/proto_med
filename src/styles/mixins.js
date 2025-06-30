@@ -8,55 +8,55 @@ export const typography = {
     font-weight: ${theme.fontWeights.semibold};
     line-height: ${theme.lineHeights.title};
   `,
-  
+
   title1: css`
     font-size: ${theme.fontSizes.title1};
     font-weight: ${theme.fontWeights.semibold};
     line-height: ${theme.lineHeights.title};
   `,
-  
+
   title2: css`
     font-size: ${theme.fontSizes.title2};
     font-weight: ${theme.fontWeights.medium};
     line-height: ${theme.lineHeights.title};
     letter-spacing: ${theme.letterSpacings.title2};
   `,
-  
+
   title3: css`
     font-size: ${theme.fontSizes.title3};
     font-weight: ${theme.fontWeights.semibold};
     line-height: ${theme.lineHeights.title};
     letter-spacing: ${theme.letterSpacings.title3};
   `,
-  
+
   body: css`
     font-size: ${theme.fontSizes.body};
     font-weight: ${theme.fontWeights.medium};
     line-height: ${theme.lineHeights.body};
     letter-spacing: ${theme.letterSpacings.body};
   `,
-  
+
   subhead: css`
     font-size: ${theme.fontSizes.subhead};
     font-weight: ${theme.fontWeights.medium};
     line-height: ${theme.lineHeights.subhead};
     letter-spacing: ${theme.letterSpacings.subhead};
   `,
-  
+
   footnote: css`
     font-size: ${theme.fontSizes.footnote};
     font-weight: ${theme.fontWeights.regular};
     line-height: ${theme.lineHeights.footnote};
     letter-spacing: ${theme.letterSpacings.footnote};
   `,
-  
+
   caption: css`
     font-size: ${theme.fontSizes.caption};
     font-weight: ${theme.fontWeights.regular};
     line-height: ${theme.lineHeights.caption};
     letter-spacing: ${theme.letterSpacings.caption};
   `,
-  
+
   caption2: css`
     font-size: ${theme.fontSizes.caption2};
     font-weight: ${theme.fontWeights.regular};
@@ -100,20 +100,20 @@ export const fullScreen = css`
 export const scrollContainer = css`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  
+
   &::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: ${theme.colors.textTertiary};
     border-radius: 3px;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
     background: ${theme.colors.textSecondary};
   }
@@ -129,7 +129,7 @@ export const buttonBase = css`
   font-family: ${theme.fonts.primary};
   outline: none;
   transition: ${theme.transitions.normal};
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -143,7 +143,7 @@ export const buttonPrimary = css`
   border-radius: ${theme.borderRadius.medium};
   padding: 10px 16px;
   ${typography.subhead}
-  
+
   &:hover:not(:disabled) {
     background: ${theme.colors.buttonPrimaryHover};
   }
@@ -156,7 +156,7 @@ export const buttonSecondary = css`
   border-radius: ${theme.borderRadius.medium};
   padding: 10px 16px;
   ${typography.subhead}
-  
+
   &:hover:not(:disabled) {
     background: ${theme.colors.buttonSecondaryHover};
   }
@@ -169,7 +169,7 @@ export const buttonIcon = css`
   height: 40px;
   background: ${theme.colors.buttonSecondary};
   border-radius: ${theme.borderRadius.medium};
-  
+
   &:hover:not(:disabled) {
     background: ${theme.colors.buttonSecondaryHover};
   }
@@ -186,7 +186,7 @@ export const card = css`
 export const cardHover = css`
   ${card}
   cursor: pointer;
-  
+
   &:hover {
     box-shadow: ${theme.shadows.cardHover};
   }
@@ -199,7 +199,7 @@ export const inputBase = css`
   outline: none;
   background: transparent;
   color: ${theme.colors.textPrimary};
-  
+
   &::placeholder {
     color: ${theme.colors.textSecondary};
   }
@@ -254,19 +254,19 @@ export const textSelection = css`
 
 // Медиа-запросы
 export const media = {
-  mobile: (styles) => css`
+  mobile: styles => css`
     @media (max-width: ${theme.breakpoints.mobile}) {
       ${styles}
     }
   `,
-  tablet: (styles) => css`
+  tablet: styles => css`
     @media (min-width: ${theme.breakpoints.tablet}) {
       ${styles}
     }
   `,
-  desktop: (styles) => css`
+  desktop: styles => css`
     @media (min-width: ${theme.breakpoints.desktop}) {
       ${styles}
     }
   `,
-}; 
+};

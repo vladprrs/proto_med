@@ -4,4 +4,4 @@ export { default as IconButton } from './IconButton';
 export { default as SearchField } from './SearchField';
 export { default as Card } from './Card';
 export { default as SegmentedControl } from './SegmentedControl';
-export { default as Toast } from './Toast'; 
+export { default as Toast } from './Toast';

@@ -6,10 +6,17 @@ import { useServices, useClinic } from '../hooks/useApi';
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%), 
-              url('/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg') lightgray 50% / cover no-repeat;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
+    url('/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg') lightgray 50% / cover
+      no-repeat;
   position: relative;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   margin: 0 auto;
   max-width: 100vw;
   overflow-x: hidden;
@@ -27,7 +34,7 @@ const BottomSheet = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   min-height: calc(100vh - 64px);
   overflow: hidden;
@@ -78,7 +85,7 @@ const NavButton = styled.button`
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  
+
   &:hover {
     background: rgba(20, 20, 20, 0.12);
   }
@@ -88,7 +95,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 10px;
@@ -105,7 +112,7 @@ const CloseIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::before,
   &::after {
     content: '';
@@ -117,11 +124,11 @@ const CloseIcon = styled.div`
     background-color: #141414;
     transform-origin: center;
   }
-  
+
   &::before {
     transform: translate(-50%, -50%) rotate(45deg);
   }
-  
+
   &::after {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
@@ -164,7 +171,7 @@ const SearchSection = styled.div`
   align-items: flex-start;
   gap: 12px;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
 `;
 
@@ -176,7 +183,7 @@ const SearchField = styled.div`
   gap: 8px;
   align-self: stretch;
   border-radius: 12px;
-  background: #FFF;
+  background: #fff;
   position: relative;
 `;
 
@@ -191,7 +198,7 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   background: transparent;
-  
+
   &::placeholder {
     color: #898989;
   }
@@ -203,13 +210,14 @@ const SearchIcon = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 19px;
     height: 19px;
     background-color: #898989;
-    mask: url("data:image/svg+xml,%3Csvg width='19' height='19' viewBox='0 0 19 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16Z' stroke='%23898989' stroke-width='2'/%3E%3Cpath d='M15 15L18 18' stroke='%23898989' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+    mask: url("data:image/svg+xml,%3Csvg width='19' height='19' viewBox='0 0 19 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16Z' stroke='%23898989' stroke-width='2'/%3E%3Cpath d='M15 15L18 18' stroke='%23898989' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+      no-repeat center;
   }
 `;
 
@@ -218,7 +226,7 @@ const ServicesContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   padding: 0 16px;
   flex: 1;
@@ -245,7 +253,7 @@ const SectionHeader = styled.div`
   gap: 8px;
   align-self: stretch;
   position: relative;
-  cursor: ${props => props.clickable ? 'pointer' : 'default'};
+  cursor: ${props => (props.$clickable ? 'pointer' : 'default')};
 `;
 
 const SectionTitle = styled.div`
@@ -272,19 +280,20 @@ const ExpandIcon = styled.div`
   height: 0.001px;
   align-items: flex-start;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 17px;
     height: 10px;
-    background-color: #B8B8B8;
+    background-color: #b8b8b8;
     position: absolute;
     left: 0px;
-    top: ${props => props.expanded ? '2px' : '8px'};
-    clip-path: ${props => props.expanded 
-      ? 'polygon(0% 100%, 50% 0%, 100% 100%)' 
-      : 'polygon(0% 0%, 50% 100%, 100% 0%)'};
-    transform: ${props => props.expanded ? 'none' : 'none'};
+    top: ${props => (props.$expanded ? '2px' : '8px')};
+    clip-path: ${props =>
+      props.$expanded
+        ? 'polygon(0% 100%, 50% 0%, 100% 100%)'
+        : 'polygon(0% 0%, 50% 100%, 100% 0%)'};
+    transform: ${props => (props.$expanded ? 'none' : 'none')};
   }
 `;
 
@@ -304,13 +313,17 @@ const ServiceItem = styled.div`
   align-items: center;
   align-self: stretch;
   border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   position: relative;
   cursor: pointer;
-  
+
   &:hover {
-    box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.08), 0px 2px 8px 0px rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0px 0px 0px 0.5px rgba(0, 0, 0, 0.08),
+      0px 2px 8px 0px rgba(0, 0, 0, 0.12);
   }
 `;
 
@@ -337,8 +350,10 @@ const Checkbox = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
-  ${props => props.checked ? `
+
+  ${props =>
+    props.$checked
+      ? `
     &::before {
       content: '';
       width: 24px;
@@ -360,7 +375,8 @@ const Checkbox = styled.div`
       font-size: 14px;
       font-weight: bold;
     }
-  ` : `
+  `
+      : `
     &::before {
       content: '';
       width: 20px;
@@ -409,7 +425,7 @@ const Footer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
 `;
 
@@ -424,7 +440,7 @@ const Attribution = styled.div`
 `;
 
 const AttributionText = styled.div`
-  color: #B8B8B8;
+  color: #b8b8b8;
   text-align: center;
   font-family: 'SB Sans Text';
   font-size: 14px;
@@ -439,7 +455,7 @@ const ContinueButton = styled.button`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  background: #FFF;
+  background: #fff;
   border: none;
   position: relative;
 `;
@@ -461,7 +477,7 @@ const PrimaryButton = styled.div`
   border-radius: 10px;
   position: relative;
   cursor: pointer;
-  
+
   &:hover {
     opacity: 0.9;
   }
@@ -473,14 +489,14 @@ const ButtonContent = styled.div`
   align-items: flex-start;
   gap: 8px;
   flex: 1 0 0;
-  background: #1DB93C;
+  background: #1db93c;
   border-radius: 10px;
   position: relative;
 `;
 
 const ButtonText = styled.div`
   flex: 1 0 0;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: 'SB Sans Text';
   font-size: 16px;
@@ -497,8 +513,8 @@ const HomeIndicator = styled.div`
   align-items: center;
   align-self: stretch;
   position: relative;
-  background: #FFF;
-  
+  background: #fff;
+
   &::after {
     content: '';
     width: 146px;
@@ -519,71 +535,117 @@ const ServicesScreen = () => {
 
   // Проверяем предзаполненные данные
   const prefilledData = location.state?.prefilledData;
-  
+
   // Используем API хуки для загрузки данных
-  const { data: servicesData = [], isLoading: servicesLoading, error: servicesError } = useServices(clinicId);
+  const {
+    data: servicesData = [],
+    isLoading: servicesLoading,
+    error: servicesError,
+  } = useServices(clinicId);
   const { data: clinicData, isLoading: clinicLoading, error: clinicError } = useClinic(clinicId);
 
   // Обрабатываем предзаполненные данные при загрузке
   useEffect(() => {
     if (prefilledData) {
       console.log('🔸 ServicesScreen: Processing prefilledData:', prefilledData);
-      
+
       // Если есть предвыбранная услуга, добавляем её в выбранные
       if (prefilledData.service) {
         console.log('🔸 ServicesScreen: Pre-selecting service:', prefilledData.service);
         setSelectedServices(new Set([prefilledData.service.id]));
       }
-      
+
       // Если нужно пропустить выбор услуг, сразу переходим дальше
       if (prefilledData.skipSteps?.includes('service')) {
         console.log('🔸 ServicesScreen: Skipping service selection step');
-        console.log('🔸 ServicesScreen: Services loading:', servicesLoading, 'Clinic loading:', clinicLoading);
-        console.log('🔸 ServicesScreen: Clinic data:', clinicData);
-        console.log('🔸 ServicesScreen: Prefilled clinic:', prefilledData.clinic);
+        console.log('🔸 ServicesScreen: Doctor info:', prefilledData.doctor || prefilledData.specialist);
         
         const fallbackClinicId = clinicId || prefilledData.clinic.id || '1';
-        const selectedServicesData = prefilledData.service ? [prefilledData.service] : [];
         const finalClinicData = clinicData || prefilledData.clinic;
+
+        // Создаем дефолтную услугу на основе информации о враче
+        let selectedServicesData = [];
+        if (prefilledData.service) {
+          selectedServicesData = [prefilledData.service];
+        } else if (prefilledData.doctor || prefilledData.specialist) {
+          // Создаем услугу консультации на основе врача/специалиста
+          const doctorInfo = prefilledData.doctor || prefilledData.specialist;
+          selectedServicesData = [
+            {
+              id: `consultation-${doctorInfo.id}`,
+              name: `Консультация ${doctorInfo.specialty ? doctorInfo.specialty.toLowerCase() : 'врача'}`,
+              description: `Прием у ${doctorInfo.name}`,
+              price: doctorInfo.price || '1500 ₽',
+              priceValue: typeof doctorInfo.price === 'number' 
+                ? doctorInfo.price 
+                : parseInt(doctorInfo.price?.replace(/[^\d]/g, '') || '1500'),
+              duration: '30 мин',
+              category: 'Консультация'
+            }
+          ];
+        }
         
+        console.log('🔸 ServicesScreen: Created service data:', selectedServicesData);
+
         console.log('🔸 ServicesScreen: Navigating to specialists with:', {
           fallbackClinicId,
           selectedServicesData,
           finalClinicData,
-          prefilledData
+          prefilledData,
         });
-        
-        // Переходим к выбору специалиста с предзаполненными данными сразу
+
+        // Проверяем, нужно ли пропустить также выбор специалиста
+        let nextRoute = 'specialists';
+        if (prefilledData.skipSteps?.includes('specialist')) {
+          nextRoute = 'date';
+          console.log('🔸 ServicesScreen: Also skipping specialist selection, going to date');
+        }
+
+        // Переходим к следующему экрану с предзаполненными данными
         setTimeout(() => {
-          navigate(`/clinic/${fallbackClinicId}/specialists`, { 
-            state: { 
+          navigate(`/clinic/${fallbackClinicId}/${nextRoute}`, {
+            state: {
               selectedServices: selectedServicesData,
+              selectedSpecialist: prefilledData.doctor || prefilledData.specialist || null,
               clinicData: finalClinicData,
               prefilledData: {
                 ...prefilledData,
-                selectedServices: selectedServicesData
-              }
-            } 
+                selectedServices: selectedServicesData,
+                selectedSpecialist: prefilledData.doctor || prefilledData.specialist || null,
+              },
+            },
           });
         }, 100); // Небольшая задержка для корректного перехода
       }
     }
   }, [prefilledData, navigate, clinicId, clinicData, servicesLoading, clinicLoading]);
 
-
-
   // Преобразуем данные услуг для использования в компоненте
-  const services = servicesData.map(service => ({
-    id: service.id,
-    name: service.name,
-    description: service.description,
-    price: service.price,
-    duration: service.duration,
-    category: service.category
-  }));
+  const services = Array.isArray(servicesData)
+    ? servicesData.map(service => ({
+        id: service.id,
+        name: service.name,
+        description: service.description,
+        price:
+          typeof service.price === 'number' ? `${service.price.toLocaleString()} ₽` : service.price,
+        priceValue:
+          typeof service.price === 'number'
+            ? service.price
+            : parseInt(service.price?.replace(/[^\d]/g, '') || '0'),
+        duration: service.duration,
+        category: service.category,
+      }))
+    : [];
 
   // Извлекаем уникальные категории
   const categories = [...new Set(services.map(service => service.category))];
+
+  // Автоматически разворачиваем все категории при первой загрузке
+  useEffect(() => {
+    if (categories.length > 0 && expandedCategories.size === 0) {
+      setExpandedCategories(new Set(categories));
+    }
+  }, [categories.length]); // Используем длину массива вместо самого массива
 
   const handleBack = () => {
     navigate(-1);
@@ -593,7 +655,7 @@ const ServicesScreen = () => {
     navigate('/');
   };
 
-  const toggleCategory = (category) => {
+  const toggleCategory = category => {
     const newExpanded = new Set(expandedCategories);
     if (newExpanded.has(category)) {
       newExpanded.delete(category);
@@ -603,7 +665,7 @@ const ServicesScreen = () => {
     setExpandedCategories(newExpanded);
   };
 
-  const toggleService = (serviceId) => {
+  const toggleService = serviceId => {
     const newSelected = new Set(selectedServices);
     if (newSelected.has(serviceId)) {
       newSelected.delete(serviceId);
@@ -614,9 +676,10 @@ const ServicesScreen = () => {
   };
 
   const getFilteredServices = () => {
-    return services.filter(service =>
-      service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      service.category.toLowerCase().includes(searchTerm.toLowerCase())
+    return services.filter(
+      service =>
+        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
@@ -627,7 +690,8 @@ const ServicesScreen = () => {
   const getTotalPrice = () => {
     const selectedServicesData = getSelectedServicesData();
     return selectedServicesData.reduce((total, service) => {
-      const price = parseInt(service.price.replace(/[^\d]/g, '') || '0');
+      // Используем priceValue для вычислений
+      const price = service.priceValue || 0;
       return total + price;
     }, 0);
   };
@@ -636,25 +700,25 @@ const ServicesScreen = () => {
     // Navigate to next screen (specialist selection) with selected services
     const selectedServicesData = getSelectedServicesData();
     const fallbackClinicId = clinicId || prefilledData?.clinic.id || '1';
-    
+
     // Если есть предзаполненные данные, передаем их дальше
     if (prefilledData) {
-      navigate(`/clinic/${fallbackClinicId}/specialists`, { 
-        state: { 
+      navigate(`/clinic/${fallbackClinicId}/specialists`, {
+        state: {
           selectedServices: selectedServicesData,
           clinicData: clinicData || prefilledData.clinic,
           prefilledData: {
             ...prefilledData,
-            selectedServices: selectedServicesData
-          }
-        } 
+            selectedServices: selectedServicesData,
+          },
+        },
       });
     } else {
-      navigate(`/clinic/${fallbackClinicId}/specialists`, { 
-        state: { 
+      navigate(`/clinic/${fallbackClinicId}/specialists`, {
+        state: {
           selectedServices: selectedServicesData,
-          clinicData: clinicData
-        } 
+          clinicData: clinicData,
+        },
       });
     }
   };
@@ -662,6 +726,82 @@ const ServicesScreen = () => {
   const filteredServices = getFilteredServices();
   const selectedServicesData = getSelectedServicesData();
   const hasSelectedServices = selectedServices.size > 0;
+
+  // Показываем загрузку если данные еще загружаются
+  if (servicesLoading || clinicLoading) {
+    return (
+      <Container>
+        <BottomSheet>
+          <Dragger />
+          <NavBar>
+            <NavContent>
+              <NavButton onClick={handleBack}>
+                <BackIcon />
+              </NavButton>
+              <HeaderTitle>
+                <Title>Услуги</Title>
+              </HeaderTitle>
+              <NavButton onClick={handleClose}>
+                <CloseIcon />
+              </NavButton>
+            </NavContent>
+          </NavBar>
+          <ContentArea>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '200px',
+                fontSize: '16px',
+                color: '#898989',
+              }}
+            >
+              Загрузка услуг...
+            </div>
+          </ContentArea>
+        </BottomSheet>
+      </Container>
+    );
+  }
+
+  // Показываем ошибку если не удалось загрузить данные
+  if (servicesError || clinicError) {
+    return (
+      <Container>
+        <BottomSheet>
+          <Dragger />
+          <NavBar>
+            <NavContent>
+              <NavButton onClick={handleBack}>
+                <BackIcon />
+              </NavButton>
+              <HeaderTitle>
+                <Title>Услуги</Title>
+              </HeaderTitle>
+              <NavButton onClick={handleClose}>
+                <CloseIcon />
+              </NavButton>
+            </NavContent>
+          </NavBar>
+          <ContentArea>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '200px',
+                fontSize: '16px',
+                color: '#F5373C',
+              }}
+            >
+              Ошибка загрузки услуг
+            </div>
+          </ContentArea>
+        </BottomSheet>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -688,7 +828,7 @@ const ServicesScreen = () => {
                 type="text"
                 placeholder="Поиск"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
               />
               <SearchIcon />
             </SearchField>
@@ -703,11 +843,14 @@ const ServicesScreen = () => {
                   </SectionTitle>
                 </SectionHeader>
                 <ServicesList>
-                  {selectedServicesData.map((service) => (
-                    <ServiceItem key={`selected-${service.id}`} onClick={() => toggleService(service.id)}>
+                  {selectedServicesData.map(service => (
+                    <ServiceItem
+                      key={`selected-${service.id}`}
+                      onClick={() => toggleService(service.id)}
+                    >
                       <ServiceContent>
                         <CheckboxContainer>
-                          <Checkbox checked={true} />
+                          <Checkbox $checked={true} />
                         </CheckboxContainer>
                         <ServiceDetails>
                           <ServiceName>{service.name}</ServiceName>
@@ -720,28 +863,30 @@ const ServicesScreen = () => {
               </SelectedSection>
             )}
 
-            {categories.map((category) => {
-              const categoryServices = filteredServices.filter(service => service.category === category);
+            {categories.map(category => {
+              const categoryServices = filteredServices.filter(
+                service => service.category === category
+              );
               if (categoryServices.length === 0) return null;
-              
+
               const isExpanded = expandedCategories.has(category);
-              
+
               return (
                 <SelectedSection key={category}>
-                  <SectionHeader clickable onClick={() => toggleCategory(category)}>
+                  <SectionHeader $clickable={true} onClick={() => toggleCategory(category)}>
                     <SectionTitle>
                       <SectionTitleText>{category}</SectionTitleText>
                     </SectionTitle>
-                    <ExpandIcon expanded={isExpanded} />
+                    <ExpandIcon $expanded={isExpanded} />
                   </SectionHeader>
-                  
+
                   {isExpanded && (
                     <ServicesList>
-                      {categoryServices.map((service) => (
+                      {categoryServices.map(service => (
                         <ServiceItem key={service.id} onClick={() => toggleService(service.id)}>
                           <ServiceContent>
                             <CheckboxContainer>
-                              <Checkbox checked={selectedServices.has(service.id)} />
+                              <Checkbox $checked={selectedServices.has(service.id)} />
                             </CheckboxContainer>
                             <ServiceDetails>
                               <ServiceName>{service.name}</ServiceName>
@@ -782,4 +927,4 @@ const ServicesScreen = () => {
   );
 };
 
-export default ServicesScreen; 
+export default ServicesScreen;

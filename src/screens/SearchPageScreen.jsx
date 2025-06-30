@@ -38,7 +38,7 @@ const Dragger = styled.div`
   align-items: center;
   align-self: stretch;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 40px;
@@ -82,7 +82,7 @@ const SearchField = styled.div`
   gap: 6px;
   align-self: stretch;
   border-radius: 8px;
-  background: #FFF;
+  background: #fff;
   position: relative;
 `;
 
@@ -118,7 +118,7 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   background: transparent;
-  
+
   &::placeholder {
     color: #898989;
   }
@@ -185,7 +185,7 @@ const FiltersContainer = styled.div`
   top: 78px;
   z-index: 99;
   backdrop-filter: blur(20px);
-  
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -197,36 +197,41 @@ const FilterButton = styled.div`
   align-items: center;
   padding: 8px 12px;
   border-radius: 16px;
-  background: ${props => props.active ? '#E8E8E8' : '#FFFFFF'};
-  border: ${props => props.active ? '1px solid #D0D0D0' : '1px solid rgba(0, 0, 0, 0.12)'};
+  background: ${props => (props.active ? '#E8E8E8' : '#FFFFFF')};
+  border: ${props => (props.active ? '1px solid #D0D0D0' : '1px solid rgba(0, 0, 0, 0.12)')};
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 32px;
-  
+
   &:hover {
-    background: ${props => props.active ? '#E8E8E8' : '#F5F5F5'};
+    background: ${props => (props.active ? '#E8E8E8' : '#F5F5F5')};
   }
 `;
 
 const FilterIcon = styled.div`
   width: 18px;
   height: 18px;
-  background: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4h14M2 9h14M2 14h14' stroke='%23666' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+  background: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4h14M2 9h14M2 14h14' stroke='%23666' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat center;
   background-size: contain;
 `;
 
 const FilterLabel = styled.span`
-  color: ${props => props.active ? '#333' : '#666'};
-  font-family: 'SB Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: ${props => (props.active ? '#333' : '#666')};
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   font-size: 14px;
-  font-weight: ${props => props.active ? '600' : '500'};
+  font-weight: ${props => (props.active ? '600' : '500')};
   line-height: 1.2;
 `;
 
 const FilterArrow = styled.span`
   margin-left: 4px;
-  color: ${props => props.active ? '#333' : '#666'};
+  color: ${props => (props.active ? '#333' : '#666')};
   font-size: 11px;
   font-weight: 500;
 `;
@@ -247,7 +252,7 @@ const ContentSection = styled.div`
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -261,7 +266,7 @@ const ResultsList = styled.div`
   align-items: flex-start;
   gap: 16px;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -281,7 +286,7 @@ const SushiBannerCard = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 12px;
-  background: #FFF;
+  background: #fff;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -302,7 +307,7 @@ const SushiImage = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 40px;
-  border: 0.5px solid rgba(137, 137, 137, 0.30);
+  border: 0.5px solid rgba(137, 137, 137, 0.3);
   position: relative;
 `;
 
@@ -350,7 +355,7 @@ const SushiDescription = styled.div`
 `;
 
 const SushiButton = styled.div`
-  color: #5A5A5A;
+  color: #5a5a5a;
   font-family: 'SB Sans Text';
   font-size: 14px;
   font-style: normal;
@@ -376,7 +381,7 @@ const DisclaimerText = styled.div`
   height: 16px;
   flex: 1 0 0;
   overflow: hidden;
-  color: #B8B8B8;
+  color: #b8b8b8;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'SB Sans Text';
@@ -398,7 +403,7 @@ const SearchPageScreen = () => {
     open: false,
     rating: false,
     friends: false,
-    onlineBooking: false
+    onlineBooking: false,
   });
 
   // Инициализация поискового запроса из URL параметров
@@ -409,28 +414,46 @@ const SearchPageScreen = () => {
       setSearchQuery(queryParam);
     }
   }, [location.search]);
-  
+
   // Используем API хук для получения данных клиник
-  const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQuery, filters)
-  
+  const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQuery, filters);
+
   // Отладочная информация
-  console.log('🔍 SearchPageScreen - searchQuery:', searchQuery, 'filters:', filters, 'searchResults:', searchResults?.length, 'isLoading:', isLoading, 'error:', error);
-  
+  console.log(
+    '🔍 SearchPageScreen - searchQuery:',
+    searchQuery,
+    'filters:',
+    filters,
+    'searchResults:',
+    searchResults?.length,
+    'isLoading:',
+    isLoading,
+    'error:',
+    error
+  );
+
   // Показываем детальную информацию о результатах
   if (searchResults?.length > 0) {
-    console.log('🔍 Results details:', searchResults.map(r => ({ 
-      id: r.id, 
-      name: r.name, 
-      hasCrown: r.hasCrown, 
-      featuredDoctorId: r.featuredDoctorId,
-      hasAvailableDoctor: !!r.availableDoctor,
-      hasOnlineBooking: r.hasOnlineBooking
-    })));
-    
+    console.log(
+      '🔍 Results details:',
+      searchResults.map(r => ({
+        id: r.id,
+        name: r.name,
+        hasCrown: r.hasCrown,
+        featuredDoctorId: r.featuredDoctorId,
+        hasAvailableDoctor: !!r.availableDoctor,
+        hasOnlineBooking: r.hasOnlineBooking,
+      }))
+    );
+
     // Информация о фильтре онлайн записи
     if (filters.onlineBooking) {
       const onlineBookingCount = searchResults.filter(r => r.hasOnlineBooking).length;
-      console.log('🔍 Online booking filter active - showing', onlineBookingCount, 'clinics with online booking');
+      console.log(
+        '🔍 Online booking filter active - showing',
+        onlineBookingCount,
+        'clinics with online booking'
+      );
     }
   }
 
@@ -438,10 +461,10 @@ const SearchPageScreen = () => {
     navigate('/');
   };
 
-  const handleFilterToggle = (filterName) => {
+  const handleFilterToggle = filterName => {
     setFilters(prev => ({
       ...prev,
-      [filterName]: !prev[filterName]
+      [filterName]: !prev[filterName],
     }));
   };
 
@@ -451,134 +474,126 @@ const SearchPageScreen = () => {
 
   return (
     <MapScreenLayout mapImage="/assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg">
-        <TopSection>
-          <BottomSheetHeader>
-            <Dragger />
-            <NavBar>
-              <NavBarInner>
-                <SearchFieldContainer>
-                  <SearchField>
-                    <SearchIconContainer>
-                      <SearchIcon />
-                    </SearchIconContainer>
-                    <SearchInput 
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Поиск"
+      <TopSection>
+        <BottomSheetHeader>
+          <Dragger />
+          <NavBar>
+            <NavBarInner>
+              <SearchFieldContainer>
+                <SearchField>
+                  <SearchIconContainer>
+                    <SearchIcon />
+                  </SearchIconContainer>
+                  <SearchInput
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="Поиск"
+                  />
+                  <SalutIcon>
+                    <SalutImage
+                      src="/assets/images/0235e2ec7b64e89803c2ebe320dbddf014cebf7a_48.jpg"
+                      alt=""
                     />
-                    <SalutIcon>
-                      <SalutImage src="/assets/images/0235e2ec7b64e89803c2ebe320dbddf014cebf7a_48.jpg" alt="" />
-                    </SalutIcon>
-                  </SearchField>
-                </SearchFieldContainer>
-                <ActionButton onClick={handleClose}>
-                  <ButtonInner>
-                    <ButtonIcon>
-                      <CloseIcon />
-                    </ButtonIcon>
-                  </ButtonInner>
-                </ActionButton>
-              </NavBarInner>
-            </NavBar>
-          </BottomSheetHeader>
-        </TopSection>
-        
-        {/* Фильтры */}
-        <FiltersContainer>
-          {/* Кнопка с иконкой фильтра */}
-          <FilterButton>
-            <FilterIcon />
-          </FilterButton>
-          
-          {/* Кнопка "Рядом" */}
-          <FilterButton 
-            active={filters.nearby}
-            onClick={() => handleFilterToggle('nearby')}
-          >
-            <FilterLabel active={filters.nearby}>Рядом</FilterLabel>
-          </FilterButton>
+                  </SalutIcon>
+                </SearchField>
+              </SearchFieldContainer>
+              <ActionButton onClick={handleClose}>
+                <ButtonInner>
+                  <ButtonIcon>
+                    <CloseIcon />
+                  </ButtonIcon>
+                </ButtonInner>
+              </ActionButton>
+            </NavBarInner>
+          </NavBar>
+        </BottomSheetHeader>
+      </TopSection>
 
-          {/* Кнопка "Онлайн запись" */}
-          <FilterButton 
-            active={filters.onlineBooking}
-            onClick={() => handleFilterToggle('onlineBooking')}
-          >
-            <FilterLabel active={filters.onlineBooking}>Онлайн запись</FilterLabel>
-          </FilterButton>
-          
-          {/* Кнопка "Открыто" */}
-          <FilterButton 
-            active={filters.open}
-            onClick={() => handleFilterToggle('open')}
-          >
-            <FilterLabel active={filters.open}>Открыто</FilterLabel>
-          </FilterButton>
-          
-          {/* Кнопка "Рейтинг" */}
-          <FilterButton 
-            active={filters.rating}
-            onClick={() => handleFilterToggle('rating')}
-          >
-            <FilterLabel active={filters.rating}>Рейтинг</FilterLabel>
-            <FilterArrow active={filters.rating}>▼</FilterArrow>
-          </FilterButton>
-          
-          {/* Кнопка "Были друзья" */}
-          <FilterButton 
-            active={filters.friends}
-            onClick={() => handleFilterToggle('friends')}
-          >
-            <FilterLabel active={filters.friends}>Были друзья</FilterLabel>
-          </FilterButton>
-          
+      {/* Фильтры */}
+      <FiltersContainer>
+        {/* Кнопка с иконкой фильтра */}
+        <FilterButton>
+          <FilterIcon />
+        </FilterButton>
 
-        </FiltersContainer>
-        
-        <ContentSection>
-          <ResultsList>
-            {isLoading && (
-              <div style={{ padding: '20px', textAlign: 'center', color: '#898989' }}>
-                Загрузка...
-              </div>
-            )}
-            
-            {error && (
-              <div style={{ padding: '20px', textAlign: 'center', color: '#FF0000' }}>
-                Ошибка загрузки данных: {error.message}
-              </div>
-            )}
-            
-            {!isLoading && !error && searchResults.length === 0 && (
-              <div style={{ padding: '20px', textAlign: 'center', color: '#898989' }}>
-                Ничего не найдено для "{searchQuery}"
-              </div>
-            )}
-            
-            {searchResults.map((result) => (
-              <ClinicCard key={result.id} clinic={result} />
-            ))}
-            
-            {/* Медицинский баннер */}
-            <SushiBanner>
-              <SushiBannerCard>
-                <SushiImageContainer>
-                  <SushiImage src="/assets/clinic_placeholder.svg" alt="" />
-                </SushiImageContainer>
-                <SushiContent>
-                  <SushiTitle>МедКлиника «ЗдоровьеПлюс»</SushiTitle>
-                  <SushiDescription>Бесплатная консультация терапевта при записи онлайн до конца месяца</SushiDescription>
-                  <SushiButton>Записаться бесплатно</SushiButton>
-                </SushiContent>
-              </SushiBannerCard>
-              <SushiDisclaimer>
-                <DisclaimerText>Реклама • Есть противопоказания, требуется консультация специалиста</DisclaimerText>
-              </SushiDisclaimer>
-            </SushiBanner>
-            
-          </ResultsList>
-        </ContentSection>
+        {/* Кнопка "Рядом" */}
+        <FilterButton active={filters.nearby} onClick={() => handleFilterToggle('nearby')}>
+          <FilterLabel active={filters.nearby}>Рядом</FilterLabel>
+        </FilterButton>
+
+        {/* Кнопка "Онлайн запись" */}
+        <FilterButton
+          active={filters.onlineBooking}
+          onClick={() => handleFilterToggle('onlineBooking')}
+        >
+          <FilterLabel active={filters.onlineBooking}>Онлайн запись</FilterLabel>
+        </FilterButton>
+
+        {/* Кнопка "Открыто" */}
+        <FilterButton active={filters.open} onClick={() => handleFilterToggle('open')}>
+          <FilterLabel active={filters.open}>Открыто</FilterLabel>
+        </FilterButton>
+
+        {/* Кнопка "Рейтинг" */}
+        <FilterButton active={filters.rating} onClick={() => handleFilterToggle('rating')}>
+          <FilterLabel active={filters.rating}>Рейтинг</FilterLabel>
+          <FilterArrow active={filters.rating}>▼</FilterArrow>
+        </FilterButton>
+
+        {/* Кнопка "Были друзья" */}
+        <FilterButton active={filters.friends} onClick={() => handleFilterToggle('friends')}>
+          <FilterLabel active={filters.friends}>Были друзья</FilterLabel>
+        </FilterButton>
+      </FiltersContainer>
+
+      <ContentSection>
+        <ResultsList>
+          {isLoading && (
+            <div style={{ padding: '20px', textAlign: 'center', color: '#898989' }}>
+              Загрузка...
+            </div>
+          )}
+
+          {error && (
+            <div style={{ padding: '20px', textAlign: 'center', color: '#FF0000' }}>
+              Ошибка загрузки данных: {error.message}
+            </div>
+          )}
+
+          {!isLoading && !error && searchResults.length === 0 && (
+            <div style={{ padding: '20px', textAlign: 'center', color: '#898989' }}>
+              Ничего не найдено для "{searchQuery}"
+            </div>
+          )}
+
+          {searchResults.map(result => (
+            <ClinicCard key={result.id} clinic={result} />
+          ))}
+
+          {/* Медицинский баннер */}
+          <SushiBanner>
+            <SushiBannerCard>
+              <SushiImageContainer>
+                <SushiImage src="/assets/clinic_placeholder.svg" alt="" />
+              </SushiImageContainer>
+              <SushiContent>
+                <SushiTitle>МедКлиника «ЗдоровьеПлюс»</SushiTitle>
+                <SushiDescription>
+                  Бесплатная консультация терапевта при записи онлайн до конца месяца
+                </SushiDescription>
+                <SushiButton>Записаться бесплатно</SushiButton>
+              </SushiContent>
+            </SushiBannerCard>
+            <SushiDisclaimer>
+              <DisclaimerText>
+                Реклама • Есть противопоказания, требуется консультация специалиста
+              </DisclaimerText>
+            </SushiDisclaimer>
+          </SushiBanner>
+        </ResultsList>
+      </ContentSection>
     </MapScreenLayout>
   );
 };
 
-export default SearchPageScreen; 
+export default SearchPageScreen;

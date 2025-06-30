@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../contexts/AppContext';
+import { useAppointmentsContext, useUIContext } from '../contexts/index.jsx';
 
 // Новый стиль в духе QuickBookingSection
 const AppointmentCardContainer = styled.div`
@@ -12,11 +12,13 @@ const AppointmentCardContainer = styled.div`
   align-self: stretch;
   position: relative;
   border-radius: 12px;
-  background: #FFF;
+  background: #fff;
   margin-bottom: 12px;
-  
+
   &:hover {
-    box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+      0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   }
 `;
 
@@ -26,8 +28,8 @@ const AppointmentContent = styled.div`
   align-items: flex-start;
   gap: 12px;
   align-self: stretch;
-  background: rgba(0, 0, 0, 0.00);
-  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.20) inset;
+  background: rgba(0, 0, 0, 0);
+  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.2) inset;
   position: relative;
   cursor: pointer;
 `;
@@ -67,7 +69,7 @@ const ClinicName = styled.div`
 `;
 
 const AppointmentDetails = styled.div`
-  color: rgba(20, 20, 20, 0.70);
+  color: rgba(20, 20, 20, 0.7);
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -75,7 +77,7 @@ const AppointmentDetails = styled.div`
 `;
 
 const SpecialistInfo = styled.div`
-  color: rgba(20, 20, 20, 0.50);
+  color: rgba(20, 20, 20, 0.5);
   font-size: 13px;
   font-weight: 400;
   line-height: 16px;
@@ -91,7 +93,7 @@ const TimeSection = styled.div`
 `;
 
 const TimeLabel = styled.div`
-  color: rgba(20, 20, 20, 0.70);
+  color: rgba(20, 20, 20, 0.7);
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -104,8 +106,8 @@ const TimeSlot = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: ${props => props.status === 'cancelled' ? '#FF4444' : '#1BA136'};
-  color: #FFF;
+  background: ${props => (props.status === 'cancelled' ? '#FF4444' : '#1BA136')};
+  color: #fff;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -125,18 +127,18 @@ const ActionButton = styled.button`
   height: 28px;
   border-radius: 8px;
   border: none;
-  background: ${props => props.variant === 'cancel' ? '#FFE6E6' : '#F8F8F8'};
-  color: ${props => props.variant === 'cancel' ? '#FF4444' : '#898989'};
+  background: ${props => (props.variant === 'cancel' ? '#FFE6E6' : '#F8F8F8')};
+  color: ${props => (props.variant === 'cancel' ? '#FF4444' : '#898989')};
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  
+
   &:hover {
-    background: ${props => props.variant === 'cancel' ? '#FFCCCC' : '#EEEEEE'};
+    background: ${props => (props.variant === 'cancel' ? '#FFCCCC' : '#EEEEEE')};
   }
-  
+
   &:active {
     transform: scale(0.95);
   }
@@ -147,8 +149,6 @@ const ChevronIcon = styled.div`
   height: 20px;
   background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.5 5l5 5-5 5' stroke='%23898989' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 `;
-
-
 
 const ConfirmDialog = styled.div`
   position: fixed;
@@ -198,15 +198,18 @@ const ConfirmButton = styled.button`
   border: none;
   font-weight: 500;
   cursor: pointer;
-  
-  ${props => props.variant === 'primary' ? `
+
+  ${props =>
+    props.variant === 'primary'
+      ? `
     background: #FF4444;
     color: white;
     
     &:hover {
       background: #FF2222;
     }
-  ` : `
+  `
+      : `
     background: #F8F8F8;
     color: #141414;
     
@@ -218,29 +221,38 @@ const ConfirmButton = styled.button`
 
 function AppointmentCard({ appointment, onClick }) {
   const navigate = useNavigate();
-  const { removeAppointment, updateAppointment, actions } = useAppContext();
+  const { removeAppointment, updateAppointment } = useAppointmentsContext();
+  const { actions: uiActions } = useUIContext();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
-  const formatDateTime = (dateTime) => {
+  const formatDateTime = dateTime => {
     if (!dateTime) return '14 июня, вт, 10:30';
-    
+
     const date = new Date(dateTime.date);
     const dayNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
     const monthNames = [
-      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря',
     ];
-    
+
     const dayName = dayNames[date.getDay()];
     const day = date.getDate();
     const month = monthNames[date.getMonth()];
-    
+
     return `${day} ${month}, ${dayName}, ${dateTime.time}`;
   };
 
-
-
-  const handleClick = (e) => {
+  const handleClick = e => {
     // Если клик не по кнопкам действий
     if (!e.target.closest('button')) {
       if (onClick) {
@@ -253,7 +265,7 @@ function AppointmentCard({ appointment, onClick }) {
     }
   };
 
-  const handleCancelClick = (e) => {
+  const handleCancelClick = e => {
     e.stopPropagation();
     setShowConfirmDialog(true);
   };
@@ -263,12 +275,12 @@ function AppointmentCard({ appointment, onClick }) {
     // Обновляем статус записи на "отменена"
     updateAppointment({
       ...appointment,
-      status: 'cancelled'
+      status: 'cancelled',
     });
-    
+
     // Показываем уведомление
-    actions.showToast('Запись отменена', 'success');
-    
+    uiActions.showSuccess('Запись отменена');
+
     setShowConfirmDialog(false);
   };
 
@@ -284,7 +296,7 @@ function AppointmentCard({ appointment, onClick }) {
             <AppointmentTitle>
               {appointment.status === 'cancelled' ? 'Отмененная запись' : 'Ваша запись'}
             </AppointmentTitle>
-            
+
             <ClinicInfo>
               <ClinicName>{appointment.clinic?.name || 'МедЦентр «Здоровье»'}</ClinicName>
               {appointment.specialist && (
@@ -294,20 +306,18 @@ function AppointmentCard({ appointment, onClick }) {
                 <SpecialistInfo>{appointment.specialist.specialty}</SpecialistInfo>
               )}
             </ClinicInfo>
-            
+
             <TimeSection>
               <TimeLabel>Дата и время</TimeLabel>
-              <TimeSlot status={appointment.status}>{formatDateTime(appointment.dateTime)}</TimeSlot>
+              <TimeSlot status={appointment.status}>
+                {formatDateTime(appointment.dateTime)}
+              </TimeSlot>
             </TimeSection>
           </AppointmentMainContent>
-          
+
           <AppointmentActions>
             {appointment.status === 'active' && (
-              <ActionButton 
-                variant="cancel" 
-                onClick={handleCancelClick}
-                title="Отменить запись"
-              >
+              <ActionButton variant="cancel" onClick={handleCancelClick} title="Отменить запись">
                 ✕
               </ActionButton>
             )}
@@ -318,15 +328,14 @@ function AppointmentCard({ appointment, onClick }) {
 
       {showConfirmDialog && (
         <ConfirmDialog onClick={handleCancelDialog}>
-          <ConfirmContent onClick={(e) => e.stopPropagation()}>
+          <ConfirmContent onClick={e => e.stopPropagation()}>
             <ConfirmTitle>Отменить запись?</ConfirmTitle>
             <ConfirmText>
-              Вы действительно хотите отменить запись в {appointment.clinic?.name || 'клинику'} на {formatDateTime(appointment.dateTime)}?
+              Вы действительно хотите отменить запись в {appointment.clinic?.name || 'клинику'} на{' '}
+              {formatDateTime(appointment.dateTime)}?
             </ConfirmText>
             <ConfirmButtons>
-              <ConfirmButton onClick={handleCancelDialog}>
-                Оставить
-              </ConfirmButton>
+              <ConfirmButton onClick={handleCancelDialog}>Оставить</ConfirmButton>
               <ConfirmButton variant="primary" onClick={handleConfirmCancel}>
                 Отменить запись
               </ConfirmButton>
@@ -338,4 +347,4 @@ function AppointmentCard({ appointment, onClick }) {
   );
 }
 
-export default AppointmentCard; 
+export default AppointmentCard;

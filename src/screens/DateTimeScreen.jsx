@@ -5,10 +5,16 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%), 
-              url('/assets/map_stub.png') lightgray 50% / cover no-repeat;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
+    url('/assets/map_stub.png') lightgray 50% / cover no-repeat;
   position: relative;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   margin: 0 auto;
   max-width: 100vw;
   overflow-x: hidden;
@@ -26,7 +32,7 @@ const BottomSheet = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
   min-height: calc(100vh - 64px);
   overflow: hidden;
@@ -77,7 +83,7 @@ const NavButton = styled.button`
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  
+
   &:hover {
     background: rgba(20, 20, 20, 0.12);
   }
@@ -87,7 +93,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 10px;
@@ -104,7 +110,7 @@ const CloseIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::before,
   &::after {
     content: '';
@@ -116,11 +122,11 @@ const CloseIcon = styled.div`
     background-color: #141414;
     transform-origin: center;
   }
-  
+
   &::before {
     transform: translate(-50%, -50%) rotate(45deg);
   }
-  
+
   &::after {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
@@ -163,7 +169,7 @@ const Content = styled.div`
   align-items: flex-start;
   gap: 12px;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
 `;
 
 const SegmentedControl = styled.div`
@@ -182,8 +188,11 @@ const SegmentButton = styled.button`
   align-items: flex-start;
   flex: 1 0 0;
   border-radius: 8px;
-  background: ${props => props.selected ? '#FFF' : 'transparent'};
-  box-shadow: ${props => props.selected ? '0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08)' : 'none'};
+  background: ${props => (props.selected ? '#FFF' : 'transparent')};
+  box-shadow: ${props =>
+    props.selected
+      ? '0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08)'
+      : 'none'};
   border: none;
   cursor: pointer;
   padding: 6px 8px 8px 8px;
@@ -194,7 +203,12 @@ const SegmentLabel = styled.div`
   flex: 1 0 0;
   color: #141414;
   text-align: center;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -235,7 +249,12 @@ const DateHeader = styled.div`
 const MonthTitle = styled.div`
   flex: 1 0 0;
   color: #141414;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -264,9 +283,12 @@ const DayButton = styled.button`
     if (props.selected) return '#1DB93C';
     return '#FFF';
   }};
-  box-shadow: ${props => !props.disabled && !props.selected ? '0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08)' : 'none'};
+  box-shadow: ${props =>
+    !props.disabled && !props.selected
+      ? '0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08)'
+      : 'none'};
   border: none;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 11px 16px 10px 16px;
   flex-direction: column;
   gap: 1px;
@@ -280,7 +302,12 @@ const DayLabel = styled.div`
     return '#141414';
   }};
   text-align: center;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -295,7 +322,12 @@ const DayNumber = styled.div`
     return '#898989';
   }};
   text-align: center;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
@@ -334,7 +366,12 @@ const TimeHeader = styled.div`
 const TimeTitle = styled.div`
   flex: 1 0 0;
   color: #141414;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -364,9 +401,12 @@ const TimeSlotButton = styled.button`
     if (props.selected) return '#1DB93C';
     return '#FFF';
   }};
-  box-shadow: ${props => !props.disabled && !props.selected ? '0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08)' : 'none'};
+  box-shadow: ${props =>
+    !props.disabled && !props.selected
+      ? '0px 0px 0px 0.5px rgba(0, 0, 0, 0.04), 0px 1px 4px 0px rgba(0, 0, 0, 0.08)'
+      : 'none'};
   border: none;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 13px 16px 15px 16px;
   gap: 8px;
   min-width: calc(25% - 6px);
@@ -379,7 +419,12 @@ const TimeSlotLabel = styled.div`
     return '#141414';
   }};
   text-align: center;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -394,7 +439,7 @@ const Footer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  background: #F1F1F1;
+  background: #f1f1f1;
   position: relative;
 `;
 
@@ -409,9 +454,14 @@ const FooterContent = styled.div`
 `;
 
 const FooterText = styled.div`
-  color: #B8B8B8;
+  color: #b8b8b8;
   text-align: center;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -427,8 +477,8 @@ const BottomTabBar = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  background: #F1F1F1;
-  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.40) inset;
+  background: #f1f1f1;
+  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.4) inset;
   backdrop-filter: blur(20px);
   position: relative;
 `;
@@ -437,7 +487,7 @@ const DateTimeScreen = () => {
   const { clinicId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [specialists, setSpecialists] = useState([]);
   const [selectedSpecialist, setSelectedSpecialist] = useState(null);
   const [showAllAvailable, setShowAllAvailable] = useState(false);
@@ -445,9 +495,14 @@ const DateTimeScreen = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [timeSlots, setTimeSlots] = useState([]);
   const [dates, setDates] = useState([]);
-  
+
   // Получаем данные из state (выбранные услуги, специалист, клиника и предзаполненные данные)
-  const { selectedServices = [], selectedSpecialist: incomingSpecialist = null, clinicData = null, prefilledData = null } = location.state || {};
+  const {
+    selectedServices = [],
+    selectedSpecialist: incomingSpecialist = null,
+    clinicData = null,
+    prefilledData = null,
+  } = location.state || {};
 
   useEffect(() => {
     loadSpecialists();
@@ -458,7 +513,7 @@ const DateTimeScreen = () => {
     if (incomingSpecialist) {
       setSelectedSpecialist(incomingSpecialist);
     }
-      }, [incomingSpecialist]);
+  }, [incomingSpecialist]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -470,70 +525,74 @@ const DateTimeScreen = () => {
   useEffect(() => {
     console.log('🔸 DateTimeScreen: Mounted with prefilledData:', prefilledData);
     console.log('🔸 DateTimeScreen: Has selectedTime:', prefilledData?.selectedTime);
-    
+
     if (prefilledData && prefilledData.selectedTime) {
       console.log('🔸 DateTimeScreen: Auto-navigating to confirmation');
-      
+
       const selectedDateTime = {
         date: selectedDate || new Date(), // Используем выбранную дату или сегодня
-        time: prefilledData.selectedTime
+        time: prefilledData.selectedTime,
       };
-      
+
       const fallbackClinicId = clinicId || prefilledData.clinic.id || '1';
-      
-      const finalClinicData = clinicData || prefilledData.clinic || { 
-        id: parseInt(fallbackClinicId), 
-        name: fallbackClinicId === '1' ? "МедЦентр «Здоровье»" : "Клиника «Семейный Доктор»",
-        address: fallbackClinicId === '1' ? "ул. Тверская, 15" : "ул. Арбат, 25"
-      };
-      
+
+      const finalClinicData = clinicData ||
+        prefilledData.clinic || {
+          id: parseInt(fallbackClinicId),
+          name: fallbackClinicId === '1' ? 'МедЦентр «Здоровье»' : 'Клиника «Семейный Доктор»',
+          address: fallbackClinicId === '1' ? 'ул. Тверская, 15' : 'ул. Арбат, 25',
+        };
+
       const navigationState = {
         selectedServices: prefilledData.selectedServices || [],
         selectedSpecialist: prefilledData.specialist || prefilledData.doctor || incomingSpecialist,
         selectedDateTime: selectedDateTime,
-        clinicData: finalClinicData
+        clinicData: finalClinicData,
       };
-      
+
       console.log('🔸 DateTimeScreen: Navigating to confirmation with:', navigationState);
-      
+
       navigate(`/clinic/${fallbackClinicId}/confirmation`, {
-        state: navigationState
+        state: navigationState,
       });
     }
   }, [prefilledData, selectedDate, clinicId, clinicData, incomingSpecialist, navigate]);
 
   // Функция для категоризации временных слотов
-  const categorizeTimeSlots = (slots) => {
+  const categorizeTimeSlots = slots => {
     const morning = slots.filter(slot => {
       const hour = parseInt(slot.time.split(':')[0]);
       return hour >= 6 && hour < 12;
     });
-    
+
     const afternoon = slots.filter(slot => {
       const hour = parseInt(slot.time.split(':')[0]);
       return hour >= 12 && hour < 18;
     });
-    
+
     const evening = slots.filter(slot => {
       const hour = parseInt(slot.time.split(':')[0]);
       return hour >= 18 && hour < 24;
     });
-    
+
     return { morning, afternoon, evening };
   };
 
   // Мемоизируем категоризацию временных слотов
-  const { morning, afternoon, evening } = useMemo(() => categorizeTimeSlots(timeSlots), [timeSlots]);
+  const { morning, afternoon, evening } = useMemo(
+    () => categorizeTimeSlots(timeSlots),
+    [timeSlots]
+  );
 
   const loadSpecialists = async () => {
     try {
       const fallbackClinicId = clinicId || '1';
       let response = await fetch(`/data/specialists_${fallbackClinicId}.json`);
-      
+
       if (!response.ok) {
         response = await fetch('/data/specialists_1.json');
       }
-      
+
       const data = await response.json();
       setSpecialists(data);
     } catch (error) {
@@ -545,8 +604,8 @@ const DateTimeScreen = () => {
           name: 'Иванов Алексей Петрович',
           specialty: 'Терапевт',
           experience: '15 лет',
-          rating: 4.9
-        }
+          rating: 4.9,
+        },
       ]);
     }
   };
@@ -554,39 +613,39 @@ const DateTimeScreen = () => {
   const initializeDates = () => {
     const datesList = [];
     const today = new Date();
-    
+
     for (let i = 0; i < 14; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
       datesList.push(date);
     }
-    
+
     setDates(datesList);
     setSelectedDate(datesList[1]); // По умолчанию выбираем завтра (индекс 1)
   };
 
   const loadTimeSlots = async () => {
     if (!selectedDate) return;
-    
+
     try {
       const fallbackClinicId = clinicId || '1';
       const dateStr = selectedDate.toISOString().split('T')[0];
       const response = await fetch(`/data/slots_${fallbackClinicId}_${dateStr}.json`);
-      
+
       if (!response.ok) {
         // Если файл не найден, генерируем тестовые данные
         generateTestSlots();
         return;
       }
-      
+
       const data = await response.json();
-      
+
       // Фильтруем слоты по выбранному специалисту
       let filteredSlots = data;
       if (!showAllAvailable && selectedSpecialist) {
         filteredSlots = data.filter(slot => slot.specialistId === selectedSpecialist.id);
       }
-      
+
       setTimeSlots(filteredSlots);
     } catch (error) {
       console.error('Ошибка загрузки временных слотов:', error);
@@ -598,35 +657,67 @@ const DateTimeScreen = () => {
   const generateTestSlots = () => {
     const slots = [];
     const times = [
-      '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-      '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-      '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
-      '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'
+      '09:00',
+      '09:30',
+      '10:00',
+      '10:30',
+      '11:00',
+      '11:30',
+      '12:00',
+      '12:30',
+      '13:00',
+      '13:30',
+      '14:00',
+      '14:30',
+      '15:00',
+      '15:30',
+      '16:00',
+      '16:30',
+      '17:00',
+      '17:30',
+      '18:00',
+      '18:30',
+      '19:00',
+      '19:30',
+      '20:00',
+      '20:30',
     ];
-    
+
     times.forEach((time, index) => {
       slots.push({
         time: time,
         available: Math.random() > 0.3, // 70% вероятность что слот доступен
-        specialistId: selectedSpecialist?.id || 1
+        specialistId: selectedSpecialist?.id || 1,
       });
     });
-    
+
     setTimeSlots(slots);
   };
 
-  const getDayName = (date) => {
+  const getDayName = date => {
     const days = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
     return days[date.getDay()];
   };
 
-  const getMonthName = (date) => {
-    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+  const getMonthName = date => {
+    const months = [
+      'Январь',
+      'Февраль',
+      'Март',
+      'Апрель',
+      'Май',
+      'Июнь',
+      'Июль',
+      'Август',
+      'Сентябрь',
+      'Октябрь',
+      'Ноябрь',
+      'Декабрь',
+    ];
     return months[date.getMonth()];
   };
 
-  const isDateDisabled = (date) => {
+  const isDateDisabled = date => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     date.setHours(0, 0, 0, 0);
@@ -641,40 +732,40 @@ const DateTimeScreen = () => {
     navigate('/');
   };
 
-  const handleSpecialistToggle = (showAll) => {
+  const handleSpecialistToggle = showAll => {
     setShowAllAvailable(showAll);
   };
 
-  const handleDateSelect = (date) => {
+  const handleDateSelect = date => {
     setSelectedDate(date);
     setSelectedTime(null); // Сбрасываем выбранное время при смене даты
   };
 
-  const handleTimeSelect = (time) => {
+  const handleTimeSelect = time => {
     setSelectedTime(time);
-    
+
     // Переход к экрану подтверждения с передачей всех данных
     const selectedDateTime = {
       date: selectedDate,
-      time: time
+      time: time,
     };
-    
+
     const fallbackClinicId = clinicId || '1';
-    
+
     // Используем данные клиники из state или fallback
-    const finalClinicData = clinicData || { 
-      id: parseInt(fallbackClinicId), 
-      name: fallbackClinicId === '1' ? "МедЦентр «Здоровье»" : "Клиника «Семейный Доктор»",
-      address: fallbackClinicId === '1' ? "ул. Тверская, 15" : "ул. Арбат, 25"
+    const finalClinicData = clinicData || {
+      id: parseInt(fallbackClinicId),
+      name: fallbackClinicId === '1' ? 'МедЦентр «Здоровье»' : 'Клиника «Семейный Доктор»',
+      address: fallbackClinicId === '1' ? 'ул. Тверская, 15' : 'ул. Арбат, 25',
     };
-    
+
     navigate(`/clinic/${fallbackClinicId}/confirmation`, {
       state: {
         selectedServices,
         selectedSpecialist,
         selectedDateTime,
-        clinicData: finalClinicData
-      }
+        clinicData: finalClinicData,
+      },
     });
   };
 
@@ -682,17 +773,17 @@ const DateTimeScreen = () => {
     <Container>
       <BottomSheet>
         <Dragger />
-        
+
         <NavBar>
           <NavContent>
             <NavButton onClick={handleBack}>
               <BackIcon />
             </NavButton>
-            
+
             <HeaderTitle>
               <Title>Дата и время</Title>
             </HeaderTitle>
-            
+
             <NavButton onClick={handleClose}>
               <CloseIcon />
             </NavButton>
@@ -701,141 +792,161 @@ const DateTimeScreen = () => {
 
         <ContentArea>
           <Content>
-          <SegmentedControl>
-            <SegmentButton 
-              selected={!showAllAvailable} 
-              onClick={() => handleSpecialistToggle(false)}
-            >
-              <SegmentLabel>
-                {selectedSpecialist ? selectedSpecialist.name.split(' ')[0] + ' ' + selectedSpecialist.name.split(' ')[1] : 'Специалист'}
-              </SegmentLabel>
-            </SegmentButton>
-            <SegmentButton 
-              selected={showAllAvailable} 
-              onClick={() => handleSpecialistToggle(true)}
-            >
-              <SegmentLabel>Все доступные</SegmentLabel>
-            </SegmentButton>
-          </SegmentedControl>
+            <SegmentedControl>
+              <SegmentButton
+                selected={!showAllAvailable}
+                onClick={() => handleSpecialistToggle(false)}
+              >
+                <SegmentLabel>
+                  {selectedSpecialist
+                    ? selectedSpecialist.name.split(' ')[0] +
+                      ' ' +
+                      selectedSpecialist.name.split(' ')[1]
+                    : 'Специалист'}
+                </SegmentLabel>
+              </SegmentButton>
+              <SegmentButton
+                selected={showAllAvailable}
+                onClick={() => handleSpecialistToggle(true)}
+              >
+                <SegmentLabel>Все доступные</SegmentLabel>
+              </SegmentButton>
+            </SegmentedControl>
 
-          <DateSection>
-            <DateContainer>
-              <DateHeader>
-                <MonthTitle>{selectedDate ? getMonthName(selectedDate) : 'Июнь'}</MonthTitle>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="#B8B8B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18L15 12L9 6" stroke="#B8B8B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </DateHeader>
-              
-              <DaysContainer>
-                {dates.map((date, index) => (
-                  <DayButton
-                    key={index}
-                    disabled={isDateDisabled(date)}
-                    selected={selectedDate && date.toDateString() === selectedDate.toDateString()}
-                    onClick={() => !isDateDisabled(date) && handleDateSelect(date)}
-                  >
-                    <DayLabel 
+            <DateSection>
+              <DateContainer>
+                <DateHeader>
+                  <MonthTitle>{selectedDate ? getMonthName(selectedDate) : 'Июнь'}</MonthTitle>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M15 18L9 12L15 6"
+                      stroke="#B8B8B8"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M9 18L15 12L9 6"
+                      stroke="#B8B8B8"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </DateHeader>
+
+                <DaysContainer>
+                  {dates.map((date, index) => (
+                    <DayButton
+                      key={index}
                       disabled={isDateDisabled(date)}
                       selected={selectedDate && date.toDateString() === selectedDate.toDateString()}
+                      onClick={() => !isDateDisabled(date) && handleDateSelect(date)}
                     >
-                      {getDayName(date)}
-                    </DayLabel>
-                    <DayNumber 
-                      disabled={isDateDisabled(date)}
-                      selected={selectedDate && date.toDateString() === selectedDate.toDateString()}
-                    >
-                      {date.getDate()}
-                    </DayNumber>
-                  </DayButton>
-                ))}
-              </DaysContainer>
-            </DateContainer>
-          </DateSection>
+                      <DayLabel
+                        disabled={isDateDisabled(date)}
+                        selected={
+                          selectedDate && date.toDateString() === selectedDate.toDateString()
+                        }
+                      >
+                        {getDayName(date)}
+                      </DayLabel>
+                      <DayNumber
+                        disabled={isDateDisabled(date)}
+                        selected={
+                          selectedDate && date.toDateString() === selectedDate.toDateString()
+                        }
+                      >
+                        {date.getDate()}
+                      </DayNumber>
+                    </DayButton>
+                  ))}
+                </DaysContainer>
+              </DateContainer>
+            </DateSection>
 
-          {morning.length > 0 && (
-            <TimeSection>
-              <TimeContainer>
-                <TimeHeader>
-                  <TimeTitle>Утро</TimeTitle>
-                </TimeHeader>
-                <TimeSlotsContainer>
-                  {morning.map((slot, index) => (
-                    <TimeSlotButton
-                      key={index}
-                      disabled={!slot.available}
-                      selected={selectedTime === slot.time}
-                      onClick={() => slot.available && handleTimeSelect(slot.time)}
-                    >
-                      <TimeSlotLabel 
+            {morning.length > 0 && (
+              <TimeSection>
+                <TimeContainer>
+                  <TimeHeader>
+                    <TimeTitle>Утро</TimeTitle>
+                  </TimeHeader>
+                  <TimeSlotsContainer>
+                    {morning.map((slot, index) => (
+                      <TimeSlotButton
+                        key={index}
                         disabled={!slot.available}
                         selected={selectedTime === slot.time}
+                        onClick={() => slot.available && handleTimeSelect(slot.time)}
                       >
-                        {slot.time}
-                      </TimeSlotLabel>
-                    </TimeSlotButton>
-                  ))}
-                </TimeSlotsContainer>
-              </TimeContainer>
-            </TimeSection>
-          )}
+                        <TimeSlotLabel
+                          disabled={!slot.available}
+                          selected={selectedTime === slot.time}
+                        >
+                          {slot.time}
+                        </TimeSlotLabel>
+                      </TimeSlotButton>
+                    ))}
+                  </TimeSlotsContainer>
+                </TimeContainer>
+              </TimeSection>
+            )}
 
-          {afternoon.length > 0 && (
-            <TimeSection>
-              <TimeContainer>
-                <TimeHeader>
-                  <TimeTitle>День</TimeTitle>
-                </TimeHeader>
-                <TimeSlotsContainer>
-                  {afternoon.map((slot, index) => (
-                    <TimeSlotButton
-                      key={index}
-                      disabled={!slot.available}
-                      selected={selectedTime === slot.time}
-                      onClick={() => slot.available && handleTimeSelect(slot.time)}
-                    >
-                      <TimeSlotLabel 
+            {afternoon.length > 0 && (
+              <TimeSection>
+                <TimeContainer>
+                  <TimeHeader>
+                    <TimeTitle>День</TimeTitle>
+                  </TimeHeader>
+                  <TimeSlotsContainer>
+                    {afternoon.map((slot, index) => (
+                      <TimeSlotButton
+                        key={index}
                         disabled={!slot.available}
                         selected={selectedTime === slot.time}
+                        onClick={() => slot.available && handleTimeSelect(slot.time)}
                       >
-                        {slot.time}
-                      </TimeSlotLabel>
-                    </TimeSlotButton>
-                  ))}
-                </TimeSlotsContainer>
-              </TimeContainer>
-            </TimeSection>
-          )}
+                        <TimeSlotLabel
+                          disabled={!slot.available}
+                          selected={selectedTime === slot.time}
+                        >
+                          {slot.time}
+                        </TimeSlotLabel>
+                      </TimeSlotButton>
+                    ))}
+                  </TimeSlotsContainer>
+                </TimeContainer>
+              </TimeSection>
+            )}
 
-          {evening.length > 0 && (
-            <TimeSection>
-              <TimeContainer>
-                <TimeHeader>
-                  <TimeTitle>Вечер</TimeTitle>
-                </TimeHeader>
-                <TimeSlotsContainer>
-                  {evening.map((slot, index) => (
-                    <TimeSlotButton
-                      key={index}
-                      disabled={!slot.available}
-                      selected={selectedTime === slot.time}
-                      onClick={() => slot.available && handleTimeSelect(slot.time)}
-                    >
-                      <TimeSlotLabel 
+            {evening.length > 0 && (
+              <TimeSection>
+                <TimeContainer>
+                  <TimeHeader>
+                    <TimeTitle>Вечер</TimeTitle>
+                  </TimeHeader>
+                  <TimeSlotsContainer>
+                    {evening.map((slot, index) => (
+                      <TimeSlotButton
+                        key={index}
                         disabled={!slot.available}
                         selected={selectedTime === slot.time}
+                        onClick={() => slot.available && handleTimeSelect(slot.time)}
                       >
-                        {slot.time}
-                      </TimeSlotLabel>
-                    </TimeSlotButton>
-                  ))}
-                </TimeSlotsContainer>
-              </TimeContainer>
-            </TimeSection>
-          )}
+                        <TimeSlotLabel
+                          disabled={!slot.available}
+                          selected={selectedTime === slot.time}
+                        >
+                          {slot.time}
+                        </TimeSlotLabel>
+                      </TimeSlotButton>
+                    ))}
+                  </TimeSlotsContainer>
+                </TimeContainer>
+              </TimeSection>
+            )}
           </Content>
         </ContentArea>
 
@@ -851,4 +962,4 @@ const DateTimeScreen = () => {
   );
 };
 
-export default DateTimeScreen; 
+export default DateTimeScreen;

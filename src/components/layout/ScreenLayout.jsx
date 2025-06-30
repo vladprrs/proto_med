@@ -5,18 +5,19 @@ import { theme } from '../../styles/theme';
 
 const Container = styled.div`
   ${fullScreen}
-  background: ${props => props.backgroundImage 
-    ? `linear-gradient(0deg, ${theme.colors.backgroundOverlay} 0%, ${theme.colors.backgroundOverlay} 100%), 
+  background: ${props =>
+    props.backgroundImage
+      ? `linear-gradient(0deg, ${theme.colors.backgroundOverlay} 0%, ${theme.colors.backgroundOverlay} 100%), 
        url('${props.backgroundImage}') lightgray 50% / cover no-repeat`
-    : theme.colors.backgroundPrimary};
+      : theme.colors.backgroundPrimary};
   font-family: ${theme.fonts.primary};
   margin: 0 auto;
   max-width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: ${props => props.hasBottomSheet ? 'flex-end' : 'flex-start'};
+  justify-content: ${props => (props.hasBottomSheet ? 'flex-end' : 'flex-start')};
   align-items: center;
-  padding-top: ${props => props.hasBottomSheet ? '64px' : '0'};
+  padding-top: ${props => (props.hasBottomSheet ? '64px' : '0')};
 `;
 
 const MapBackground = styled.div`
@@ -60,36 +61,33 @@ const TimeDisplay = styled.div`
   margin-left: 135px;
 `;
 
-const ScreenLayout = ({ 
-  children, 
-  backgroundImage, 
-  mapBackground, 
-  hasBottomSheet = false, 
+const ScreenLayout = ({
+  children,
+  backgroundImage,
+  mapBackground,
+  hasBottomSheet = false,
   showStatusBar = false,
   hasBlurOverlay = false,
-  mapHeight 
+  mapHeight,
 }) => {
   return (
-    <Container 
-      backgroundImage={backgroundImage} 
-      hasBottomSheet={hasBottomSheet}
-    >
+    <Container backgroundImage={backgroundImage} hasBottomSheet={hasBottomSheet}>
       {mapBackground && (
         <>
           <MapBackground src={mapBackground} height={mapHeight} />
           {hasBlurOverlay && <BlurOverlay height={mapHeight} />}
         </>
       )}
-      
+
       {showStatusBar && (
         <StatusBar>
           <TimeDisplay>9:41</TimeDisplay>
         </StatusBar>
       )}
-      
+
       {children}
     </Container>
   );
 };
 
-export default ScreenLayout; 
+export default ScreenLayout;

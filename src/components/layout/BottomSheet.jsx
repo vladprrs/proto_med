@@ -6,7 +6,9 @@ import { theme } from '../../styles/theme';
 const BottomSheetContainer = styled.div`
   ${bottomSheet}
   padding: ${theme.spacing.lg} 0px ${theme.spacing.md} 0px;
-  ${props => props.fullHeight && `
+  ${props =>
+    props.fullHeight &&
+    `
     min-height: 100vh;
     border-radius: 0;
   `}
@@ -26,20 +28,13 @@ const ContentArea = styled.div`
   ${props => props.scrollable && scrollContainer}
 `;
 
-const BottomSheet = ({ 
-  children, 
-  showDragger = true, 
-  fullHeight = false, 
-  scrollable = false 
-}) => {
+const BottomSheet = ({ children, showDragger = true, fullHeight = false, scrollable = false }) => {
   return (
     <BottomSheetContainer fullHeight={fullHeight}>
       {showDragger && <Dragger />}
-      <ContentArea scrollable={scrollable}>
-        {children}
-      </ContentArea>
+      <ContentArea scrollable={scrollable}>{children}</ContentArea>
     </BottomSheetContainer>
   );
 };
 
-export default BottomSheet; 
+export default BottomSheet;

@@ -7,9 +7,14 @@ import AppointmentCard from '../components/AppointmentCard';
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: #F5F5F5;
+  background: #f5f5f5;
   position: relative;
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
 `;
 
 const Header = styled.div`
@@ -29,14 +34,14 @@ const BackButton = styled.button`
   height: 40px;
   border-radius: 12px;
   border: none;
-  background: #F8F8F8;
+  background: #f8f8f8;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
-    background: #EEEEEE;
+    background: #eeeeee;
   }
 `;
 
@@ -44,7 +49,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 10px;
@@ -62,14 +67,14 @@ const MenuButton = styled.button`
   height: 40px;
   border-radius: 12px;
   border: none;
-  background: #F8F8F8;
+  background: #f8f8f8;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
-    background: #EEEEEE;
+    background: #eeeeee;
   }
 `;
 
@@ -77,7 +82,7 @@ const MenuIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::before,
   &::after {
     content: '';
@@ -87,20 +92,22 @@ const MenuIcon = styled.div`
     background: #141414;
     border-radius: 50%;
   }
-  
+
   &::before {
     top: 6px;
     left: 10px;
   }
-  
+
   &::after {
     top: 14px;
     left: 10px;
   }
-  
+
   & {
     &::before {
-      box-shadow: 0 4px 0 #141414, 0 8px 0 #141414;
+      box-shadow:
+        0 4px 0 #141414,
+        0 8px 0 #141414;
     }
   }
 `;
@@ -120,7 +127,7 @@ const Avatar = styled.div`
   background-size: cover;
   background-position: center;
   margin-bottom: 16px;
-  border: 3px solid #FFF;
+  border: 3px solid #fff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -153,18 +160,18 @@ const ActionButton = styled.button`
   padding: 12px 16px;
   border-radius: 20px;
   border: none;
-  background: #F0F0F0;
+  background: #f0f0f0;
   color: #141414;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  
+
   &:hover {
-    background: #E8E8E8;
+    background: #e8e8e8;
   }
-  
+
   &.selected {
-    background: #1BA136;
+    background: #1ba136;
     color: white;
   }
 `;
@@ -176,17 +183,19 @@ const ActionIcon = styled.div`
 `;
 
 const GeolocationIcon = styled(ActionIcon)`
-  background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 2C10.55 2 11 2.45 11 3V4.07C13.39 4.54 15.46 6.61 15.93 9H17C17.55 9 18 9.45 18 10C18 10.55 17.55 11 17 11H15.93C15.46 13.39 13.39 15.46 11 15.93V17C11 17.55 10.55 18 10 18C9.45 18 9 17.55 9 17V15.93C6.61 15.46 4.54 13.39 4.07 11H3C2.45 11 2 10.55 2 10C2 9.45 2.45 9 3 9H4.07C4.54 6.61 6.61 4.54 9 4.07V3C9 2.45 9.45 2 10 2ZM10 6C7.79 6 6 7.79 6 10C6 12.21 7.79 14 10 14C12.21 14 14 12.21 14 10C14 7.79 12.21 6 10 6Z' fill='%23898989'/%3E%3C/svg%3E") no-repeat center;
+  background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 2C10.55 2 11 2.45 11 3V4.07C13.39 4.54 15.46 6.61 15.93 9H17C17.55 9 18 9.45 18 10C18 10.55 17.55 11 17 11H15.93C15.46 13.39 13.39 15.46 11 15.93V17C11 17.55 10.55 18 10 18C9.45 18 9 17.55 9 17V15.93C6.61 15.46 4.54 13.39 4.07 11H3C2.45 11 2 10.55 2 10C2 9.45 2.45 9 3 9H4.07C4.54 6.61 6.61 4.54 9 4.07V3C9 2.45 9.45 2 10 2ZM10 6C7.79 6 6 7.79 6 10C6 12.21 7.79 14 10 14C12.21 14 14 12.21 14 10C14 7.79 12.21 6 10 6Z' fill='%23898989'/%3E%3C/svg%3E")
+    no-repeat center;
 `;
 
 const BookmarkIcon = styled(ActionIcon)`
-  background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 2C4.45 2 4 2.45 4 3V18L10 15L16 18V3C16 2.45 15.55 2 15 2H5Z' fill='%23898989'/%3E%3C/svg%3E") no-repeat center;
+  background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 2C4.45 2 4 2.45 4 3V18L10 15L16 18V3C16 2.45 15.55 2 15 2H5Z' fill='%23898989'/%3E%3C/svg%3E")
+    no-repeat center;
 `;
 
 const TabsContainer = styled.div`
   display: flex;
   background: white;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #e8e8e8;
 `;
 
 const Tab = styled.button`
@@ -194,15 +203,15 @@ const Tab = styled.button`
   padding: 16px 12px;
   border: none;
   background: none;
-  color: ${props => props.active ? '#1BA136' : '#898989'};
+  color: ${props => (props.active ? '#1BA136' : '#898989')};
   font-size: 14px;
-  font-weight: ${props => props.active ? '600' : '500'};
+  font-weight: ${props => (props.active ? '600' : '500')};
   cursor: pointer;
   position: relative;
-  border-bottom: ${props => props.active ? '2px solid #1BA136' : '2px solid transparent'};
-  
+  border-bottom: ${props => (props.active ? '2px solid #1BA136' : '2px solid transparent')};
+
   &:hover {
-    color: ${props => props.active ? '#1BA136' : '#141414'};
+    color: ${props => (props.active ? '#1BA136' : '#141414')};
   }
 `;
 
@@ -211,12 +220,12 @@ const TabLabel = styled.span`
 `;
 
 const TabCounter = styled.span`
-  color: ${props => props.active ? '#1BA136' : '#898989'};
+  color: ${props => (props.active ? '#1BA136' : '#898989')};
   font-weight: 500;
 `;
 
 const Content = styled.div`
-  background: #F5F5F5;
+  background: #f5f5f5;
   min-height: calc(100vh - 400px);
   padding: 16px;
 `;
@@ -277,7 +286,7 @@ const PlaceAddress = styled.p`
 
 const PlaceDate = styled.p`
   font-size: 12px;
-  color: #C4C4C4;
+  color: #c4c4c4;
   margin: 0 0 12px 0;
   text-align: center;
 `;
@@ -286,7 +295,7 @@ const RatingSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #F8F8F8;
+  background: #f8f8f8;
   border-radius: 8px;
   padding: 12px;
 `;
@@ -299,17 +308,17 @@ const Stars = styled.div`
 const Star = styled.div`
   width: 24px;
   height: 24px;
-  background: #E8E8E8;
+  background: #e8e8e8;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #C4C4C4;
+  color: #c4c4c4;
   font-size: 14px;
   cursor: pointer;
-  
+
   &:hover {
-    background: #FFD700;
+    background: #ffd700;
     color: white;
   }
 `;
@@ -326,7 +335,7 @@ const RatingAction = styled.button`
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  
+
   &:hover {
     color: #141414;
   }
@@ -369,7 +378,7 @@ const ProfileScreen = () => {
     { id: 'appointments', label: 'Записи', count: appointments.length },
     { id: 'photos', label: 'Фото', count: 5 },
     { id: 'reviews', label: 'Отзывы', count: 8 },
-    { id: 'notes', label: 'Уточнения', count: 0 }
+    { id: 'notes', label: 'Уточнения', count: 0 },
   ];
 
   const renderTabContent = () => {
@@ -390,7 +399,7 @@ const ProfileScreen = () => {
             )}
           </AppointmentsList>
         );
-      
+
       case 'photos':
         return (
           <EmptyState>
@@ -399,7 +408,7 @@ const ProfileScreen = () => {
             <EmptyText>Здесь будут отображаться ваши фотографии</EmptyText>
           </EmptyState>
         );
-      
+
       case 'reviews':
         return (
           <div>
@@ -425,7 +434,7 @@ const ProfileScreen = () => {
                 </RatingActions>
               </RatingSection>
             </PlaceCard>
-            
+
             <PlaceCard>
               <PlaceDate>23 June</PlaceDate>
               <PlaceHeader>
@@ -436,31 +445,37 @@ const ProfileScreen = () => {
                 </PlaceInfo>
                 <PlaceImage src="/assets/clinic_placeholder.svg" />
               </PlaceHeader>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                color: '#1BA136',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>
-                <div style={{
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  background: '#1BA136',
+              <div
+                style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '12px'
-                }}>✓</div>
+                  gap: '8px',
+                  color: '#1BA136',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                }}
+              >
+                <div
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    background: '#1BA136',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '12px',
+                  }}
+                >
+                  ✓
+                </div>
                 Был друг
               </div>
             </PlaceCard>
           </div>
         );
-      
+
       case 'notes':
         return (
           <EmptyState>
@@ -469,7 +484,7 @@ const ProfileScreen = () => {
             <EmptyText>Здесь будут отображаться ваши уточнения</EmptyText>
           </EmptyState>
         );
-      
+
       default:
         return null;
     }
@@ -487,13 +502,13 @@ const ProfileScreen = () => {
             <MenuIcon />
           </MenuButton>
         </HeaderContent>
-        
+
         <ProfileSection>
           <Avatar src={state.currentUser.avatar} />
           <UserName>{state.currentUser.name}</UserName>
           <UserPhone>{state.currentUser.phone}</UserPhone>
         </ProfileSection>
-        
+
         <ActionButtons>
           <ActionButton>
             <GeolocationIcon />
@@ -508,22 +523,16 @@ const ProfileScreen = () => {
 
       <TabsContainer>
         {tabs.map(tab => (
-          <Tab 
-            key={tab.id} 
-            active={activeTab === tab.id}
-            onClick={() => setActiveTab(tab.id)}
-          >
+          <Tab key={tab.id} active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)}>
             <TabLabel>{tab.label}</TabLabel>
             <TabCounter active={activeTab === tab.id}>{tab.count}</TabCounter>
           </Tab>
         ))}
       </TabsContainer>
 
-      <Content>
-        {renderTabContent()}
-      </Content>
+      <Content>{renderTabContent()}</Content>
     </Container>
   );
 };
 
-export default ProfileScreen; 
+export default ProfileScreen;

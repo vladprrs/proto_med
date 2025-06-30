@@ -14,13 +14,13 @@ const IconButtonStyled = styled.button`
   ${buttonIcon}
 `;
 
-const Button = ({ 
-  variant = 'primary', 
-  children, 
-  onClick, 
-  disabled = false, 
+const Button = ({
+  variant = 'primary',
+  children,
+  onClick,
+  disabled = false,
   fullWidth = false,
-  ...props 
+  ...props
 }) => {
   const getButtonComponent = () => {
     switch (variant) {
@@ -47,4 +47,4 @@ const Button = ({
   );
 };
 
-export default Button; 
+export default Button;

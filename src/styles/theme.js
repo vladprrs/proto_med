@@ -5,38 +5,38 @@ export const theme = {
     backgroundPrimary: '#F1F1F1',
     backgroundSecondary: '#FFF',
     backgroundOverlay: 'rgba(0, 0, 0, 0.40)',
-    
+
     // Surface colors
     surface01: 'rgba(20, 20, 20, 0.06)',
     surface02: 'rgba(20, 20, 20, 0.09)',
     surfaceSection01: '#FFF',
     surfaceSection02: 'rgba(20, 20, 20, 0.06)',
-    
+
     // Text colors
     textPrimary: '#141414',
     textSecondary: '#898989',
     textTertiary: '#B8B8B8',
     textAccent: '#5A5A5A',
     textWhite: '#FFF',
-    
+
     // Brand colors
     brandPrimary: '#1DB93C',
     brandAccent: '#1BA136',
     brandSuccess: '#1BA136',
-    
+
     // Status colors
     statusError: '#F5373C',
     statusWarning: '#EFA701',
     statusSuccess: '#1BA136',
-    
+
     // Traffic colors
     trafficHeavy: '#F5373C',
     trafficAverage: '#EFA701',
     trafficLight: '#1BA136',
-    
+
     // Dividers
     divider: 'rgba(137, 137, 137, 0.40)',
-    
+
     // Button colors
     buttonPrimary: '#1DB93C',
     buttonPrimaryHover: '#16a32e',
@@ -127,4 +127,4 @@ export const theme = {
     normal: 'all 0.2s ease',
     slow: 'all 0.3s ease',
   },
-}; 
+};

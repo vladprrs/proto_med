@@ -63,20 +63,18 @@ const ExampleScreen = () => {
     navigate('/');
   };
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = e => {
     setSearchValue(e.target.value);
   };
 
   const segmentOptions = [
     { label: 'Все', value: 'all' },
     { label: 'Врачи', value: 'doctors' },
-    { label: 'Услуги', value: 'services' }
+    { label: 'Услуги', value: 'services' },
   ];
 
   return (
-    <MapScreenLayout 
-      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
-    >
+    <MapScreenLayout mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg">
       <BottomSheet showDragger={true} scrollable={true}>
         <Navigation
           title="Пример экрана"
@@ -97,7 +95,7 @@ const ExampleScreen = () => {
               background={theme.colors.backgroundSecondary}
               height="48px"
             />
-            
+
             <SegmentedControl
               options={segmentOptions}
               selectedValue={selectedSegment}
@@ -114,9 +112,7 @@ const ExampleScreen = () => {
 
           <Card fullWidth={true}>
             <CardTitle>Кнопки</CardTitle>
-            <CardDescription>
-              Примеры различных вариантов кнопок
-            </CardDescription>
+            <CardDescription>Примеры различных вариантов кнопок</CardDescription>
             <ButtonGroup>
               <Button variant="primary" fullWidth={true}>
                 Основная кнопка
@@ -130,12 +126,13 @@ const ExampleScreen = () => {
           <Card fullWidth={true}>
             <CardTitle>Поиск и фильтры</CardTitle>
             <CardDescription>
-              Поле поиска: "{searchValue || 'не введено'}"<br/>
-              Выбранная категория: {segmentOptions.find(opt => opt.value === selectedSegment)?.label}
+              Поле поиска: "{searchValue || 'не введено'}"<br />
+              Выбранная категория:{' '}
+              {segmentOptions.find(opt => opt.value === selectedSegment)?.label}
             </CardDescription>
           </Card>
 
-          <Card 
+          <Card
             fullWidth={true}
             padding={theme.spacing.xl}
             customStyles={`
@@ -143,17 +140,15 @@ const ExampleScreen = () => {
               color: ${theme.colors.textWhite};
             `}
           >
-            <CardTitle style={{ color: theme.colors.textWhite }}>
-              Кастомная карточка
-            </CardTitle>
+            <CardTitle style={{ color: theme.colors.textWhite }}>Кастомная карточка</CardTitle>
             <CardDescription style={{ color: theme.colors.textWhite, opacity: 0.9 }}>
               Эта карточка использует кастомные стили с градиентом
             </CardDescription>
           </Card>
-                  </ContentSection>
-        </BottomSheet>
-      </MapScreenLayout>
-    );
-  };
+        </ContentSection>
+      </BottomSheet>
+    </MapScreenLayout>
+  );
+};
 
-export default ExampleScreen; 
+export default ExampleScreen;

@@ -21,7 +21,11 @@ const AppContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   background-color: #f1f1f1;
-  font-family: 'SB Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 `;
 
 function App() {
@@ -35,7 +39,7 @@ function App() {
           <Route path="/appointments" element={<AppointmentsScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/example" element={<ExampleScreen />} />
-          
+
           {/* Clinic routes */}
           <Route path="/clinic/:clinicId" element={<ClinicScreen />} />
           <Route path="/clinic/:clinicId/services" element={<ServicesScreen />} />
@@ -43,14 +47,14 @@ function App() {
           <Route path="/clinic/:clinicId/datetime" element={<DateTimeScreen />} />
           <Route path="/clinic/:clinicId/confirmation" element={<ConfirmationScreen />} />
           <Route path="/clinic/:clinicId/done" element={<DoneScreen />} />
-          
+
           {/* Appointment ticket route */}
           <Route path="/appointment" element={<DoneScreen />} />
-          
+
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        
+
         {/* Global Toast notifications */}
         <Toast />
       </AppContainer>
@@ -58,4 +62,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

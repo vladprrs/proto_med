@@ -16,24 +16,33 @@ const ToastContainer = styled.div`
 const ToastMessage = styled.div`
   background: ${props => {
     switch (props.type) {
-      case 'success': return '#4CAF50';
-      case 'error': return '#FF5252';
-      case 'warning': return '#FF9800';
-      default: return '#2196F3';
+      case 'success':
+        return '#4CAF50';
+      case 'error':
+        return '#FF5252';
+      case 'warning':
+        return '#FF9800';
+      default:
+        return '#2196F3';
     }
   }};
   color: white;
   padding: 12px 16px;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-  font-family: 'SB Sans Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SB Sans Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 14px;
   font-weight: 500;
   max-width: 300px;
   text-align: center;
   animation: slideIn 0.3s ease-out;
   pointer-events: auto;
-  
+
   @keyframes slideIn {
     from {
       transform: translateY(-100%);
@@ -64,11 +73,9 @@ const Toast = () => {
 
   return (
     <ToastContainer>
-      <ToastMessage type={toast.type}>
-        {toast.message}
-      </ToastMessage>
+      <ToastMessage type={toast.type}>{toast.message}</ToastMessage>
     </ToastContainer>
   );
 };
 
-export default Toast; 
+export default Toast;

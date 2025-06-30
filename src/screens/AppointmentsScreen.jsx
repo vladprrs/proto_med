@@ -24,14 +24,14 @@ const BackButton = styled.button`
   height: 40px;
   border-radius: 12px;
   border: none;
-  background: #F8F8F8;
+  background: #f8f8f8;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
-    background: #EEEEEE;
+    background: #eeeeee;
   }
 `;
 
@@ -39,7 +39,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-  
+
   &::after {
     content: '';
     width: 10px;
@@ -61,7 +61,7 @@ const Title = styled.h1`
 
 const FilterTabs = styled.div`
   display: flex;
-  background: #F8F8F8;
+  background: #f8f8f8;
   border-radius: 12px;
   padding: 4px;
   margin-top: 16px;
@@ -72,15 +72,15 @@ const FilterTab = styled.button`
   padding: 8px 12px;
   border: none;
   border-radius: 8px;
-  background: ${props => props.active ? 'white' : 'transparent'};
-  color: ${props => props.active ? '#141414' : '#898989'};
-  font-weight: ${props => props.active ? '600' : '400'};
+  background: ${props => (props.active ? 'white' : 'transparent')};
+  color: ${props => (props.active ? '#141414' : '#898989')};
+  font-weight: ${props => (props.active ? '600' : '400')};
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   &:hover {
-    background: ${props => props.active ? 'white' : '#EEEEEE'};
+    background: ${props => (props.active ? 'white' : '#EEEEEE')};
   }
 `;
 
@@ -113,7 +113,7 @@ const EmptyText = styled.p`
 `;
 
 const CreateAppointmentButton = styled.button`
-  background: #1BA136;
+  background: #1ba136;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -121,9 +121,9 @@ const CreateAppointmentButton = styled.button`
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
-  
+
   &:hover {
-    background: #169A2E;
+    background: #169a2e;
   }
 `;
 
@@ -168,17 +168,21 @@ const AppointmentsScreen = () => {
 
   const filteredAppointments = filterAppointments(appointments, activeFilter);
 
-  const getFilterTitle = (filter) => {
+  const getFilterTitle = filter => {
     switch (filter) {
-      case 'active': return 'Активные записи';
-      case 'completed': return 'Завершенные записи';
-      case 'cancelled': return 'Отмененные записи';
-      default: return 'Все записи';
+      case 'active':
+        return 'Активные записи';
+      case 'completed':
+        return 'Завершенные записи';
+      case 'cancelled':
+        return 'Отмененные записи';
+      default:
+        return 'Все записи';
     }
   };
 
   return (
-    <MapScreenLayout 
+    <MapScreenLayout
       mapImage="/assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg"
       contentTop="0px"
       noRadius={true}
@@ -191,27 +195,21 @@ const AppointmentsScreen = () => {
           <Title>Мои записи</Title>
           <div style={{ width: '40px' }} /> {/* Spacer */}
         </HeaderContent>
-        
+
         <FilterTabs>
-          <FilterTab 
-            active={activeFilter === 'all'}
-            onClick={() => setActiveFilter('all')}
-          >
+          <FilterTab active={activeFilter === 'all'} onClick={() => setActiveFilter('all')}>
             Все ({appointments.length})
           </FilterTab>
-          <FilterTab 
-            active={activeFilter === 'active'}
-            onClick={() => setActiveFilter('active')}
-          >
+          <FilterTab active={activeFilter === 'active'} onClick={() => setActiveFilter('active')}>
             Активные ({filterAppointments(appointments, 'active').length})
           </FilterTab>
-          <FilterTab 
+          <FilterTab
             active={activeFilter === 'completed'}
             onClick={() => setActiveFilter('completed')}
           >
             Завершенные ({filterAppointments(appointments, 'completed').length})
           </FilterTab>
-          <FilterTab 
+          <FilterTab
             active={activeFilter === 'cancelled'}
             onClick={() => setActiveFilter('cancelled')}
           >
@@ -225,13 +223,14 @@ const AppointmentsScreen = () => {
           <EmptyState>
             <EmptyIcon>📅</EmptyIcon>
             <EmptyTitle>
-              {activeFilter === 'all' ? 'У вас пока нет записей' : `Нет ${getFilterTitle(activeFilter).toLowerCase()}`}
+              {activeFilter === 'all'
+                ? 'У вас пока нет записей'
+                : `Нет ${getFilterTitle(activeFilter).toLowerCase()}`}
             </EmptyTitle>
             <EmptyText>
-              {activeFilter === 'all' 
+              {activeFilter === 'all'
                 ? 'Запишитесь на прием к врачу или в салон красоты'
-                : `В этой категории записей не найдено`
-              }
+                : `В этой категории записей не найдено`}
             </EmptyText>
             {activeFilter === 'all' && (
               <CreateAppointmentButton onClick={handleCreateAppointment}>
@@ -243,10 +242,7 @@ const AppointmentsScreen = () => {
           <AppointmentsList>
             <SectionTitle>{getFilterTitle(activeFilter)}</SectionTitle>
             {filteredAppointments.map(appointment => (
-              <AppointmentCard 
-                key={appointment.id} 
-                appointment={appointment}
-              />
+              <AppointmentCard key={appointment.id} appointment={appointment} />
             ))}
           </AppointmentsList>
         )}
@@ -255,4 +251,4 @@ const AppointmentsScreen = () => {
   );
 };
 
-export default AppointmentsScreen; 
+export default AppointmentsScreen;

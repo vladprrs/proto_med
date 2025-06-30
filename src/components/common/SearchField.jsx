@@ -7,13 +7,13 @@ import IconButton from './IconButton';
 const SearchContainer = styled.div`
   display: flex;
   height: ${props => props.height || '40px'};
-  padding: ${props => props.large ? '13px 12px 15px 16px' : '10px 8px'};
+  padding: ${props => (props.large ? '13px 12px 15px 16px' : '10px 8px')};
   align-items: center;
-  gap: ${props => props.large ? '8px' : '6px'};
+  gap: ${props => (props.large ? '8px' : '6px')};
   flex: 1;
-  border-radius: ${props => props.large ? theme.borderRadius.large : theme.borderRadius.medium};
+  border-radius: ${props => (props.large ? theme.borderRadius.large : theme.borderRadius.medium)};
   background: ${props => props.background || theme.colors.surface01};
-  cursor: ${props => props.onClick ? 'pointer' : 'default'};
+  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
 `;
 
 const SearchIconContainer = styled.div`
@@ -24,8 +24,8 @@ const SearchIconContainer = styled.div`
 const SearchInput = styled.input`
   ${inputBase}
   flex: 1;
-  ${props => props.large ? typography.body : typography.subhead}
-  
+  ${props => (props.large ? typography.body : typography.subhead)}
+
   &::placeholder {
     color: ${theme.colors.textSecondary};
   }
@@ -34,18 +34,18 @@ const SearchInput = styled.input`
 const SearchText = styled.div`
   flex: 1;
   color: ${theme.colors.textSecondary};
-  ${props => props.large ? typography.body : typography.subhead}
+  ${props => (props.large ? typography.body : typography.subhead)}
 `;
 
-const SearchField = ({ 
-  placeholder = 'Поиск...', 
-  value, 
-  onChange, 
-  onClick, 
+const SearchField = ({
+  placeholder = 'Поиск...',
+  value,
+  onChange,
+  onClick,
   large = false,
   background,
   height,
-  readOnly = false 
+  readOnly = false,
 }) => {
   const handleContainerClick = () => {
     if (onClick) {
@@ -54,7 +54,7 @@ const SearchField = ({
   };
 
   return (
-    <SearchContainer 
+    <SearchContainer
       onClick={handleContainerClick}
       large={large}
       background={background}
@@ -63,7 +63,7 @@ const SearchField = ({
       <SearchIconContainer>
         <IconButton icon="search" />
       </SearchIconContainer>
-      
+
       {readOnly ? (
         <SearchText large={large}>{placeholder}</SearchText>
       ) : (
@@ -79,4 +79,4 @@ const SearchField = ({
   );
 };
 
-export default SearchField; 
+export default SearchField;

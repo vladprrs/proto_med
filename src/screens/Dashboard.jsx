@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../contexts/AppContext';
+import {
+  useAppointmentsContext,
+  useBookingContext,
+  useUserContext,
+  useUIContext,
+} from '../contexts/index.jsx';
 import AppointmentCard from '../components/AppointmentCard';
 import BottomNavBar from '../components/BottomNavBar';
 
@@ -28,7 +33,12 @@ const StatusBar = styled.div`
 
 const TimeDisplay = styled.div`
   color: #000;
-  font-family: 'SF Pro Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family:
+    'SF Pro Text',
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   font-size: 12px;
   font-weight: 600;
   margin-left: 135px;
@@ -263,7 +273,10 @@ const BottomSpacing = styled.div`
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { appointments, addAppointment, state } = useAppContext();
+  const { appointments, addAppointment } = useAppointmentsContext();
+  const booking = useBookingContext();
+  const user = useUserContext();
+  const ui = useUIContext();
 
   const handleSearchClick = () => {
     navigate('/search?q=Клиника');
@@ -272,15 +285,15 @@ const Dashboard = () => {
   // Создаем тестовую запись если её нет
   const createTestAppointment = () => {
     if (appointments.length === 0) {
-    const testAppointment = {
+      const testAppointment = {
         id: 'test-appointment-1',
         clinic: { name: 'МедЦентр «Здоровье»' },
-      dateTime: {
+        dateTime: {
           date: '2024-06-14',
-        time: '10:30'
-      },
+          time: '10:30',
+        },
         services: ['Консультация терапевта'],
-        specialist: { name: 'Иванов И.И.' }
+        specialist: { name: 'Иванов И.И.' },
       };
       addAppointment(testAppointment);
     }
@@ -288,7 +301,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     //createTestAppointment();
-    
+
     // Debug functions available in console
     window.debugAppointments = {
       check: () => {
@@ -296,12 +309,12 @@ const Dashboard = () => {
         console.log('🔍 localStorage content:', stored);
         console.log('🔍 Parsed:', stored ? JSON.parse(stored) : 'empty');
         console.log('🔍 Context appointments:', appointments);
-        console.log('🔍 Storage loaded flag:', state.isStorageLoaded);
-        return { 
-          stored, 
-          parsed: stored ? JSON.parse(stored) : null, 
+        console.log('🔍 Storage loaded flag:', appointments.isStorageLoaded);
+        return {
+          stored,
+          parsed: stored ? JSON.parse(stored) : null,
           context: appointments,
-          isStorageLoaded: state.isStorageLoaded
+          isStorageLoaded: appointments.isStorageLoaded,
         };
       },
       clear: () => {
@@ -316,18 +329,18 @@ const Dashboard = () => {
           dateTime: { date: '2024-06-15', time: '10:00' },
           services: [{ name: 'Тестовая услуга' }],
           specialist: { name: 'Тестовый врач' },
-          status: 'active'
+          status: 'active',
         };
         addAppointment(testAppointment);
         console.log('➕ Test appointment added:', testAppointment);
-      }
+      },
     };
-    
+
     console.log('🔧 Debug functions available:');
     console.log('  window.debugAppointments.check() - проверить localStorage');
     console.log('  window.debugAppointments.clear() - очистить localStorage');
     console.log('  window.debugAppointments.add() - добавить тестовую запись');
-  }, [appointments, addAppointment, state.isStorageLoaded]);
+  }, [appointments, addAppointment, appointments.isStorageLoaded]);
 
   const categories = [
     { id: 1, title: 'Поесть', icon: '🍽️' },
@@ -335,11 +348,11 @@ const Dashboard = () => {
     { id: 3, title: 'Катки', icon: '⛸️' },
     { id: 4, title: 'Салоны красоты', subtitle: '5671 место', icon: '💄' },
     { id: 5, title: 'Пожить', icon: '🏨' },
-    { id: 6, title: 'Все рубрики', icon: '⋯' }
+    { id: 6, title: 'Все рубрики', icon: '⋯' },
   ];
 
   return (
-    <MapScreenLayout 
+    <MapScreenLayout
       mapImage="/assets/images/1787ae2a5cea9bf92b50b8f4cc908087feab9732_640.jpg"
       contentTop="64px"
     >
@@ -350,81 +363,80 @@ const Dashboard = () => {
       </StatusBar>
 
       <BottomSheet showDragger={true}>
-          <NavBar>
-          <SearchField 
-            placeholder="Поиск в Москве"
-            onClick={handleSearchClick}
-            readOnly={true}
-          />
-              <SalutIcon />
+        <NavBar>
+          <SearchField placeholder="Поиск в Москве" onClick={handleSearchClick} readOnly={true} />
+          <SalutIcon />
           <IconButton icon="menu" />
-          </NavBar>
+        </NavBar>
 
+        {appointments.length > 0 &&
+          (() => {
+            // Находим ближайшую запись по дате и времени
+            const getNextAppointment = appointments => {
+              const now = new Date();
 
+              // Сортируем записи по дате и времени
+              const sortedAppointments = appointments
+                .filter(appointment => appointment.dateTime)
+                .sort((a, b) => {
+                  const dateA = new Date(a.dateTime.date + ' ' + a.dateTime.time);
+                  const dateB = new Date(b.dateTime.date + ' ' + b.dateTime.time);
+                  return dateA - dateB;
+                });
 
-        {appointments.length > 0 && (() => {
-          // Находим ближайшую запись по дате и времени
-          const getNextAppointment = (appointments) => {
-            const now = new Date();
-            
-            // Сортируем записи по дате и времени
-            const sortedAppointments = appointments
-              .filter(appointment => appointment.dateTime)
-              .sort((a, b) => {
-                const dateA = new Date(a.dateTime.date + ' ' + a.dateTime.time);
-                const dateB = new Date(b.dateTime.date + ' ' + b.dateTime.time);
-                return dateA - dateB;
+              // Ищем первую запись в будущем
+              const futureAppointment = sortedAppointments.find(appointment => {
+                const appointmentDate = new Date(
+                  appointment.dateTime.date + ' ' + appointment.dateTime.time
+                );
+                return appointmentDate > now;
               });
-            
-            // Ищем первую запись в будущем
-            const futureAppointment = sortedAppointments.find(appointment => {
-              const appointmentDate = new Date(appointment.dateTime.date + ' ' + appointment.dateTime.time);
-              return appointmentDate > now;
-            });
-            
-            // Если нет будущих записей, возвращаем самую свежую
-            return futureAppointment || sortedAppointments[0];
-          };
-          
-          const nextAppointment = getNextAppointment(appointments);
-          
-          return (
-            <ContentSection>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <SectionTitle style={{ margin: 0 }}>Ближайшая запись</SectionTitle>
-                {appointments.length > 1 && (
-                  <button
-                    onClick={() => navigate('/profile')}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: '#1BA136',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      padding: '8px 12px',
-                      borderRadius: '8px',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.target.style.background = '#F0F9F3'}
-                    onMouseLeave={(e) => e.target.style.background = 'none'}
-                  >
-                    Все записи
-                  </button>
+
+              // Если нет будущих записей, возвращаем самую свежую
+              return futureAppointment || sortedAppointments[0];
+            };
+
+            const nextAppointment = getNextAppointment(appointments);
+
+            return (
+              <ContentSection>
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <SectionTitle style={{ margin: 0 }}>Ближайшая запись</SectionTitle>
+                  {appointments.length > 1 && (
+                    <button
+                      onClick={() => navigate('/profile')}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#1BA136',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        padding: '8px 12px',
+                        borderRadius: '8px',
+                        transition: 'background 0.2s',
+                      }}
+                      onMouseEnter={e => (e.target.style.background = '#F0F9F3')}
+                      onMouseLeave={e => (e.target.style.background = 'none')}
+                    >
+                      Все записи
+                    </button>
+                  )}
+                </div>
+                {nextAppointment && (
+                  <AppointmentCard key={nextAppointment.id} appointment={nextAppointment} />
                 )}
-              </div>
-              {nextAppointment && (
-                <AppointmentCard key={nextAppointment.id} appointment={nextAppointment} />
-              )}
-            </ContentSection>
-          );
-        })()}
-        
+              </ContentSection>
+            );
+          })()}
+
         <ContentSection>
           <SectionTitle>Советы к месту</SectionTitle>
-            <AdvicesSection>
-              <CardsGrid>
-                <LeftColumn>
+          <AdvicesSection>
+            <CardsGrid>
+              <LeftColumn>
                 <InterestingCard>
                   <CardTextSection>
                     <CardTitle>Интересное в городе</CardTitle>
@@ -432,7 +444,7 @@ const Dashboard = () => {
                   </CardTextSection>
                   <CardImage src="/assets/images/15fcb5df22f040135b4b4a6c11ee1f9feba9623b_276.jpg" />
                 </InterestingCard>
-                
+
                 {categories.slice(0, 3).map(category => (
                   <MetaCard key={category.id}>
                     <MetaCardContent>
@@ -444,24 +456,22 @@ const Dashboard = () => {
                   </MetaCard>
                 ))}
               </LeftColumn>
-                
-                <RightColumn>
+
+              <RightColumn>
                 {categories.slice(3).map(category => (
                   <MetaCard key={category.id}>
                     <MetaCardContent>
                       <MetaCardTitle>{category.title}</MetaCardTitle>
-                      {category.subtitle && (
-                        <CardSubtitle>{category.subtitle}</CardSubtitle>
-                      )}
+                      {category.subtitle && <CardSubtitle>{category.subtitle}</CardSubtitle>}
                       <MetaCardIcon>
                         <IconPlace>{category.icon}</IconPlace>
                       </MetaCardIcon>
                     </MetaCardContent>
                   </MetaCard>
                 ))}
-                </RightColumn>
-              </CardsGrid>
-            </AdvicesSection>
+              </RightColumn>
+            </CardsGrid>
+          </AdvicesSection>
         </ContentSection>
 
         <BottomSpacing />
@@ -472,4 +482,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

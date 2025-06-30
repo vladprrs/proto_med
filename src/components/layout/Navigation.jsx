@@ -45,32 +45,28 @@ const Subtitle = styled.div`
   padding: 1px 0px 3px 0px;
 `;
 
-const Navigation = ({ 
-  title, 
-  subtitle, 
-  onBack, 
-  onClose, 
-  showBackButton = false, 
-  showCloseButton = false 
+const Navigation = ({
+  title,
+  subtitle,
+  onBack,
+  onClose,
+  showBackButton = false,
+  showCloseButton = false,
 }) => {
   return (
     <NavBar>
       <NavContent>
-        {showBackButton && (
-          <IconButton icon="back" onClick={onBack} />
-        )}
-        
+        {showBackButton && <IconButton icon="back" onClick={onBack} />}
+
         <HeaderTitle>
           <Title>{title}</Title>
           {subtitle && <Subtitle>{subtitle}</Subtitle>}
         </HeaderTitle>
-        
-        {showCloseButton && (
-          <IconButton icon="close" onClick={onClose} />
-        )}
+
+        {showCloseButton && <IconButton icon="close" onClick={onClose} />}
       </NavContent>
     </NavBar>
   );
 };
 
-export default Navigation; 
+export default Navigation;

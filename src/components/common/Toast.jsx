@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useAppContext } from '../../contexts/AppContext';
+import { useUIContext } from '../../contexts/index.jsx';
 
 const ToastContainer = styled.div`
   position: fixed;
@@ -56,20 +56,20 @@ const ToastMessage = styled.div`
 `;
 
 const Toast = () => {
-  const { state, actions } = useAppContext();
-  const { toast } = state;
+  const ui = useUIContext();
+  const { toast } = ui;
 
   useEffect(() => {
-    if (toast) {
+    if (toast.show) {
       const timer = setTimeout(() => {
-        actions.hideToast();
+        ui.actions.hideToast();
       }, toast.duration || 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [toast, actions]);
+  }, [toast, ui.actions]);
 
-  if (!toast) return null;
+  if (!toast.show) return null;
 
   return (
     <ToastContainer>

@@ -10,7 +10,7 @@ import {
   useTimeSlots,
 } from '../hooks/useApi';
 import { MapScreenLayout } from '../components/layout';
-import { useAppContext } from '../contexts/AppContext';
+import { useAppointmentsContext } from '../contexts/index.jsx';
 import AppointmentCard from '../components/AppointmentCard';
 
 // Удалены Container, MapBackground, BlurOverlay - заменены на ScreenLayout
@@ -887,8 +887,8 @@ const ClinicScreen = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
   // Получаем записи пользователя из контекста
-  const { state } = useAppContext();
-  const { appointments } = state;
+  const appointmentsContext = useAppointmentsContext();
+  const appointments = appointmentsContext.appointments;
 
   // Используем API хуки для получения данных клиники, докторов и слотов
   const { data: clinicData, isLoading, error } = useClinic(clinicId);
@@ -1081,8 +1081,8 @@ const ClinicScreen = () => {
     };
 
     // Добавляем через actions из контекста
-    if (state?.actions?.addAppointment) {
-      state.actions.addAppointment(testAppointment);
+    if (appointmentsContext?.actions?.addAppointment) {
+      appointmentsContext.actions.addAppointment(testAppointment);
       console.log('🎯 Test appointment created for clinic:', testAppointment);
     } else {
       console.error('❌ Actions not available in context');

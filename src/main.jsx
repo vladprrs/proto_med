@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App';
 import GlobalStyles from './styles/GlobalStyles';
 import { ContextProvider } from './contexts/index.jsx';
+import { ErrorBoundary } from './components/common';
+import PerformanceMonitor from './components/common/PerformanceMonitor';
 
 // Create a client for React Query
 const queryClient = new QueryClient({
@@ -20,18 +22,30 @@ const queryClient = new QueryClient({
   },
 });
 
+const handleGlobalError = (error, errorInfo, errorId) => {
+  console.error('🚨 Global Error Caught:', { error, errorInfo, errorId });
+  
+  // В продакшене здесь можно отправить ошибку в систему мониторинга
+  if (process.env.NODE_ENV === 'production') {
+    // Например: sendErrorToSentry(error, errorInfo, errorId);
+  }
+};
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ContextProvider>
-          <GlobalStyles />
-          <App />
-          {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />} */}
-        </ContextProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <ErrorBoundary onError={handleGlobalError} showDetails={process.env.NODE_ENV === 'development'}>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <ContextProvider>
+            <PerformanceMonitor enabled={process.env.NODE_ENV === 'development'} />
+            <GlobalStyles />
+            <App />
+            {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />} */}
+          </ContextProvider>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>
 );

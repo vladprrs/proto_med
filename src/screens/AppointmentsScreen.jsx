@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../contexts/AppContext';
+import { useAppointmentsContext } from '../contexts/index.jsx';
 import AppointmentCard from '../components/AppointmentCard';
 import { MapScreenLayout } from '../components/layout';
 
@@ -142,7 +142,8 @@ const SectionTitle = styled.h2`
 
 const AppointmentsScreen = () => {
   const navigate = useNavigate();
-  const { appointments } = useAppContext();
+  const appointmentsContext = useAppointmentsContext();
+  const appointments = appointmentsContext.appointments;
   const [activeFilter, setActiveFilter] = useState('all');
 
   const handleBack = () => {

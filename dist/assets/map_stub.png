@@ -1,0 +1,34 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8f9fa"/>
+  
+  <!-- Grid pattern -->
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+  
+  <!-- Map elements -->
+  <rect x="50" y="40" width="300" height="200" rx="10" fill="#e8f5e8" stroke="#21A038" stroke-width="2"/>
+  
+  <!-- Roads -->
+  <path d="M 0 150 Q 200 120 400 140" stroke="#ffa500" stroke-width="4" fill="none"/>
+  <path d="M 100 0 Q 150 150 120 300" stroke="#ffa500" stroke-width="3" fill="none"/>
+  
+  <!-- Buildings -->
+  <rect x="80" y="80" width="40" height="40" fill="#ddd"/>
+  <rect x="140" y="70" width="30" height="50" fill="#ddd"/>
+  <rect x="200" y="90" width="35" height="35" fill="#ddd"/>
+  <rect x="260" y="75" width="45" height="45" fill="#ddd"/>
+  
+  <!-- Labels -->
+  <text x="200" y="50" text-anchor="middle" fill="#757575" font-family="Arial" font-size="12">Белкино</text>
+  <text x="150" y="280" text-anchor="middle" fill="#757575" font-family="Arial" font-size="10">Чоботовское</text>
+  
+  <!-- Map pin -->
+  <circle cx="200" cy="150" r="8" fill="#21A038"/>
+  <circle cx="200" cy="150" r="3" fill="white"/>
+</svg>

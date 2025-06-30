@@ -1,0 +1,44 @@
+{
+  "specialists": [
+    {
+      "id": "sp401",
+      "name": "Соколов Владимир Николаевич",
+      "specialty": "Кардиолог",
+      "experience": 25,
+      "rating": 4.9,
+      "reviews": 178,
+      "education": "Первый МГМУ им. И.М. Сеченова",
+      "avatar": "vladimir.jpg"
+    },
+    {
+      "id": "sp402",
+      "name": "Лебедева Елена Викторовна",
+      "specialty": "Гастроэнтеролог",
+      "experience": 16,
+      "rating": 4.7,
+      "reviews": 124,
+      "education": "РНИМУ им. Н.И. Пирогова",
+      "avatar": "elena_g.jpg"
+    },
+    {
+      "id": "sp403",
+      "name": "Морозов Сергей Александрович",
+      "specialty": "Пульмонолог",
+      "experience": 14,
+      "rating": 4.6,
+      "reviews": 89,
+      "education": "МГМСУ им. А.И. Евдокимова",
+      "avatar": "sergey.jpg"
+    },
+    {
+      "id": "sp404",
+      "name": "Кузнецова Анна Дмитриевна",
+      "specialty": "Дерматолог",
+      "experience": 11,
+      "rating": 4.8,
+      "reviews": 156,
+      "education": "Первый МГМУ им. И.М. Сеченова",
+      "avatar": "anna_k.jpg"
+    }
+  ]
+} 

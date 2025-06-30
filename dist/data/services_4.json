@@ -1,0 +1,68 @@
+{
+  "services": [
+    {
+      "id": "s401",
+      "name": "Прием кардиолога",
+      "description": "Консультация врача-кардиолога, ЭКГ, назначение лечения",
+      "price": 2200,
+      "duration": 45,
+      "category": "consultation"
+    },
+    {
+      "id": "s402",
+      "name": "Прием гастроэнтеролога",
+      "description": "Консультация врача-гастроэнтеролога",
+      "price": 2000,
+      "duration": 40,
+      "category": "consultation"
+    },
+    {
+      "id": "s403",
+      "name": "Прием пульмонолога",
+      "description": "Консультация врача-пульмонолога, спирометрия",
+      "price": 1800,
+      "duration": 45,
+      "category": "consultation"
+    },
+    {
+      "id": "s404",
+      "name": "Прием дерматолога",
+      "description": "Консультация врача-дерматолога, дерматоскопия",
+      "price": 1600,
+      "duration": 30,
+      "category": "consultation"
+    },
+    {
+      "id": "s405",
+      "name": "ЭКГ",
+      "description": "Электрокардиография в покое",
+      "price": 800,
+      "duration": 15,
+      "category": "diagnostics"
+    },
+    {
+      "id": "s406",
+      "name": "Холтеровское мониторирование",
+      "description": "Суточное мониторирование ЭКГ",
+      "price": 3500,
+      "duration": 30,
+      "category": "diagnostics"
+    },
+    {
+      "id": "s407",
+      "name": "Спирометрия",
+      "description": "Исследование функции внешнего дыхания",
+      "price": 1200,
+      "duration": 20,
+      "category": "diagnostics"
+    },
+    {
+      "id": "s408",
+      "name": "Гастроскопия",
+      "description": "Эндоскопическое исследование желудка",
+      "price": 4500,
+      "duration": 30,
+      "category": "diagnostics"
+    }
+  ]
+} 

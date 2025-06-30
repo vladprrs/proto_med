@@ -1,0 +1,68 @@
+{
+  "services": [
+    {
+      "id": "s201",
+      "name": "Прием терапевта",
+      "description": "Консультация врача-терапевта, осмотр, назначение лечения",
+      "price": 1200,
+      "duration": 30,
+      "category": "consultation"
+    },
+    {
+      "id": "s202",
+      "name": "Прием педиатра",
+      "description": "Консультация детского врача, осмотр ребенка",
+      "price": 1400,
+      "duration": 30,
+      "category": "consultation"
+    },
+    {
+      "id": "s203",
+      "name": "Прием гинеколога",
+      "description": "Консультация врача-гинеколога, гинекологический осмотр",
+      "price": 1600,
+      "duration": 45,
+      "category": "consultation"
+    },
+    {
+      "id": "s204",
+      "name": "Прием уролога",
+      "description": "Консультация врача-уролога, урологический осмотр",
+      "price": 1500,
+      "duration": 30,
+      "category": "consultation"
+    },
+    {
+      "id": "s205",
+      "name": "УЗИ органов брюшной полости",
+      "description": "Ультразвуковое исследование печени, желчного пузыря, поджелудочной железы",
+      "price": 2200,
+      "duration": 30,
+      "category": "diagnostics"
+    },
+    {
+      "id": "s206",
+      "name": "УЗИ малого таза",
+      "description": "Ультразвуковое исследование органов малого таза",
+      "price": 1800,
+      "duration": 20,
+      "category": "diagnostics"
+    },
+    {
+      "id": "s207",
+      "name": "Общий анализ крови",
+      "description": "Клинический анализ крови с лейкоцитарной формулой",
+      "price": 650,
+      "duration": 15,
+      "category": "laboratory"
+    },
+    {
+      "id": "s208",
+      "name": "Биохимический анализ крови",
+      "description": "Биохимическое исследование крови (базовый профиль)",
+      "price": 1200,
+      "duration": 15,
+      "category": "laboratory"
+    }
+  ]
+} 

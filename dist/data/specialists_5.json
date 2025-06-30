@@ -1,0 +1,34 @@
+{
+  "specialists": [
+    {
+      "id": "sp501",
+      "name": "Васильева Марина Сергеевна",
+      "specialty": "Гинеколог",
+      "experience": 20,
+      "rating": 4.8,
+      "reviews": 203,
+      "education": "Первый МГМУ им. И.М. Сеченова",
+      "avatar": "marina.jpg"
+    },
+    {
+      "id": "sp502",
+      "name": "Романова Ольга Петровна",
+      "specialty": "Акушер-гинеколог",
+      "experience": 18,
+      "rating": 4.9,
+      "reviews": 167,
+      "education": "РНИМУ им. Н.И. Пирогова",
+      "avatar": "olga_r.jpg"
+    },
+    {
+      "id": "sp503",
+      "name": "Зайцева Татьяна Владимировна",
+      "specialty": "Маммолог",
+      "experience": 14,
+      "rating": 4.6,
+      "reviews": 134,
+      "education": "МГМСУ им. А.И. Евдокимова",
+      "avatar": "tatiana.jpg"
+    }
+  ]
+} 

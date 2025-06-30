@@ -1,0 +1,54 @@
+{
+  "specialists": [
+    {
+      "id": "sp301",
+      "name": "Иванова Елена Сергеевна",
+      "specialty": "Стоматолог-терапевт",
+      "experience": 12,
+      "rating": 4.9,
+      "reviews": 127,
+      "education": "МГМСУ им. А.И. Евдокимова",
+      "avatar": "elena.jpg"
+    },
+    {
+      "id": "sp302", 
+      "name": "Петров Андрей Викторович",
+      "specialty": "Стоматолог-хирург",
+      "experience": 8,
+      "rating": 4.8,
+      "reviews": 89,
+      "education": "СПбГМУ им. И.П. Павлова",
+      "avatar": "andrey.jpg"
+    },
+    {
+      "id": "sp303",
+      "name": "Смирнова Ольга Дмитриевна", 
+      "specialty": "Стоматолог-ортопед",
+      "experience": 15,
+      "rating": 4.9,
+      "reviews": 156,
+      "education": "РУДН, стоматологический факультет",
+      "avatar": "olga.jpg"
+    },
+    {
+      "id": "sp304",
+      "name": "Козлов Дмитрий Александрович",
+      "specialty": "Стоматолог-имплантолог", 
+      "experience": 10,
+      "rating": 4.7,
+      "reviews": 73,
+      "education": "МГМСУ им. А.И. Евдокимова",
+      "avatar": "dmitry.jpg"
+    },
+    {
+      "id": "sp305",
+      "name": "Новикова Анна Петровна",
+      "specialty": "Детский стоматолог",
+      "experience": 6,
+      "rating": 4.8,
+      "reviews": 94,
+      "education": "МГМСУ им. А.И. Евдокимова",
+      "avatar": "anna.jpg"
+    }
+  ]
+} 

@@ -1,0 +1,32 @@
+[
+    {
+        "id": "angelika",
+        "name": "Ангелика Петрова",
+        "role": "Мастер маникюра",
+        "avatar": "assets/wizard/angelika.jpg",
+        "rating": "5.0",
+        "experience": "5 лет",
+        "specializations": ["Маникюр", "Педикюр", "Дизайн ногтей"],
+        "available": true
+    },
+    {
+        "id": "dmitry",
+        "name": "Дмитрий Козлов",
+        "role": "Мастер универсал",
+        "avatar": "assets/wizard/dmitry.jpg",
+        "rating": "4.9",
+        "experience": "3 года",
+        "specializations": ["Маникюр", "Педикюр", "Наращивание"],
+        "available": true
+    },
+    {
+        "id": "elena",
+        "name": "Елена Смирнова",
+        "role": "Старший мастер",
+        "avatar": "assets/wizard/elena.jpg",
+        "rating": "4.8",
+        "experience": "7 лет",
+        "specializations": ["Маникюр", "Педикюр", "Spa-процедуры"],
+        "available": true
+    }
+] 

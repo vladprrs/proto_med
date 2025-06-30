@@ -1,0 +1,44 @@
+{
+  "specialists": [
+    {
+      "id": "sp201",
+      "name": "Сидоров Алексей Петрович",
+      "specialty": "Терапевт",
+      "experience": 18,
+      "rating": 4.7,
+      "reviews": 145,
+      "education": "Первый МГМУ им. И.М. Сеченова",
+      "avatar": "aleksey.jpg"
+    },
+    {
+      "id": "sp202",
+      "name": "Михайлова Светлана Игоревна",
+      "specialty": "Педиатр",
+      "experience": 12,
+      "rating": 4.8,
+      "reviews": 98,
+      "education": "РНИМУ им. Н.И. Пирогова",
+      "avatar": "svetlana.jpg"
+    },
+    {
+      "id": "sp203",
+      "name": "Волкова Наталья Сергеевна",
+      "specialty": "Гинеколог",
+      "experience": 15,
+      "rating": 4.6,
+      "reviews": 112,
+      "education": "МГМСУ им. А.И. Евдокимова",
+      "avatar": "natalia.jpg"
+    },
+    {
+      "id": "sp204",
+      "name": "Федоров Игорь Владимирович",
+      "specialty": "Уролог",
+      "experience": 20,
+      "rating": 4.9,
+      "reviews": 87,
+      "education": "Первый МГМУ им. И.М. Сеченова",
+      "avatar": "igor.jpg"
+    }
+  ]
+} 

@@ -1,0 +1,84 @@
+{
+  "services": [
+    {
+      "id": "s301",
+      "name": "Консультация стоматолога",
+      "description": "Первичный осмотр и консультация врача-стоматолога",
+      "price": 1200,
+      "duration": 30,
+      "category": "consultation"
+    },
+    {
+      "id": "s302",
+      "name": "Профессиональная гигиена полости рта",
+      "description": "Удаление зубного камня и налета, полировка зубов",
+      "price": 3500,
+      "duration": 60,
+      "category": "hygiene"
+    },
+    {
+      "id": "s303",
+      "name": "Лечение кариеса",
+      "description": "Лечение кариеса с постановкой пломбы",
+      "price": 4500,
+      "duration": 90,
+      "category": "treatment"
+    },
+    {
+      "id": "s304",
+      "name": "Лечение пульпита",
+      "description": "Эндодонтическое лечение корневых каналов",
+      "price": 8500,
+      "duration": 120,
+      "category": "treatment"
+    },
+    {
+      "id": "s305",
+      "name": "Удаление зуба",
+      "description": "Простое удаление зуба под местной анестезией",
+      "price": 2800,
+      "duration": 30,
+      "category": "surgery"
+    },
+    {
+      "id": "s306",
+      "name": "Установка металлокерамической коронки",
+      "description": "Протезирование зуба металлокерамической коронкой",
+      "price": 15000,
+      "duration": 90,
+      "category": "prosthetics"
+    },
+    {
+      "id": "s307",
+      "name": "Установка циркониевой коронки",
+      "description": "Протезирование зуба коронкой из диоксида циркония",
+      "price": 25000,
+      "duration": 90,
+      "category": "prosthetics"
+    },
+    {
+      "id": "s308",
+      "name": "Отбеливание зубов",
+      "description": "Профессиональное отбеливание зубов системой Beyond",
+      "price": 18000,
+      "duration": 90,
+      "category": "cosmetic"
+    },
+    {
+      "id": "s309",
+      "name": "Установка виниров",
+      "description": "Керамические виниры E-max (за 1 зуб)",
+      "price": 35000,
+      "duration": 120,
+      "category": "cosmetic"
+    },
+    {
+      "id": "s310",
+      "name": "Имплантация зуба",
+      "description": "Установка дентального имплантата с коронкой",
+      "price": 45000,
+      "duration": 180,
+      "category": "implants"
+    }
+  ]
+} 

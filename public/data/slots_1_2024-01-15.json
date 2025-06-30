@@ -1,0 +1,82 @@
+[
+  {
+    "time": "09:00",
+    "available": true,
+    "specialistId": 1
+  },
+  {
+    "time": "09:30",
+    "available": false,
+    "specialistId": 1
+  },
+  {
+    "time": "10:00",
+    "available": true,
+    "specialistId": 1
+  },
+  {
+    "time": "10:30",
+    "available": true,
+    "specialistId": 1
+  },
+  {
+    "time": "11:00",
+    "available": false,
+    "specialistId": 1
+  },
+  {
+    "time": "11:30",
+    "available": true,
+    "specialistId": 1
+  },
+  {
+    "time": "12:00",
+    "available": true,
+    "specialistId": 1
+  },
+  {
+    "time": "14:00",
+    "available": true,
+    "specialistId": 2
+  },
+  {
+    "time": "14:30",
+    "available": true,
+    "specialistId": 2
+  },
+  {
+    "time": "15:00",
+    "available": false,
+    "specialistId": 2
+  },
+  {
+    "time": "15:30",
+    "available": true,
+    "specialistId": 2
+  },
+  {
+    "time": "16:00",
+    "available": true,
+    "specialistId": 2
+  },
+  {
+    "time": "16:30",
+    "available": true,
+    "specialistId": 2
+  },
+  {
+    "time": "17:00",
+    "available": true,
+    "specialistId": 3
+  },
+  {
+    "time": "17:30",
+    "available": false,
+    "specialistId": 3
+  },
+  {
+    "time": "18:00",
+    "available": true,
+    "specialistId": 3
+  }
+] 

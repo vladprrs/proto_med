@@ -1,0 +1,19 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="24" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="2"/>
+  
+  <!-- Multiple person silhouettes -->
+  <g opacity="0.6">
+    <!-- Person 1 -->
+    <circle cx="18" cy="18" r="4" fill="#757575"/>
+    <path d="M12 30c0-3.314 2.686-6 6-6s6 2.686 6 6" fill="#757575"/>
+    
+    <!-- Person 2 (overlapping) -->
+    <circle cx="30" cy="18" r="4" fill="#757575"/>
+    <path d="M24 30c0-3.314 2.686-6 6-6s6 2.686 6 6" fill="#757575"/>
+  </g>
+  
+  <!-- Question mark overlay -->
+  <circle cx="36" cy="12" r="8" fill="#21A038"/>
+  <text x="36" y="16" text-anchor="middle" font-size="10" font-weight="bold" fill="white">?</text>
+</svg> 

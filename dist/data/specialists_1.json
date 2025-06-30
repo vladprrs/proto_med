@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "Иванов Алексей Петрович",
+    "specialty": "Терапевт",
+    "experience": "15 лет",
+    "rating": 4.9,
+    "reviewCount": 89,
+    "education": "МГМУ им. Сеченова",
+    "price": "1500 ₽",
+    "firstVisitPrice": true,
+    "photo": "https://via.placeholder.com/150x150"
+  },
+  {
+    "id": 2,
+    "name": "Петрова Елена Викторовна",
+    "specialty": "Кардиолог",
+    "experience": "22 года",
+    "rating": 4.8,
+    "reviewCount": 134,
+    "education": "РНИМУ им. Пирогова",
+    "price": "2200 ₽",
+    "firstVisitPrice": true,
+    "photo": "https://via.placeholder.com/150x150"
+  },
+  {
+    "id": 3,
+    "name": "Смирнов Дмитрий Александрович",
+    "specialty": "Эндокринолог",
+    "experience": "18 лет",
+    "rating": 4.7,
+    "reviewCount": 76,
+    "education": "ММА им. Сеченова",
+    "price": "2000 ₽",
+    "photo": "https://via.placeholder.com/150x150"
+  },
+  {
+    "id": 4,
+    "name": "Козлова Марина Сергеевна",
+    "specialty": "Невролог",
+    "experience": "12 лет",
+    "rating": 4.6,
+    "reviewCount": 52,
+    "education": "РУДН",
+    "price": "1900 ₽",
+    "photo": "https://via.placeholder.com/150x150"
+  }
+] 

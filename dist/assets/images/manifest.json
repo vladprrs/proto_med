@@ -1,0 +1,230 @@
+{
+  "generated": "2025-06-27T12:55:23.885Z",
+  "totalImages": 22,
+  "failedImages": 0,
+  "images": [
+    {
+      "hash": "1787ae2a5cea9bf92b50b8f4cc908087feab9732",
+      "width": 640,
+      "filename": "1787ae2a5cea9bf92b50b8f4cc908087feab9732_640.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/1787ae2a5cea9bf92b50b8f4cc908087feab9732_640.jpg"
+    },
+    {
+      "hash": "0235e2ec7b64e89803c2ebe320dbddf014cebf7a",
+      "width": 48,
+      "filename": "0235e2ec7b64e89803c2ebe320dbddf014cebf7a_48.jpg",
+      "sources": [
+        "mainpage_ui.json",
+        "searchpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/0235e2ec7b64e89803c2ebe320dbddf014cebf7a_48.jpg"
+    },
+    {
+      "hash": "34f67ee241b18699fd7e3f7d00e2b36780572204",
+      "width": 192,
+      "filename": "34f67ee241b18699fd7e3f7d00e2b36780572204_192.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/34f67ee241b18699fd7e3f7d00e2b36780572204_192.jpg"
+    },
+    {
+      "hash": "e42877ade1f2bd4cfde7c0b41fad26ebdad2f46e",
+      "width": 192,
+      "filename": "e42877ade1f2bd4cfde7c0b41fad26ebdad2f46e_192.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/e42877ade1f2bd4cfde7c0b41fad26ebdad2f46e_192.jpg"
+    },
+    {
+      "hash": "3a11f310b9b132d5ce81bd19443d7d5fa0f543f7",
+      "width": 192,
+      "filename": "3a11f310b9b132d5ce81bd19443d7d5fa0f543f7_192.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/3a11f310b9b132d5ce81bd19443d7d5fa0f543f7_192.jpg"
+    },
+    {
+      "hash": "40ceba486b7ff03fe9915708b46fafaa10915184",
+      "width": 192,
+      "filename": "40ceba486b7ff03fe9915708b46fafaa10915184_192.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/40ceba486b7ff03fe9915708b46fafaa10915184_192.jpg"
+    },
+    {
+      "hash": "15fcb5df22f040135b4b4a6c11ee1f9feba9623b",
+      "width": 276,
+      "filename": "15fcb5df22f040135b4b4a6c11ee1f9feba9623b_276.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/15fcb5df22f040135b4b4a6c11ee1f9feba9623b_276.jpg"
+    },
+    {
+      "hash": "98cd36dcaa1ee846e21b0541c98a5464f27889d8",
+      "width": 96,
+      "filename": "98cd36dcaa1ee846e21b0541c98a5464f27889d8_96.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/98cd36dcaa1ee846e21b0541c98a5464f27889d8_96.jpg"
+    },
+    {
+      "hash": "43a5d11314e51c5e42d4fedd343dae47d45a3819",
+      "width": 320,
+      "filename": "43a5d11314e51c5e42d4fedd343dae47d45a3819_320.jpg",
+      "sources": [
+        "mainpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/43a5d11314e51c5e42d4fedd343dae47d45a3819_320.jpg"
+    },
+    {
+      "hash": "dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab",
+      "width": 750,
+      "filename": "dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg",
+      "sources": [
+        "searchpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg"
+    },
+    {
+      "hash": "6ee553cf3ae3baf7b8786d35da85d23c9b4193f4",
+      "width": 128,
+      "filename": "6ee553cf3ae3baf7b8786d35da85d23c9b4193f4_128.jpg",
+      "sources": [
+        "searchpage_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/6ee553cf3ae3baf7b8786d35da85d23c9b4193f4_128.jpg"
+    },
+    {
+      "hash": "ac1a736678ef011fb9dd2811df6a312eb7f804bd",
+      "width": 750,
+      "filename": "ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
+    },
+    {
+      "hash": "a1e2e5dd514f0382aa88024ef5c8e10a014b1a38",
+      "width": 284,
+      "filename": "a1e2e5dd514f0382aa88024ef5c8e10a014b1a38_284.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/a1e2e5dd514f0382aa88024ef5c8e10a014b1a38_284.jpg"
+    },
+    {
+      "hash": "e3ff5095d962591f68fc5088ed84818af1c89bb7",
+      "width": 284,
+      "filename": "e3ff5095d962591f68fc5088ed84818af1c89bb7_284.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/e3ff5095d962591f68fc5088ed84818af1c89bb7_284.jpg"
+    },
+    {
+      "hash": "31b0b9979bf374cb922f2a8f2a67445f93a003bc",
+      "width": 284,
+      "filename": "31b0b9979bf374cb922f2a8f2a67445f93a003bc_284.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/31b0b9979bf374cb922f2a8f2a67445f93a003bc_284.jpg"
+    },
+    {
+      "hash": "7ca133d6f0a1316e107edd80bbd32688075c40a8",
+      "width": 464,
+      "filename": "7ca133d6f0a1316e107edd80bbd32688075c40a8_464.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/7ca133d6f0a1316e107edd80bbd32688075c40a8_464.jpg"
+    },
+    {
+      "hash": "c4ce2915d8efaf3ce588895a73bc233d7abc8a3c",
+      "width": 464,
+      "filename": "c4ce2915d8efaf3ce588895a73bc233d7abc8a3c_464.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/c4ce2915d8efaf3ce588895a73bc233d7abc8a3c_464.jpg"
+    },
+    {
+      "hash": "74bb16acb4545135627b6dbf0c59b17f6eafa47c",
+      "width": 464,
+      "filename": "74bb16acb4545135627b6dbf0c59b17f6eafa47c_464.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/74bb16acb4545135627b6dbf0c59b17f6eafa47c_464.jpg"
+    },
+    {
+      "hash": "170a49d2142ea4c5b0c935cd6b7c50f24f0ada69",
+      "width": 312,
+      "filename": "170a49d2142ea4c5b0c935cd6b7c50f24f0ada69_312.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/170a49d2142ea4c5b0c935cd6b7c50f24f0ada69_312.jpg"
+    },
+    {
+      "hash": "4c272bab50e938975baf060c2a3c48443f1fe1b6",
+      "width": 312,
+      "filename": "4c272bab50e938975baf060c2a3c48443f1fe1b6_312.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/4c272bab50e938975baf060c2a3c48443f1fe1b6_312.jpg"
+    },
+    {
+      "hash": "394468b67ea975c15600c6760a54c8dce5ec6224",
+      "width": 312,
+      "filename": "394468b67ea975c15600c6760a54c8dce5ec6224_312.jpg",
+      "sources": [
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/394468b67ea975c15600c6760a54c8dce5ec6224_312.jpg"
+    },
+    {
+      "hash": "ecbe436b19a9ffa2900602cd0a908237d60ebd06",
+      "width": 312,
+      "filename": "ecbe436b19a9ffa2900602cd0a908237d60ebd06_312.jpg",
+      "sources": [
+        "clinic_ui.json",
+        "clinic_ui.json"
+      ],
+      "isPlaceholder": false,
+      "localPath": "assets/images/ecbe436b19a9ffa2900602cd0a908237d60ebd06_312.jpg"
+    }
+  ],
+  "failed": []
+}

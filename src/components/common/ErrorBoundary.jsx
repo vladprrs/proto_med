@@ -203,9 +203,9 @@ class ErrorBoundary extends Component {
           <Fallback
             error={error}
             errorInfo={errorInfo}
-            onRetry={this.handleRetry}
-            onReload={this.handleReload}
             onGoHome={this.handleGoHome}
+            onReload={this.handleReload}
+            onRetry={this.handleRetry}
           />
         );
       }

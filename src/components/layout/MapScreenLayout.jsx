@@ -53,13 +53,13 @@ const MapScreenLayout = ({
 }) => {
   return (
     <Container>
-      <MapBackground src={mapImage} height={mapHeight} alt="" />
+      <MapBackground alt="" height={mapHeight} src={mapImage} />
 
       <ContentContainer
         contentMinHeight={contentMinHeight}
         contentTop={contentTop}
-        paddingBottom={paddingBottom}
         noRadius={noRadius}
+        paddingBottom={paddingBottom}
       >
         {children}
       </ContentContainer>

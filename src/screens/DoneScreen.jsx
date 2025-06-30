@@ -466,7 +466,9 @@ function DoneScreen() {
   };
 
   const formatDateTime = dateTime => {
-    if (!dateTime) return '14 июня, вт, 10:30';
+    if (!dateTime) {
+      return '14 июня, вт, 10:30';
+    }
 
     const date = new Date(dateTime.date);
     const dayNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
@@ -502,10 +504,10 @@ function DoneScreen() {
 
   return (
     <MapScreenLayout
-      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
-      contentTop="64px"
+      noRadius
       contentMinHeight="calc(100vh - 64px)"
-      noRadius={true}
+      contentTop="64px"
+      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
     >
       <BottomSheet>
         <Dragger />
@@ -556,7 +558,7 @@ function DoneScreen() {
 
           {/* Иллюстрация успеха */}
           <SuccessIllustration>
-            <svg viewBox="0 0 351 262" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg fill="none" viewBox="0 0 351 262" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M174.348 125.049C165.46 152.48 178.199 186.896 206.634 191.673C238.345 197.001 264.794 184.664 273.681 157.234C275.794 150.711 276.602 143.837 276.059 137.002C275.515 130.168 273.631 123.507 270.513 117.401C267.395 111.294 263.105 105.862 257.888 101.414C252.671 96.9653 246.629 93.5881 240.107 91.4749C231.535 88.6975 222.381 88.2959 214.222 88.0222C196.014 91.4164 180.458 106.191 174.348 125.049Z"
                 fill="url(#paint0_linear)"
@@ -568,29 +570,29 @@ function DoneScreen() {
               <path
                 d="M213.933 118.515C210.843 124.002 208.764 130 207.794 136.223"
                 stroke="black"
-                strokeWidth="2.1213"
                 strokeMiterlimit="10"
+                strokeWidth="2.1213"
               />
               <path
                 d="M228.317 123.495C225.406 128.713 223.641 134.492 223.138 140.446"
                 stroke="black"
-                strokeWidth="2.1213"
                 strokeMiterlimit="10"
+                strokeWidth="2.1213"
               />
               <path
                 d="M241.987 151.291C224.409 179.054 183.208 163.881 186.771 134.056"
                 stroke="black"
-                strokeWidth="2.1213"
                 strokeMiterlimit="10"
+                strokeWidth="2.1213"
               />
               <defs>
                 <linearGradient
+                  gradientUnits="userSpaceOnUse"
                   id="paint0_linear"
                   x1="276.237"
-                  y1="140.455"
                   x2="171.555"
+                  y1="140.455"
                   y2="140.455"
-                  gradientUnits="userSpaceOnUse"
                 >
                   <stop offset="0.09" stopColor="#195441" />
                   <stop offset="0.1" stopColor="#195640" />
@@ -600,12 +602,12 @@ function DoneScreen() {
                   <stop offset="1" stopColor="#19A41E" />
                 </linearGradient>
                 <linearGradient
+                  gradientUnits="userSpaceOnUse"
                   id="paint1_linear"
                   x1="267.789"
-                  y1="140.228"
                   x2="163.344"
+                  y1="140.228"
                   y2="140.228"
-                  gradientUnits="userSpaceOnUse"
                 >
                   <stop stopColor="#19A41E" />
                   <stop offset="0.97622" stopColor="#23C629" />
@@ -619,7 +621,7 @@ function DoneScreen() {
           <ButtonContainer>
             {isAppointmentView ? (
               <>
-                <DoneButton onClick={handleDone} style={{ marginBottom: '8px' }}>
+                <DoneButton style={{ marginBottom: '8px' }} onClick={handleDone}>
                   <div>
                     <span>Назад</span>
                   </div>

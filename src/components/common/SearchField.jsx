@@ -55,10 +55,10 @@ const SearchField = ({
 
   return (
     <SearchContainer
-      onClick={handleContainerClick}
-      large={large}
       background={background}
       height={height}
+      large={large}
+      onClick={handleContainerClick}
     >
       <SearchIconContainer>
         <IconButton icon="search" />
@@ -68,11 +68,11 @@ const SearchField = ({
         <SearchText large={large}>{placeholder}</SearchText>
       ) : (
         <SearchInput
-          type="text"
+          large={large}
           placeholder={placeholder}
+          type="text"
           value={value}
           onChange={onChange}
-          large={large}
         />
       )}
     </SearchContainer>

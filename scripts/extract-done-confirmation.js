@@ -24,7 +24,7 @@ class StreamingImageExtractor {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
       let buffer = '';
-      let images = [];
+      const images = [];
       
       stream.on('data', (chunk) => {
         buffer += chunk;
@@ -39,8 +39,9 @@ class StreamingImageExtractor {
           let arrayEnd = -1;
           
           while (i < buffer.length) {
-            if (buffer[i] === '[') bracketCount++;
-            else if (buffer[i] === ']') {
+            if (buffer[i] === '[') {
+              bracketCount++;
+            } else if (buffer[i] === ']') {
               if (bracketCount === 0) {
                 arrayEnd = i;
                 break;
@@ -87,7 +88,7 @@ class StreamingImageExtractor {
         console.log(`Extracted ${images.length} images from ${path.basename(filePath)}`);
         this.processedFiles.push({
           file: filePath,
-          imagesFound: images.length
+          imagesFound: images.length,
         });
         resolve(images.length);
       });
@@ -98,14 +99,16 @@ class StreamingImageExtractor {
 
   isValidBase64Image(base64String) {
     // Check if it's a valid base64 string and appears to be an image
-    if (!base64String || base64String.length < 100) return false;
+    if (!base64String || base64String.length < 100) {
+      return false;
+    }
     
     // Check for common image file signatures in base64
     const imageSignatures = [
       '/9j/',  // JPEG
       'iVBOR', // PNG
       'R0lGO', // GIF
-      'UklGR'  // WebP
+      'UklGR',  // WebP
     ];
     
     return imageSignatures.some(sig => base64String.startsWith(sig));
@@ -118,9 +121,13 @@ class StreamingImageExtractor {
       
       // Determine file extension based on base64 header
       let extension = 'jpg'; // default
-      if (base64Data.startsWith('iVBOR')) extension = 'png';
-      else if (base64Data.startsWith('R0lGO')) extension = 'gif';
-      else if (base64Data.startsWith('UklGR')) extension = 'webp';
+      if (base64Data.startsWith('iVBOR')) {
+        extension = 'png';
+      } else if (base64Data.startsWith('R0lGO')) {
+        extension = 'gif';
+      } else if (base64Data.startsWith('UklGR')) {
+        extension = 'webp';
+      }
       
       const fileName = `${hash}.${extension}`;
       const filePath = path.join(this.outputDir, fileName);
@@ -157,7 +164,7 @@ class StreamingImageExtractor {
   }
 
   printSummary() {
-    console.log('\n' + '='.repeat(50));
+    console.log(`\n${  '='.repeat(50)}`);
     console.log('📊 EXTRACTION SUMMARY');
     console.log('='.repeat(50));
     
@@ -176,7 +183,7 @@ async function main() {
   const outputDir = path.join(__dirname, '..', 'public', 'assets', 'images', 'extracted');
   const jsonFiles = [
     'done.json',
-    'confirmation.json'
+    'confirmation.json',
   ].map(file => path.join(__dirname, '..', file));
 
   const extractor = new StreamingImageExtractor(outputDir);

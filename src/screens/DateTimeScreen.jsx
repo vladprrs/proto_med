@@ -279,8 +279,12 @@ const DayButton = styled.button`
   align-items: center;
   border-radius: 12px;
   background: ${props => {
-    if (props.disabled) return 'rgba(20, 20, 20, 0.06)';
-    if (props.selected) return '#1DB93C';
+    if (props.disabled) {
+      return 'rgba(20, 20, 20, 0.06)';
+    }
+    if (props.selected) {
+      return '#1DB93C';
+    }
     return '#FFF';
   }};
   box-shadow: ${props =>
@@ -297,8 +301,12 @@ const DayButton = styled.button`
 
 const DayLabel = styled.div`
   color: ${props => {
-    if (props.disabled) return '#B8B8B8';
-    if (props.selected) return '#FFF';
+    if (props.disabled) {
+      return '#B8B8B8';
+    }
+    if (props.selected) {
+      return '#FFF';
+    }
     return '#141414';
   }};
   text-align: center;
@@ -317,8 +325,12 @@ const DayLabel = styled.div`
 
 const DayNumber = styled.div`
   color: ${props => {
-    if (props.disabled) return '#B8B8B8';
-    if (props.selected) return 'rgba(255, 255, 255, 0.70)';
+    if (props.disabled) {
+      return '#B8B8B8';
+    }
+    if (props.selected) {
+      return 'rgba(255, 255, 255, 0.70)';
+    }
     return '#898989';
   }};
   text-align: center;
@@ -397,8 +409,12 @@ const TimeSlotButton = styled.button`
   flex: 1 0 0;
   border-radius: 10px;
   background: ${props => {
-    if (props.disabled) return 'rgba(20, 20, 20, 0.06)';
-    if (props.selected) return '#1DB93C';
+    if (props.disabled) {
+      return 'rgba(20, 20, 20, 0.06)';
+    }
+    if (props.selected) {
+      return '#1DB93C';
+    }
     return '#FFF';
   }};
   box-shadow: ${props =>
@@ -414,8 +430,12 @@ const TimeSlotButton = styled.button`
 
 const TimeSlotLabel = styled.div`
   color: ${props => {
-    if (props.disabled) return '#B8B8B8';
-    if (props.selected) return '#FFF';
+    if (props.disabled) {
+      return '#B8B8B8';
+    }
+    if (props.selected) {
+      return '#FFF';
+    }
     return '#141414';
   }};
   text-align: center;
@@ -538,15 +558,15 @@ const DateTimeScreen = () => {
 
       const finalClinicData = clinicData ||
         prefilledData.clinic || {
-          id: parseInt(fallbackClinicId),
-          name: fallbackClinicId === '1' ? 'МедЦентр «Здоровье»' : 'Клиника «Семейный Доктор»',
-          address: fallbackClinicId === '1' ? 'ул. Тверская, 15' : 'ул. Арбат, 25',
-        };
+        id: parseInt(fallbackClinicId),
+        name: fallbackClinicId === '1' ? 'МедЦентр «Здоровье»' : 'Клиника «Семейный Доктор»',
+        address: fallbackClinicId === '1' ? 'ул. Тверская, 15' : 'ул. Арбат, 25',
+      };
 
       const navigationState = {
         selectedServices: prefilledData.selectedServices || [],
         selectedSpecialist: prefilledData.specialist || prefilledData.doctor || incomingSpecialist,
-        selectedDateTime: selectedDateTime,
+        selectedDateTime,
         clinicData: finalClinicData,
       };
 
@@ -581,7 +601,7 @@ const DateTimeScreen = () => {
   // Мемоизируем категоризацию временных слотов
   const { morning, afternoon, evening } = useMemo(
     () => categorizeTimeSlots(timeSlots),
-    [timeSlots]
+    [timeSlots],
   );
 
   const loadSpecialists = async () => {
@@ -625,7 +645,9 @@ const DateTimeScreen = () => {
   };
 
   const loadTimeSlots = async () => {
-    if (!selectedDate) return;
+    if (!selectedDate) {
+      return;
+    }
 
     try {
       const fallbackClinicId = clinicId || '1';
@@ -685,7 +707,7 @@ const DateTimeScreen = () => {
 
     times.forEach((time, index) => {
       slots.push({
-        time: time,
+        time,
         available: Math.random() > 0.3, // 70% вероятность что слот доступен
         specialistId: selectedSpecialist?.id || 1,
       });
@@ -747,7 +769,7 @@ const DateTimeScreen = () => {
     // Переход к экрану подтверждения с передачей всех данных
     const selectedDateTime = {
       date: selectedDate,
-      time: time,
+      time,
     };
 
     const fallbackClinicId = clinicId || '1';
@@ -799,9 +821,9 @@ const DateTimeScreen = () => {
               >
                 <SegmentLabel>
                   {selectedSpecialist
-                    ? selectedSpecialist.name.split(' ')[0] +
-                      ' ' +
-                      selectedSpecialist.name.split(' ')[1]
+                    ? `${selectedSpecialist.name.split(' ')[0] 
+                    } ${ 
+                      selectedSpecialist.name.split(' ')[1]}`
                     : 'Специалист'}
                 </SegmentLabel>
               </SegmentButton>
@@ -817,22 +839,22 @@ const DateTimeScreen = () => {
               <DateContainer>
                 <DateHeader>
                   <MonthTitle>{selectedDate ? getMonthName(selectedDate) : 'Июнь'}</MonthTitle>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <svg fill="none" height="24" viewBox="0 0 24 24" width="24">
                     <path
                       d="M15 18L9 12L15 6"
                       stroke="#B8B8B8"
-                      strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      strokeWidth="2"
                     />
                   </svg>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <svg fill="none" height="24" viewBox="0 0 24 24" width="24">
                     <path
                       d="M9 18L15 12L9 6"
                       stroke="#B8B8B8"
-                      strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      strokeWidth="2"
                     />
                   </svg>
                 </DateHeader>

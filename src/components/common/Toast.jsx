@@ -16,14 +16,14 @@ const ToastContainer = styled.div`
 const ToastMessage = styled.div`
   background: ${props => {
     switch (props.type) {
-      case 'success':
-        return '#4CAF50';
-      case 'error':
-        return '#FF5252';
-      case 'warning':
-        return '#FF9800';
-      default:
-        return '#2196F3';
+    case 'success':
+      return '#4CAF50';
+    case 'error':
+      return '#FF5252';
+    case 'warning':
+      return '#FF9800';
+    default:
+      return '#2196F3';
     }
   }};
   color: white;
@@ -60,7 +60,7 @@ const Toast = () => {
   const { toast } = ui;
 
   useEffect(() => {
-    if (toast.show) {
+    if (toast && toast.show) {
       const timer = setTimeout(() => {
         ui.actions.hideToast();
       }, toast.duration || 3000);
@@ -69,7 +69,9 @@ const Toast = () => {
     }
   }, [toast, ui.actions]);
 
-  if (!toast.show) return null;
+  if (!toast || !toast.show) {
+    return null;
+  }
 
   return (
     <ToastContainer>

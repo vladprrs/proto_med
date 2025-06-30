@@ -6,13 +6,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    '@eslint/js/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:import/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -24,9 +19,6 @@ module.exports = {
   plugins: [
     'react',
     'react-hooks',
-    'jsx-a11y',
-    'import',
-    'performance',
   ],
   settings: {
     react: {
@@ -70,35 +62,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error', // Правила хуков
     'react-hooks/exhaustive-deps': 'warn', // Зависимости useEffect
 
-    // Accessibility правила
-    'jsx-a11y/alt-text': 'error', // alt для изображений
-    'jsx-a11y/click-events-have-key-events': 'warn', // Клавиатурные события
-    'jsx-a11y/no-static-element-interactions': 'warn', // Интерактивные элементы
-
-    // Импорты
-    'import/order': ['warn', {
-      groups: [
-        'builtin',   // node modules
-        'external',  // npm packages
-        'internal',  // internal modules
-        'parent',    // ../
-        'sibling',   // ./
-        'index',     // ./index
-      ],
-      'newlines-between': 'always',
-      alphabetize: {
-        order: 'asc',
-        caseInsensitive: true,
-      },
-    }],
-    'import/no-unresolved': 'error',
-    'import/no-duplicates': 'error',
-    'import/no-unused-modules': 'warn',
-    'import/prefer-default-export': 'off',
-
-    // Performance правила
-    'performance/no-delete': 'warn', // delete operator медленный
-    'performance/no-global-regexp': 'warn', // глобальные регексы
+    // Accessibility и Performance правила отключены пока не установлены плагины
     
     // Общие правила
     'no-console': ['warn', { allow: ['warn', 'error'] }], // Разрешаем warn/error

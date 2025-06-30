@@ -91,7 +91,9 @@ const ClinicScreenRefactored = () => {
     }
 
     const doctor = doctors.find(d => d.id === clinicData.featuredDoctorId);
-    if (!doctor) return null;
+    if (!doctor) {
+      return null;
+    }
 
     const doctorSlots = slots.find(s => s.doctorId === doctor.id);
 
@@ -146,79 +148,79 @@ const ClinicScreenRefactored = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'services':
-        if (servicesLoading) {
-          return <LoadingContainer>Загрузка услуг...</LoadingContainer>;
-        }
-        return (
-          <TabContentContainer>
-            <h3>Услуги</h3>
-            {services?.map(service => (
-              <div key={service.id}>
-                <h4>{service.name}</h4>
-                <p>{service.description}</p>
-                <p>Цена: {service.price}₽</p>
-              </div>
-            )) || <p>Список услуг недоступен</p>}
-          </TabContentContainer>
-        );
+    case 'services':
+      if (servicesLoading) {
+        return <LoadingContainer>Загрузка услуг...</LoadingContainer>;
+      }
+      return (
+        <TabContentContainer>
+          <h3>Услуги</h3>
+          {services?.map(service => (
+            <div key={service.id}>
+              <h4>{service.name}</h4>
+              <p>{service.description}</p>
+              <p>Цена: {service.price}₽</p>
+            </div>
+          )) || <p>Список услуг недоступен</p>}
+        </TabContentContainer>
+      );
 
-      case 'specialists':
-        if (specialistsLoading) {
-          return <LoadingContainer>Загрузка специалистов...</LoadingContainer>;
-        }
-        return (
-          <TabContentContainer>
-            <h3>Специалисты</h3>
-            {specialists?.map(specialist => (
-              <div key={specialist.id}>
-                <h4>{specialist.name}</h4>
-                <p>{specialist.specialty}</p>
-                <p>Опыт: {specialist.experience}</p>
-                <p>Рейтинг: {specialist.rating}</p>
-              </div>
-            )) || <p>Список специалистов недоступен</p>}
-          </TabContentContainer>
-        );
+    case 'specialists':
+      if (specialistsLoading) {
+        return <LoadingContainer>Загрузка специалистов...</LoadingContainer>;
+      }
+      return (
+        <TabContentContainer>
+          <h3>Специалисты</h3>
+          {specialists?.map(specialist => (
+            <div key={specialist.id}>
+              <h4>{specialist.name}</h4>
+              <p>{specialist.specialty}</p>
+              <p>Опыт: {specialist.experience}</p>
+              <p>Рейтинг: {specialist.rating}</p>
+            </div>
+          )) || <p>Список специалистов недоступен</p>}
+        </TabContentContainer>
+      );
 
-      case 'reviews':
-        return (
-          <TabContentContainer>
-            <h3>Отзывы</h3>
-            <p>Отзывы пациентов будут доступны в следующих версиях.</p>
-          </TabContentContainer>
-        );
+    case 'reviews':
+      return (
+        <TabContentContainer>
+          <h3>Отзывы</h3>
+          <p>Отзывы пациентов будут доступны в следующих версиях.</p>
+        </TabContentContainer>
+      );
 
-      case 'info':
-        return (
-          <TabContentContainer>
-            <h3>Информация о клинике</h3>
-            <p>
-              <strong>Адрес:</strong> {clinicData.address}
-            </p>
-            <p>
-              <strong>Режим работы:</strong> {clinicData.workingHours}
-            </p>
-            <p>
-              <strong>Расстояние:</strong> {clinicData.distance}
-            </p>
-            <p>
-              <strong>Рейтинг:</strong> {clinicData.rating} ({clinicData.reviewCount} отзывов)
-            </p>
-          </TabContentContainer>
-        );
+    case 'info':
+      return (
+        <TabContentContainer>
+          <h3>Информация о клинике</h3>
+          <p>
+            <strong>Адрес:</strong> {clinicData.address}
+          </p>
+          <p>
+            <strong>Режим работы:</strong> {clinicData.workingHours}
+          </p>
+          <p>
+            <strong>Расстояние:</strong> {clinicData.distance}
+          </p>
+          <p>
+            <strong>Рейтинг:</strong> {clinicData.rating} ({clinicData.reviewCount} отзывов)
+          </p>
+        </TabContentContainer>
+      );
 
-      default:
-        return null;
+    default:
+      return null;
     }
   };
 
   if (clinicLoading) {
     return (
       <MapScreenLayout
-        mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
-        mapHeight="244px"
         contentTop="211px"
+        mapHeight="244px"
+        mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
       >
         <LoadingContainer>Загрузка информации о клинике...</LoadingContainer>
       </MapScreenLayout>
@@ -228,9 +230,9 @@ const ClinicScreenRefactored = () => {
   if (clinicError) {
     return (
       <MapScreenLayout
-        mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
-        mapHeight="244px"
         contentTop="211px"
+        mapHeight="244px"
+        mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
       >
         <ErrorContainer>Ошибка загрузки клиники</ErrorContainer>
       </MapScreenLayout>
@@ -239,18 +241,18 @@ const ClinicScreenRefactored = () => {
 
   return (
     <MapScreenLayout
-      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
-      mapHeight="244px"
       contentTop="211px"
+      mapHeight="244px"
+      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
     >
       <ContentContainer>
         <OrganizationCard>
           <ClinicHeader clinicName={clinicData.name} onClose={handleClose} />
 
           <ClinicInfo
+            availableDoctor={getAvailableDoctor()}
             clinic={clinicData}
             showCrown={clinicData.hasCrown}
-            availableDoctor={getAvailableDoctor()}
             onBookingClick={handleBookingClick}
             onSlotClick={handleSlotClick}
           />
@@ -263,7 +265,7 @@ const ClinicScreenRefactored = () => {
         {/* Показать активную запись если есть */}
         {appointments.activeAppointment && (
           <div style={{ padding: '16px', width: '100%' }}>
-            <AppointmentCard appointment={appointments.activeAppointment} isActive={true} />
+            <AppointmentCard isActive appointment={appointments.activeAppointment} />
           </div>
         )}
       </ContentContainer>

@@ -74,7 +74,7 @@ const ScreenLayout = ({
     <Container backgroundImage={backgroundImage} hasBottomSheet={hasBottomSheet}>
       {mapBackground && (
         <>
-          <MapBackground src={mapBackground} height={mapHeight} />
+          <MapBackground height={mapHeight} src={mapBackground} />
           {hasBlurOverlay && <BlurOverlay height={mapHeight} />}
         </>
       )}

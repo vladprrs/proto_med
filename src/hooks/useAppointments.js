@@ -20,7 +20,9 @@ export function useAppointments() {
     if (showConfirmation) {
       // В реальном приложении здесь должен быть модальный диалог
       const confirmed = window.confirm(`Отменить запись в ${appointment.clinic?.name}?`);
-      if (!confirmed) return false;
+      if (!confirmed) {
+        return false;
+      }
     }
 
     try {
@@ -67,9 +69,13 @@ export function useAppointments() {
       // Статус записи
       let displayStatus = apt.status;
       if (apt.status === 'confirmed') {
-        if (isPast) displayStatus = 'completed';
-        else if (isToday) displayStatus = 'today';
-        else if (isUpcoming) displayStatus = 'upcoming';
+        if (isPast) {
+          displayStatus = 'completed';
+        } else if (isToday) {
+          displayStatus = 'today';
+        } else if (isUpcoming) {
+          displayStatus = 'upcoming';
+        }
       }
 
       // Время до записи
@@ -110,7 +116,7 @@ export function useAppointments() {
     return {
       today: appointmentsWithStatus.filter(apt => apt.isToday && apt.status !== 'cancelled'),
       upcoming: appointmentsWithStatus.filter(
-        apt => apt.isUpcoming && !apt.isToday && apt.status !== 'cancelled'
+        apt => apt.isUpcoming && !apt.isToday && apt.status !== 'cancelled',
       ),
       past: appointmentsWithStatus.filter(apt => apt.isPast),
       cancelled: appointmentsWithStatus.filter(apt => apt.status === 'cancelled'),
@@ -126,8 +132,12 @@ export function useAppointments() {
   // Проверка конфликтов времени
   const hasTimeConflict = (date, time, excludeId = null) => {
     return appointments.appointments.some(apt => {
-      if (excludeId && apt.id === excludeId) return false;
-      if (apt.status === 'cancelled') return false;
+      if (excludeId && apt.id === excludeId) {
+        return false;
+      }
+      if (apt.status === 'cancelled') {
+        return false;
+      }
 
       return apt.date === date && apt.time === time;
     });
@@ -151,7 +161,9 @@ export function useAppointments() {
 
   // Поиск записей
   const searchAppointments = query => {
-    if (!query) return appointments.appointments;
+    if (!query) {
+      return appointments.appointments;
+    }
 
     const lowercaseQuery = query.toLowerCase();
 
@@ -159,7 +171,7 @@ export function useAppointments() {
       apt =>
         apt.clinic?.name?.toLowerCase().includes(lowercaseQuery) ||
         apt.specialist?.name?.toLowerCase().includes(lowercaseQuery) ||
-        apt.services?.some(service => service.name?.toLowerCase().includes(lowercaseQuery))
+        apt.services?.some(service => service.name?.toLowerCase().includes(lowercaseQuery)),
     );
   };
 

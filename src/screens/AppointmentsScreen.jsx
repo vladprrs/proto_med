@@ -143,7 +143,7 @@ const SectionTitle = styled.h2`
 const AppointmentsScreen = () => {
   const navigate = useNavigate();
   const appointmentsContext = useAppointmentsContext();
-  const appointments = appointmentsContext.appointments;
+  const {appointments} = appointmentsContext;
   const [activeFilter, setActiveFilter] = useState('all');
 
   const handleBack = () => {
@@ -156,14 +156,14 @@ const AppointmentsScreen = () => {
 
   const filterAppointments = (appointments, filter) => {
     switch (filter) {
-      case 'active':
-        return appointments.filter(apt => apt.status === 'active' || !apt.status);
-      case 'completed':
-        return appointments.filter(apt => apt.status === 'completed');
-      case 'cancelled':
-        return appointments.filter(apt => apt.status === 'cancelled');
-      default:
-        return appointments;
+    case 'active':
+      return appointments.filter(apt => apt.status === 'active' || !apt.status);
+    case 'completed':
+      return appointments.filter(apt => apt.status === 'completed');
+    case 'cancelled':
+      return appointments.filter(apt => apt.status === 'cancelled');
+    default:
+      return appointments;
     }
   };
 
@@ -171,22 +171,22 @@ const AppointmentsScreen = () => {
 
   const getFilterTitle = filter => {
     switch (filter) {
-      case 'active':
-        return 'Активные записи';
-      case 'completed':
-        return 'Завершенные записи';
-      case 'cancelled':
-        return 'Отмененные записи';
-      default:
-        return 'Все записи';
+    case 'active':
+      return 'Активные записи';
+    case 'completed':
+      return 'Завершенные записи';
+    case 'cancelled':
+      return 'Отмененные записи';
+    default:
+      return 'Все записи';
     }
   };
 
   return (
     <MapScreenLayout
-      mapImage="/assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg"
+      noRadius
       contentTop="0px"
-      noRadius={true}
+      mapImage="/assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg"
     >
       <Header>
         <HeaderContent>
@@ -231,7 +231,7 @@ const AppointmentsScreen = () => {
             <EmptyText>
               {activeFilter === 'all'
                 ? 'Запишитесь на прием к врачу или в салон красоты'
-                : `В этой категории записей не найдено`}
+                : 'В этой категории записей не найдено'}
             </EmptyText>
             {activeFilter === 'all' && (
               <CreateAppointmentButton onClick={handleCreateAppointment}>

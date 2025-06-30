@@ -369,7 +369,7 @@ const ProfileScreen = () => {
   const navigate = useNavigate();
   const appointmentsContext = useAppointmentsContext();
   const user = useUserContext();
-  const appointments = appointmentsContext.appointments;
+  const {appointments} = appointmentsContext;
   const [activeTab, setActiveTab] = useState('appointments');
 
   const handleBack = () => {
@@ -385,110 +385,110 @@ const ProfileScreen = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'appointments':
-        return (
-          <AppointmentsList>
-            {appointments.length > 0 ? (
-              appointments.map(appointment => (
-                <AppointmentCard key={appointment.id} appointment={appointment} />
-              ))
-            ) : (
-              <EmptyState>
-                <EmptyIcon>📅</EmptyIcon>
-                <EmptyTitle>У вас пока нет записей</EmptyTitle>
-                <EmptyText>Запишитесь на прием к врачу через поиск</EmptyText>
-              </EmptyState>
-            )}
-          </AppointmentsList>
-        );
+    case 'appointments':
+      return (
+        <AppointmentsList>
+          {appointments.length > 0 ? (
+            appointments.map(appointment => (
+              <AppointmentCard key={appointment.id} appointment={appointment} />
+            ))
+          ) : (
+            <EmptyState>
+              <EmptyIcon>📅</EmptyIcon>
+              <EmptyTitle>У вас пока нет записей</EmptyTitle>
+              <EmptyText>Запишитесь на прием к врачу через поиск</EmptyText>
+            </EmptyState>
+          )}
+        </AppointmentsList>
+      );
 
-      case 'photos':
-        return (
-          <EmptyState>
-            <EmptyIcon>📷</EmptyIcon>
-            <EmptyTitle>Фотографии</EmptyTitle>
-            <EmptyText>Здесь будут отображаться ваши фотографии</EmptyText>
-          </EmptyState>
-        );
+    case 'photos':
+      return (
+        <EmptyState>
+          <EmptyIcon>📷</EmptyIcon>
+          <EmptyTitle>Фотографии</EmptyTitle>
+          <EmptyText>Здесь будут отображаться ваши фотографии</EmptyText>
+        </EmptyState>
+      );
 
-      case 'reviews':
-        return (
-          <div>
-            <PlaceCard>
-              <PlaceDate>24 June</PlaceDate>
-              <PlaceHeader>
-                <PlaceInfo>
-                  <PlaceTitle>МедЦентр «Здоровье»</PlaceTitle>
-                  <PlaceCategory>Медицинский центр</PlaceCategory>
-                  <PlaceAddress>Тверская, 15, Москва</PlaceAddress>
-                </PlaceInfo>
-                <PlaceImage src="/assets/clinic_placeholder.svg" />
-              </PlaceHeader>
-              <RatingSection>
-                <Stars>
-                  {[1, 2, 3, 4, 5].map(star => (
-                    <Star key={star}>★</Star>
-                  ))}
-                </Stars>
-                <RatingActions>
-                  <RatingAction>Пропустить</RatingAction>
-                  <RatingAction>Не был здесь</RatingAction>
-                </RatingActions>
-              </RatingSection>
-            </PlaceCard>
+    case 'reviews':
+      return (
+        <div>
+          <PlaceCard>
+            <PlaceDate>24 June</PlaceDate>
+            <PlaceHeader>
+              <PlaceInfo>
+                <PlaceTitle>МедЦентр «Здоровье»</PlaceTitle>
+                <PlaceCategory>Медицинский центр</PlaceCategory>
+                <PlaceAddress>Тверская, 15, Москва</PlaceAddress>
+              </PlaceInfo>
+              <PlaceImage src="/assets/clinic_placeholder.svg" />
+            </PlaceHeader>
+            <RatingSection>
+              <Stars>
+                {[1, 2, 3, 4, 5].map(star => (
+                  <Star key={star}>★</Star>
+                ))}
+              </Stars>
+              <RatingActions>
+                <RatingAction>Пропустить</RatingAction>
+                <RatingAction>Не был здесь</RatingAction>
+              </RatingActions>
+            </RatingSection>
+          </PlaceCard>
 
-            <PlaceCard>
-              <PlaceDate>23 June</PlaceDate>
-              <PlaceHeader>
-                <PlaceInfo>
-                  <PlaceTitle>Клиника «ПремиумМед»</PlaceTitle>
-                  <PlaceCategory>Частная клиника</PlaceCategory>
-                  <PlaceAddress>Арбат, 25, Москва</PlaceAddress>
-                </PlaceInfo>
-                <PlaceImage src="/assets/clinic_placeholder.svg" />
-              </PlaceHeader>
+          <PlaceCard>
+            <PlaceDate>23 June</PlaceDate>
+            <PlaceHeader>
+              <PlaceInfo>
+                <PlaceTitle>Клиника «ПремиумМед»</PlaceTitle>
+                <PlaceCategory>Частная клиника</PlaceCategory>
+                <PlaceAddress>Арбат, 25, Москва</PlaceAddress>
+              </PlaceInfo>
+              <PlaceImage src="/assets/clinic_placeholder.svg" />
+            </PlaceHeader>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#1BA136',
+                fontSize: '14px',
+                fontWeight: '500',
+              }}
+            >
               <div
                 style={{
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '50%',
+                  background: '#1BA136',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
-                  color: '#1BA136',
-                  fontSize: '14px',
-                  fontWeight: '500',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '12px',
                 }}
               >
-                <div
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    borderRadius: '50%',
-                    background: '#1BA136',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '12px',
-                  }}
-                >
                   ✓
-                </div>
-                Был друг
               </div>
-            </PlaceCard>
-          </div>
-        );
+                Был друг
+            </div>
+          </PlaceCard>
+        </div>
+      );
 
-      case 'notes':
-        return (
-          <EmptyState>
-            <EmptyIcon>📝</EmptyIcon>
-            <EmptyTitle>Уточнения</EmptyTitle>
-            <EmptyText>Здесь будут отображаться ваши уточнения</EmptyText>
-          </EmptyState>
-        );
+    case 'notes':
+      return (
+        <EmptyState>
+          <EmptyIcon>📝</EmptyIcon>
+          <EmptyTitle>Уточнения</EmptyTitle>
+          <EmptyText>Здесь будут отображаться ваши уточнения</EmptyText>
+        </EmptyState>
+      );
 
-      default:
-        return null;
+    default:
+      return null;
     }
   };
 
@@ -506,9 +506,9 @@ const ProfileScreen = () => {
         </HeaderContent>
 
         <ProfileSection>
-                        <Avatar src={user.currentUser.avatar} />
-              <UserName>{user.currentUser.name}</UserName>
-              <UserPhone>{user.currentUser.phone}</UserPhone>
+          <Avatar src={user.currentUser.avatar} />
+          <UserName>{user.currentUser.name}</UserName>
+          <UserPhone>{user.currentUser.phone}</UserPhone>
         </ProfileSection>
 
         <ActionButtons>

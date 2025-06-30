@@ -31,7 +31,7 @@ export function useSearch() {
           clinic =>
             clinic.name?.toLowerCase().includes(lowercaseQuery) ||
             clinic.address?.toLowerCase().includes(lowercaseQuery) ||
-            clinic.specialties?.some(specialty => specialty.toLowerCase().includes(lowercaseQuery))
+            clinic.specialties?.some(specialty => specialty.toLowerCase().includes(lowercaseQuery)),
         );
       }
 
@@ -72,14 +72,14 @@ export function useSearch() {
     // Фильтр по специальности
     if (filters.specialties?.length > 0) {
       filtered = filtered.filter(clinic =>
-        clinic.specialties?.some(specialty => filters.specialties.includes(specialty))
+        clinic.specialties?.some(specialty => filters.specialties.includes(specialty)),
       );
     }
 
     // Фильтр по услугам
     if (filters.services?.length > 0) {
       filtered = filtered.filter(clinic =>
-        clinic.services?.some(service => filters.services.includes(service))
+        clinic.services?.some(service => filters.services.includes(service)),
       );
     }
 
@@ -108,40 +108,46 @@ export function useSearch() {
     const sorted = [...clinics];
 
     switch (sortBy) {
-      case 'rating':
-        return sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    case 'rating':
+      return sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-      case 'distance':
-        return sorted.sort((a, b) => {
-          const distanceA = parseFloat(a.distance) || 999;
-          const distanceB = parseFloat(b.distance) || 999;
-          return distanceA - distanceB;
-        });
+    case 'distance':
+      return sorted.sort((a, b) => {
+        const distanceA = parseFloat(a.distance) || 999;
+        const distanceB = parseFloat(b.distance) || 999;
+        return distanceA - distanceB;
+      });
 
-      case 'reviews':
-        return sorted.sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
+    case 'reviews':
+      return sorted.sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
 
-      case 'name':
-        return sorted.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    case 'name':
+      return sorted.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-      case 'relevance':
-      default:
-        // Сортировка по релевантности
-        if (!query) return sorted;
+    case 'relevance':
+    default:
+      // Сортировка по релевантности
+      if (!query) {
+        return sorted;
+      }
 
-        return sorted.sort((a, b) => {
-          const queryLower = query.toLowerCase();
+      return sorted.sort((a, b) => {
+        const queryLower = query.toLowerCase();
 
-          // Приоритет: точное совпадение в названии
-          const aNameMatch = a.name?.toLowerCase().includes(queryLower);
-          const bNameMatch = b.name?.toLowerCase().includes(queryLower);
+        // Приоритет: точное совпадение в названии
+        const aNameMatch = a.name?.toLowerCase().includes(queryLower);
+        const bNameMatch = b.name?.toLowerCase().includes(queryLower);
 
-          if (aNameMatch && !bNameMatch) return -1;
-          if (!aNameMatch && bNameMatch) return 1;
+        if (aNameMatch && !bNameMatch) {
+          return -1;
+        }
+        if (!aNameMatch && bNameMatch) {
+          return 1;
+        }
 
-          // Затем по рейтингу
-          return (b.rating || 0) - (a.rating || 0);
-        });
+        // Затем по рейтингу
+        return (b.rating || 0) - (a.rating || 0);
+      });
     }
   };
 
@@ -190,7 +196,9 @@ export function useSearch() {
 
   // Получение доступных фильтров на основе результатов
   const getAvailableFilters = () => {
-    if (!allClinics) return {};
+    if (!allClinics) {
+      return {};
+    }
 
     const specialties = new Set();
     const services = new Set();

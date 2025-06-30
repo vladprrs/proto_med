@@ -24,72 +24,72 @@ const AppointmentsActionTypes = {
 // Reducer function
 function appointmentsReducer(state, action) {
   switch (action.type) {
-    case AppointmentsActionTypes.SET_ACTIVE_APPOINTMENT:
-      return {
-        ...state,
-        activeAppointment: action.payload,
-      };
+  case AppointmentsActionTypes.SET_ACTIVE_APPOINTMENT:
+    return {
+      ...state,
+      activeAppointment: action.payload,
+    };
 
-    case AppointmentsActionTypes.CLEAR_ACTIVE_APPOINTMENT:
-      return {
-        ...state,
-        activeAppointment: null,
-      };
+  case AppointmentsActionTypes.CLEAR_ACTIVE_APPOINTMENT:
+    return {
+      ...state,
+      activeAppointment: null,
+    };
 
-    case AppointmentsActionTypes.ADD_APPOINTMENT:
-      console.log('🔸 AppointmentsReducer: ADD_APPOINTMENT called with:', action.payload);
-      console.log('🔸 AppointmentsReducer: Current appointments count:', state.appointments.length);
-      const newAppointments = [...state.appointments, action.payload];
-      console.log('🔸 AppointmentsReducer: New appointments count:', newAppointments.length);
-      return {
-        ...state,
-        appointments: newAppointments,
-      };
+  case AppointmentsActionTypes.ADD_APPOINTMENT:
+    console.log('🔸 AppointmentsReducer: ADD_APPOINTMENT called with:', action.payload);
+    console.log('🔸 AppointmentsReducer: Current appointments count:', state.appointments.length);
+    const newAppointments = [...state.appointments, action.payload];
+    console.log('🔸 AppointmentsReducer: New appointments count:', newAppointments.length);
+    return {
+      ...state,
+      appointments: newAppointments,
+    };
 
-    case AppointmentsActionTypes.REMOVE_APPOINTMENT:
-      return {
-        ...state,
-        appointments: state.appointments.filter(apt => apt.id !== action.payload),
-      };
+  case AppointmentsActionTypes.REMOVE_APPOINTMENT:
+    return {
+      ...state,
+      appointments: state.appointments.filter(apt => apt.id !== action.payload),
+    };
 
-    case AppointmentsActionTypes.UPDATE_APPOINTMENT:
-      return {
-        ...state,
-        appointments: state.appointments.map(apt =>
-          apt.id === action.payload.id ? { ...apt, ...action.payload } : apt
-        ),
-      };
+  case AppointmentsActionTypes.UPDATE_APPOINTMENT:
+    return {
+      ...state,
+      appointments: state.appointments.map(apt =>
+        apt.id === action.payload.id ? { ...apt, ...action.payload } : apt,
+      ),
+    };
 
-    case AppointmentsActionTypes.SET_APPOINTMENTS:
-      return {
-        ...state,
-        appointments: action.payload,
-      };
+  case AppointmentsActionTypes.SET_APPOINTMENTS:
+    return {
+      ...state,
+      appointments: action.payload,
+    };
 
-    case AppointmentsActionTypes.SET_LOADING_APPOINTMENTS:
-      return {
-        ...state,
-        isLoadingAppointments: action.payload,
-      };
+  case AppointmentsActionTypes.SET_LOADING_APPOINTMENTS:
+    return {
+      ...state,
+      isLoadingAppointments: action.payload,
+    };
 
-    case AppointmentsActionTypes.LOAD_FROM_STORAGE:
-      console.log('🔸 AppointmentsReducer: LOAD_FROM_STORAGE called with payload:', action.payload);
-      console.log('🔸 AppointmentsReducer: Current state appointments:', state.appointments.length);
-      console.log(
-        '🔸 AppointmentsReducer: New appointments to set:',
-        action.payload.appointments?.length || 0
-      );
-      return {
-        ...state,
-        ...action.payload,
-        isStorageLoaded: true,
-      };
+  case AppointmentsActionTypes.LOAD_FROM_STORAGE:
+    console.log('🔸 AppointmentsReducer: LOAD_FROM_STORAGE called with payload:', action.payload);
+    console.log('🔸 AppointmentsReducer: Current state appointments:', state.appointments.length);
+    console.log(
+      '🔸 AppointmentsReducer: New appointments to set:',
+      action.payload.appointments?.length || 0,
+    );
+    return {
+      ...state,
+      ...action.payload,
+      isStorageLoaded: true,
+    };
 
-    case AppointmentsActionTypes.SET_STORAGE_LOADED:
-      return { ...state, isStorageLoaded: true };
+  case AppointmentsActionTypes.SET_STORAGE_LOADED:
+    return { ...state, isStorageLoaded: true };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 
@@ -107,7 +107,7 @@ export function AppointmentsProvider({ children }) {
   useEffect(() => {
     console.log(
       '🔸 AppointmentsContext: Initializing, checking localStorage for key:',
-      APPOINTMENTS_STORAGE_KEY
+      APPOINTMENTS_STORAGE_KEY,
     );
     const savedAppointments = localStorage.getItem(APPOINTMENTS_STORAGE_KEY);
     console.log('🔸 AppointmentsContext: Raw localStorage data:', savedAppointments);
@@ -118,7 +118,7 @@ export function AppointmentsProvider({ children }) {
         console.log('🔸 AppointmentsContext: Parsed appointments:', parsedAppointments);
         console.log(
           '🔸 AppointmentsContext: Number of appointments to load:',
-          parsedAppointments.length
+          parsedAppointments.length,
         );
         dispatch({
           type: AppointmentsActionTypes.LOAD_FROM_STORAGE,
@@ -145,12 +145,12 @@ export function AppointmentsProvider({ children }) {
     try {
       console.log(
         '🔸 AppointmentsContext: Appointments changed, current count:',
-        state.appointments.length
+        state.appointments.length,
       );
       console.log('🔸 AppointmentsContext: Appointments data:', state.appointments);
       console.log(
         '🔸 AppointmentsContext: Saving to localStorage with key:',
-        APPOINTMENTS_STORAGE_KEY
+        APPOINTMENTS_STORAGE_KEY,
       );
       localStorage.setItem(APPOINTMENTS_STORAGE_KEY, JSON.stringify(state.appointments));
 
@@ -251,7 +251,7 @@ export function AppointmentsProvider({ children }) {
       return state.appointments
         .filter(apt => apt.status === 'cancelled')
         .sort(
-          (a, b) => new Date(b.cancelledAt || b.createdAt) - new Date(a.cancelledAt || a.createdAt)
+          (a, b) => new Date(b.cancelledAt || b.createdAt) - new Date(a.cancelledAt || a.createdAt),
         );
     },
 

@@ -93,175 +93,175 @@ const ActionTypes = {
 // Reducer function
 function appReducer(state, action) {
   switch (action.type) {
-    case ActionTypes.SET_SEARCH_QUERY:
-      return { ...state, searchQuery: action.payload };
+  case ActionTypes.SET_SEARCH_QUERY:
+    return { ...state, searchQuery: action.payload };
 
-    case ActionTypes.SET_SEARCH_FILTERS:
-      return { ...state, searchFilters: action.payload };
+  case ActionTypes.SET_SEARCH_FILTERS:
+    return { ...state, searchFilters: action.payload };
 
-    case ActionTypes.SET_SEARCH_RESULTS:
-      return { ...state, searchResults: action.payload };
+  case ActionTypes.SET_SEARCH_RESULTS:
+    return { ...state, searchResults: action.payload };
 
-    case ActionTypes.SELECT_CLINIC:
-      return {
-        ...state,
-        selectedClinic: action.payload,
-        currentStep: 'services',
-      };
+  case ActionTypes.SELECT_CLINIC:
+    return {
+      ...state,
+      selectedClinic: action.payload,
+      currentStep: 'services',
+    };
 
-    case ActionTypes.SELECT_SERVICES: {
-      const services = action.payload;
-      const totalPrice = services.reduce((sum, service) => sum + (service.price || 0), 0);
-      const totalDuration = services.reduce((sum, service) => sum + (service.duration || 30), 0);
+  case ActionTypes.SELECT_SERVICES: {
+    const services = action.payload;
+    const totalPrice = services.reduce((sum, service) => sum + (service.price || 0), 0);
+    const totalDuration = services.reduce((sum, service) => sum + (service.duration || 30), 0);
 
-      return {
-        ...state,
-        selectedServices: services,
-        totalPrice,
-        estimatedDuration: totalDuration,
-        currentStep: 'specialist',
-      };
-    }
+    return {
+      ...state,
+      selectedServices: services,
+      totalPrice,
+      estimatedDuration: totalDuration,
+      currentStep: 'specialist',
+    };
+  }
 
-    case ActionTypes.SELECT_SPECIALIST:
-      return {
-        ...state,
-        selectedSpecialist: action.payload,
-        currentStep: 'datetime',
-      };
+  case ActionTypes.SELECT_SPECIALIST:
+    return {
+      ...state,
+      selectedSpecialist: action.payload,
+      currentStep: 'datetime',
+    };
 
-    case ActionTypes.SELECT_DATE_TIME:
-      return {
-        ...state,
-        selectedDate: action.payload.date,
-        selectedTime: action.payload.time,
-        currentStep: 'confirm',
-      };
+  case ActionTypes.SELECT_DATE_TIME:
+    return {
+      ...state,
+      selectedDate: action.payload.date,
+      selectedTime: action.payload.time,
+      currentStep: 'confirm',
+    };
 
-    case ActionTypes.UPDATE_PATIENT_INFO:
-      return {
-        ...state,
-        patientInfo: { ...state.patientInfo, ...action.payload },
-      };
+  case ActionTypes.UPDATE_PATIENT_INFO:
+    return {
+      ...state,
+      patientInfo: { ...state.patientInfo, ...action.payload },
+    };
 
-    case ActionTypes.SET_CURRENT_STEP:
-      return { ...state, currentStep: action.payload };
+  case ActionTypes.SET_CURRENT_STEP:
+    return { ...state, currentStep: action.payload };
 
-    case ActionTypes.SET_LOADING:
-      return { ...state, isLoading: action.payload };
+  case ActionTypes.SET_LOADING:
+    return { ...state, isLoading: action.payload };
 
-    case ActionTypes.SET_ERROR:
-      return {
-        ...state,
-        errors: { ...state.errors, [action.payload.field]: action.payload.error },
-      };
+  case ActionTypes.SET_ERROR:
+    return {
+      ...state,
+      errors: { ...state.errors, [action.payload.field]: action.payload.error },
+    };
 
-    case ActionTypes.CLEAR_ERROR:
-      const { [action.payload]: removed, ...remainingErrors } = state.errors;
-      return { ...state, errors: remainingErrors };
+  case ActionTypes.CLEAR_ERROR:
+    const { [action.payload]: removed, ...remainingErrors } = state.errors;
+    return { ...state, errors: remainingErrors };
 
-    case ActionTypes.CLEAR_ALL_ERRORS:
-      return { ...state, errors: {} };
+  case ActionTypes.CLEAR_ALL_ERRORS:
+    return { ...state, errors: {} };
 
-    case ActionTypes.SET_BOOKING_RESULT:
-      return {
-        ...state,
-        bookingResult: action.payload,
-        currentStep: 'success',
-      };
+  case ActionTypes.SET_BOOKING_RESULT:
+    return {
+      ...state,
+      bookingResult: action.payload,
+      currentStep: 'success',
+    };
 
-    case ActionTypes.SET_ACTIVE_APPOINTMENT:
-      return {
-        ...state,
-        activeAppointment: action.payload,
-      };
+  case ActionTypes.SET_ACTIVE_APPOINTMENT:
+    return {
+      ...state,
+      activeAppointment: action.payload,
+    };
 
-    case ActionTypes.CLEAR_ACTIVE_APPOINTMENT:
-      return {
-        ...state,
-        activeAppointment: null,
-      };
+  case ActionTypes.CLEAR_ACTIVE_APPOINTMENT:
+    return {
+      ...state,
+      activeAppointment: null,
+    };
 
-    case ActionTypes.ADD_APPOINTMENT:
-      console.log('🔸 Reducer: ADD_APPOINTMENT called with:', action.payload);
-      console.log('🔸 Reducer: Current appointments count:', state.appointments.length);
-      const newAppointments = [...state.appointments, action.payload];
-      console.log('🔸 Reducer: New appointments count:', newAppointments.length);
-      return {
-        ...state,
-        appointments: newAppointments,
-      };
+  case ActionTypes.ADD_APPOINTMENT:
+    console.log('🔸 Reducer: ADD_APPOINTMENT called with:', action.payload);
+    console.log('🔸 Reducer: Current appointments count:', state.appointments.length);
+    const newAppointments = [...state.appointments, action.payload];
+    console.log('🔸 Reducer: New appointments count:', newAppointments.length);
+    return {
+      ...state,
+      appointments: newAppointments,
+    };
 
-    case ActionTypes.REMOVE_APPOINTMENT:
-      return {
-        ...state,
-        appointments: state.appointments.filter(apt => apt.id !== action.payload),
-      };
+  case ActionTypes.REMOVE_APPOINTMENT:
+    return {
+      ...state,
+      appointments: state.appointments.filter(apt => apt.id !== action.payload),
+    };
 
-    case ActionTypes.UPDATE_APPOINTMENT:
-      return {
-        ...state,
-        appointments: state.appointments.map(apt =>
-          apt.id === action.payload.id ? { ...apt, ...action.payload } : apt
-        ),
-      };
+  case ActionTypes.UPDATE_APPOINTMENT:
+    return {
+      ...state,
+      appointments: state.appointments.map(apt =>
+        apt.id === action.payload.id ? { ...apt, ...action.payload } : apt,
+      ),
+    };
 
-    case ActionTypes.RESET_BOOKING_FLOW:
-      return {
-        ...state,
-        selectedClinic: null,
-        selectedServices: [],
-        selectedSpecialist: null,
-        selectedDate: null,
-        selectedTime: null,
-        patientInfo: {
-          name: '',
-          phone: '',
-          email: '',
-          comment: '',
-        },
-        totalPrice: 0,
-        estimatedDuration: 0,
-        bookingResult: null,
-        // НЕ очищаем activeAppointment - мы хотим его сохранить!
-        currentStep: 'search',
-        errors: {},
-      };
+  case ActionTypes.RESET_BOOKING_FLOW:
+    return {
+      ...state,
+      selectedClinic: null,
+      selectedServices: [],
+      selectedSpecialist: null,
+      selectedDate: null,
+      selectedTime: null,
+      patientInfo: {
+        name: '',
+        phone: '',
+        email: '',
+        comment: '',
+      },
+      totalPrice: 0,
+      estimatedDuration: 0,
+      bookingResult: null,
+      // НЕ очищаем activeAppointment - мы хотим его сохранить!
+      currentStep: 'search',
+      errors: {},
+    };
 
-    case ActionTypes.RESET_SEARCH:
-      return {
-        ...state,
-        searchQuery: '',
-        searchFilters: {},
-        searchResults: [],
-      };
+  case ActionTypes.RESET_SEARCH:
+    return {
+      ...state,
+      searchQuery: '',
+      searchFilters: {},
+      searchResults: [],
+    };
 
-    case ActionTypes.RESET_ALL:
-      return { ...initialState };
+  case ActionTypes.RESET_ALL:
+    return { ...initialState };
 
-    case ActionTypes.SHOW_TOAST:
-      return { ...state, toast: action.payload };
+  case ActionTypes.SHOW_TOAST:
+    return { ...state, toast: action.payload };
 
-    case ActionTypes.HIDE_TOAST:
-      return { ...state, toast: null };
+  case ActionTypes.HIDE_TOAST:
+    return { ...state, toast: null };
 
-    case ActionTypes.TOGGLE_MODAL:
-      return {
-        ...state,
-        modals: { ...state.modals, [action.payload.modal]: action.payload.isOpen },
-      };
+  case ActionTypes.TOGGLE_MODAL:
+    return {
+      ...state,
+      modals: { ...state.modals, [action.payload.modal]: action.payload.isOpen },
+    };
 
-    case ActionTypes.LOAD_FROM_STORAGE:
-      console.log('🔸 Reducer: LOAD_FROM_STORAGE called with payload:', action.payload);
-      console.log('🔸 Reducer: Current state appointments:', state.appointments.length);
-      console.log('🔸 Reducer: New appointments to set:', action.payload.appointments?.length || 0);
-      return { ...state, ...action.payload, isStorageLoaded: true };
+  case ActionTypes.LOAD_FROM_STORAGE:
+    console.log('🔸 Reducer: LOAD_FROM_STORAGE called with payload:', action.payload);
+    console.log('🔸 Reducer: Current state appointments:', state.appointments.length);
+    console.log('🔸 Reducer: New appointments to set:', action.payload.appointments?.length || 0);
+    return { ...state, ...action.payload, isStorageLoaded: true };
 
-    case ActionTypes.SET_STORAGE_LOADED:
-      return { ...state, isStorageLoaded: true };
+  case ActionTypes.SET_STORAGE_LOADED:
+    return { ...state, isStorageLoaded: true };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 

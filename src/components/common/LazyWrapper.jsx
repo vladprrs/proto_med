@@ -41,7 +41,7 @@ const LoadingText = styled.div`
 `;
 
 const LoadingFallback = ({ text = 'Загрузка...', minHeight, background }) => (
-  <LoadingContainer minHeight={minHeight} background={background}>
+  <LoadingContainer background={background} minHeight={minHeight}>
     <Spinner />
     <LoadingText>{text}</LoadingText>
   </LoadingContainer>
@@ -63,7 +63,7 @@ const LazyWrapper = ({
   ...props
 }) => {
   const LoadingComponent = fallback || (
-    <LoadingFallback text={loadingText} minHeight={minHeight} background={background} />
+    <LoadingFallback background={background} minHeight={minHeight} text={loadingText} />
   );
 
   const WrappedComponent = (
@@ -88,7 +88,7 @@ const LazyWrapper = ({
  */
 export const withLazyLoading = (
   importFunction,
-  options = {}
+  options = {},
 ) => {
   const LazyComponent = React.lazy(importFunction);
   
@@ -118,7 +118,7 @@ export const usePreloadComponent = (importFunction) => {
 export const PreloadOnHover = ({ 
   children, 
   importFunction, 
-  delay = 0 
+  delay = 0, 
 }) => {
   const preload = usePreloadComponent(importFunction);
   

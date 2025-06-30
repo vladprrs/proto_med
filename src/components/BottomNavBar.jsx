@@ -119,17 +119,17 @@ const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
 
   const handleTabClick = tab => {
     switch (tab) {
-      case 'overview':
-        navigate('/');
-        break;
-      case 'routes':
-        // TODO: Добавить маршрут для страницы маршрутов
-        break;
-      case 'profile':
-        navigate('/profile');
-        break;
-      default:
-        break;
+    case 'overview':
+      navigate('/');
+      break;
+    case 'routes':
+      // TODO: Добавить маршрут для страницы маршрутов
+      break;
+    case 'profile':
+      navigate('/profile');
+      break;
+    default:
+      break;
     }
 
     if (onTabChange) {
@@ -144,12 +144,12 @@ const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
         <TabContent>
           <IconContainer>
             <IconColor
+              isOverview
               active={activeTab === 'overview'}
-              isOverview={true}
-              width="18px"
               height="18px"
               left="3px"
               top="3px"
+              width="18px"
             />
           </IconContainer>
           <TabLabel active={activeTab === 'overview'}>Обзор</TabLabel>
@@ -161,12 +161,12 @@ const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
         <TabContent>
           <IconContainer>
             <IconColor
+              isRoutes
               active={activeTab === 'routes'}
-              isRoutes={true}
-              width="20px"
               height="18px"
               left="2px"
               top="3px"
+              width="20px"
             />
           </IconContainer>
           <TabLabel active={activeTab === 'routes'}>Маршруты</TabLabel>

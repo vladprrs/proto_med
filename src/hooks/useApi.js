@@ -27,7 +27,7 @@ function searchClinics(clinics, query, filters = {}) {
         clinic.name.toLowerCase().includes(searchTerm) ||
         clinic.address.toLowerCase().includes(searchTerm) ||
         clinic.subtitle?.toLowerCase().includes(searchTerm) ||
-        clinic.specialties?.some(specialty => specialty.toLowerCase().includes(searchTerm))
+        clinic.specialties?.some(specialty => specialty.toLowerCase().includes(searchTerm)),
     );
   }
 
@@ -72,7 +72,7 @@ function enrichClinicWithDoctorData(clinic, doctors, slots) {
       '🔸 enrichClinicWithDoctorData:',
       clinic.name,
       'featuredDoctorId:',
-      clinic.featuredDoctorId
+      clinic.featuredDoctorId,
     );
   }
 
@@ -94,7 +94,7 @@ function enrichClinicWithDoctorData(clinic, doctors, slots) {
         '🔸 Doctor not found for clinic:',
         clinic.name,
         'doctorId:',
-        clinic.featuredDoctorId
+        clinic.featuredDoctorId,
       );
     }
     return clinic;
@@ -126,7 +126,7 @@ function enrichClinicWithDoctorData(clinic, doctors, slots) {
       'with doctor:',
       enriched.availableDoctor.name,
       'slots:',
-      enriched.availableDoctor.availableSlots.length
+      enriched.availableDoctor.availableSlots.length,
     );
   }
   return enriched;
@@ -146,8 +146,11 @@ function generateAvailableDates(daysAhead = 14) {
     const isTomorrow = i === 1;
 
     let displayName = dayName;
-    if (isToday) displayName = 'Сегодня';
-    else if (isTomorrow) displayName = 'Завтра';
+    if (isToday) {
+      displayName = 'Сегодня';
+    } else if (isTomorrow) {
+      displayName = 'Завтра';
+    }
 
     dates.push({
       date: date.toISOString().split('T')[0],
@@ -290,7 +293,9 @@ export function useClinic(clinicId) {
   return useQuery({
     queryKey: ['clinic', clinicId],
     queryFn: () => {
-      if (!clinics) return null;
+      if (!clinics) {
+        return null;
+      }
       return clinics.find(clinic => String(clinic.id) === String(clinicId));
     },
     enabled: !!clinics && !!clinicId,
@@ -323,7 +328,9 @@ export function useDoctor(doctorId) {
   return useQuery({
     queryKey: ['doctor', doctorId],
     queryFn: () => {
-      if (!doctors) return null;
+      if (!doctors) {
+        return null;
+      }
       return doctors.find(doctor => String(doctor.id) === String(doctorId));
     },
     enabled: !!doctors && !!doctorId,
@@ -338,7 +345,9 @@ export function useDoctorsByClinic(clinicId) {
   return useQuery({
     queryKey: ['doctors', 'clinic', clinicId],
     queryFn: () => {
-      if (!doctors) return [];
+      if (!doctors) {
+        return [];
+      }
       return doctors.filter(doctor => String(doctor.clinicId) === String(clinicId));
     },
     enabled: !!doctors && !!clinicId,
@@ -415,7 +424,9 @@ export function useSlotsByDoctor(doctorId) {
   return useQuery({
     queryKey: ['slots', 'doctor', doctorId],
     queryFn: () => {
-      if (!slots) return null;
+      if (!slots) {
+        return null;
+      }
       return slots.find(slot => String(slot.doctorId) === String(doctorId));
     },
     enabled: !!slots && !!doctorId,
@@ -435,7 +446,7 @@ export function useSearchClinics(query, filters) {
     'doctors:',
     doctors?.length,
     'slots:',
-    slots?.length
+    slots?.length,
   );
   console.log(
     '🔸 Loading states - clinics:',
@@ -443,15 +454,19 @@ export function useSearchClinics(query, filters) {
     'doctors:',
     doctorsLoading,
     'slots:',
-    slotsLoading
+    slotsLoading,
   );
-  if (slotsError) console.log('🔸 Slots error:', slotsError);
+  if (slotsError) {
+    console.log('🔸 Slots error:', slotsError);
+  }
 
   return useQuery({
     queryKey: ['searchClinics', query, filters],
     queryFn: () => {
       console.log('useSearchClinics query function - clinics:', clinics?.length, 'query:', query);
-      if (!clinics) return [];
+      if (!clinics) {
+        return [];
+      }
 
       // First filter clinics
       const filteredClinics = searchClinics(clinics, query, filters);
@@ -461,7 +476,7 @@ export function useSearchClinics(query, filters) {
       if (doctors && slots) {
         console.log('🔸 Enriching clinics with doctor data...');
         const enriched = filteredClinics.map(clinic =>
-          enrichClinicWithDoctorData(clinic, doctors, slots)
+          enrichClinicWithDoctorData(clinic, doctors, slots),
         );
         console.log('🔸 Enriched clinics:', enriched.length);
 
@@ -472,7 +487,7 @@ export function useSearchClinics(query, filters) {
           '🔸 Crown clinics:',
           crownClinics.length,
           'enriched:',
-          enrichedCrownClinics.length
+          enrichedCrownClinics.length,
         );
 
         return enriched;
@@ -482,7 +497,7 @@ export function useSearchClinics(query, filters) {
         '🔸 Returning filtered clinics without enrichment - doctors:',
         !!doctors,
         'slots:',
-        !!slots
+        !!slots,
       );
       return filteredClinics;
     },
@@ -538,7 +553,7 @@ export function useTimeSlots(specialistId, date) {
       } catch (error) {
         console.warn(
           `Failed to load time slots for specialist ${specialistId} on ${date}, using mock data:`,
-          error
+          error,
         );
         return getMockTimeSlots();
       }

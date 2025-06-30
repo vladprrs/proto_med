@@ -286,7 +286,7 @@ function SpecialistsScreen() {
         selectedServices: prefilledData.selectedServices || [],
         selectedSpecialist: prefilledData.specialist || prefilledData.doctor,
         clinicData: clinicData || prefilledData.clinic,
-        prefilledData: prefilledData,
+        prefilledData,
       };
 
       console.log('🔸 SpecialistsScreen: Navigating to datetime with:', navigationState);
@@ -382,18 +382,18 @@ function SpecialistsScreen() {
                 key={specialist.id}
                 onClick={() => handleSpecialistSelect(specialist)}
               >
-                <Avatar src={specialist.photo} alt={specialist.name} />
+                <Avatar alt={specialist.name} src={specialist.photo} />
                 <SpecialistInfo>
                   <SpecialistName>{specialist.name}</SpecialistName>
                   <SpecialistSpecialty>{specialist.specialty}</SpecialistSpecialty>
                   {specialist.rating && (
                     <RatingContainer>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <svg fill="none" height="16" viewBox="0 0 16 16" width="16">
                         <path
-                          fillRule="evenodd"
                           clipRule="evenodd"
                           d="M9.57326 5.04119C9.71094 5.45481 10.1067 5.73472 10.553 5.73472H14.6896C14.9897 5.73472 15.1146 6.10909 14.8715 6.28075L11.5247 8.64946C11.1639 8.90522 11.0129 9.35808 11.1506 9.7717L12.4287 13.6034C12.5217 13.8816 12.195 14.1128 11.9519 13.9411L8.60551 11.5724C8.24426 11.3171 7.75552 11.3171 7.39472 11.5724L4.04788 13.9411C3.80483 14.1128 3.47856 13.8816 3.57108 13.6034L4.84917 9.7717C4.98729 9.35808 4.83633 8.90522 4.47508 8.64946L1.12825 6.28075C0.885644 6.10909 1.01004 5.73472 1.31064 5.73472H5.44726C5.89351 5.73472 6.28884 5.45481 6.42697 5.04119L7.70505 1.20864C7.79802 0.930453 8.20221 0.930453 8.29473 1.20864L9.57326 5.04119Z"
                           fill="#EFA701"
+                          fillRule="evenodd"
                         />
                       </svg>
                       <Rating>{specialist.rating}</Rating>

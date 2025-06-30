@@ -353,8 +353,8 @@ const Dashboard = () => {
 
   return (
     <MapScreenLayout
-      mapImage="/assets/images/1787ae2a5cea9bf92b50b8f4cc908087feab9732_640.jpg"
       contentTop="64px"
+      mapImage="/assets/images/1787ae2a5cea9bf92b50b8f4cc908087feab9732_640.jpg"
     >
       <StatusBar>
         <div style={{ fontSize: '12px', color: '#000' }}>LTE</div>
@@ -362,9 +362,9 @@ const Dashboard = () => {
         <div style={{ fontSize: '12px', color: '#000' }}>100%</div>
       </StatusBar>
 
-      <BottomSheet showDragger={true}>
+      <BottomSheet showDragger>
         <NavBar>
-          <SearchField placeholder="Поиск в Москве" onClick={handleSearchClick} readOnly={true} />
+          <SearchField readOnly placeholder="Поиск в Москве" onClick={handleSearchClick} />
           <SalutIcon />
           <IconButton icon="menu" />
         </NavBar>
@@ -379,15 +379,15 @@ const Dashboard = () => {
               const sortedAppointments = appointments
                 .filter(appointment => appointment.dateTime)
                 .sort((a, b) => {
-                  const dateA = new Date(a.dateTime.date + ' ' + a.dateTime.time);
-                  const dateB = new Date(b.dateTime.date + ' ' + b.dateTime.time);
+                  const dateA = new Date(`${a.dateTime.date  } ${  a.dateTime.time}`);
+                  const dateB = new Date(`${b.dateTime.date  } ${  b.dateTime.time}`);
                   return dateA - dateB;
                 });
 
               // Ищем первую запись в будущем
               const futureAppointment = sortedAppointments.find(appointment => {
                 const appointmentDate = new Date(
-                  appointment.dateTime.date + ' ' + appointment.dateTime.time
+                  `${appointment.dateTime.date  } ${  appointment.dateTime.time}`,
                 );
                 return appointmentDate > now;
               });
@@ -406,7 +406,6 @@ const Dashboard = () => {
                   <SectionTitle style={{ margin: 0 }}>Ближайшая запись</SectionTitle>
                   {appointments.length > 1 && (
                     <button
-                      onClick={() => navigate('/profile')}
                       style={{
                         background: 'none',
                         border: 'none',
@@ -418,6 +417,7 @@ const Dashboard = () => {
                         borderRadius: '8px',
                         transition: 'background 0.2s',
                       }}
+                      onClick={() => navigate('/profile')}
                       onMouseEnter={e => (e.target.style.background = '#F0F9F3')}
                       onMouseLeave={e => (e.target.style.background = 'none')}
                     >

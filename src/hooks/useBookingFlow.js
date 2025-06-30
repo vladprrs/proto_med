@@ -129,16 +129,16 @@ export function useBookingFlow() {
     const step = booking.currentStep;
 
     switch (step) {
-      case 'services':
-        return booking.selectedClinic !== null;
-      case 'specialist':
-        return booking.selectedServices.length > 0;
-      case 'datetime':
-        return booking.selectedSpecialist !== null;
-      case 'confirm':
-        return booking.selectedDate && booking.selectedTime;
-      default:
-        return true;
+    case 'services':
+      return booking.selectedClinic !== null;
+    case 'specialist':
+      return booking.selectedServices.length > 0;
+    case 'datetime':
+      return booking.selectedSpecialist !== null;
+    case 'confirm':
+      return booking.selectedDate && booking.selectedTime;
+    default:
+      return true;
     }
   };
 

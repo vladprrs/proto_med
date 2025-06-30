@@ -33,40 +33,40 @@ const UserActionTypes = {
 // Reducer function
 function userReducer(state, action) {
   switch (action.type) {
-    case UserActionTypes.UPDATE_USER:
-      return {
-        ...state,
-        currentUser: { ...state.currentUser, ...action.payload },
-      };
+  case UserActionTypes.UPDATE_USER:
+    return {
+      ...state,
+      currentUser: { ...state.currentUser, ...action.payload },
+    };
 
-    case UserActionTypes.UPDATE_PATIENT_INFO:
-      return {
-        ...state,
-        patientInfo: { ...state.patientInfo, ...action.payload },
-      };
+  case UserActionTypes.UPDATE_PATIENT_INFO:
+    return {
+      ...state,
+      patientInfo: { ...state.patientInfo, ...action.payload },
+    };
 
-    case UserActionTypes.SET_LOGIN_STATUS:
-      return { ...state, isLoggedIn: action.payload };
+  case UserActionTypes.SET_LOGIN_STATUS:
+    return { ...state, isLoggedIn: action.payload };
 
-    case UserActionTypes.SET_USER_DATA_LOADED:
-      return { ...state, isUserDataLoaded: action.payload };
+  case UserActionTypes.SET_USER_DATA_LOADED:
+    return { ...state, isUserDataLoaded: action.payload };
 
-    case UserActionTypes.RESET_PATIENT_INFO:
-      return {
-        ...state,
-        patientInfo: {
-          name: state.currentUser.name,
-          phone: state.currentUser.phone,
-          email: state.currentUser.email,
-          comment: '',
-        },
-      };
+  case UserActionTypes.RESET_PATIENT_INFO:
+    return {
+      ...state,
+      patientInfo: {
+        name: state.currentUser.name,
+        phone: state.currentUser.phone,
+        email: state.currentUser.email,
+        comment: '',
+      },
+    };
 
-    case UserActionTypes.LOAD_FROM_STORAGE:
-      return { ...state, ...action.payload, isUserDataLoaded: true };
+  case UserActionTypes.LOAD_FROM_STORAGE:
+    return { ...state, ...action.payload, isUserDataLoaded: true };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 
@@ -99,7 +99,9 @@ export function UserProvider({ children }) {
 
   // Save user data to localStorage whenever it changes
   useEffect(() => {
-    if (!state.isUserDataLoaded) return;
+    if (!state.isUserDataLoaded) {
+      return;
+    }
 
     try {
       const dataToSave = {
@@ -149,8 +151,10 @@ export function UserProvider({ children }) {
     },
 
     getFormattedPhone: () => {
-      const phone = state.currentUser.phone;
-      if (!phone) return '';
+      const {phone} = state.currentUser;
+      if (!phone) {
+        return '';
+      }
 
       // Format phone like +7(999)462-08-09
       const cleaned = phone.replace(/\D/g, '');

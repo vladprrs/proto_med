@@ -20,29 +20,29 @@ const SearchActionTypes = {
 // Reducer function
 function searchReducer(state, action) {
   switch (action.type) {
-    case SearchActionTypes.SET_SEARCH_QUERY:
-      return { ...state, searchQuery: action.payload };
+  case SearchActionTypes.SET_SEARCH_QUERY:
+    return { ...state, searchQuery: action.payload };
 
-    case SearchActionTypes.SET_SEARCH_FILTERS:
-      return { ...state, searchFilters: action.payload };
+  case SearchActionTypes.SET_SEARCH_FILTERS:
+    return { ...state, searchFilters: action.payload };
 
-    case SearchActionTypes.SET_SEARCH_RESULTS:
-      return { ...state, searchResults: action.payload };
+  case SearchActionTypes.SET_SEARCH_RESULTS:
+    return { ...state, searchResults: action.payload };
 
-    case SearchActionTypes.SET_SEARCHING:
-      return { ...state, isSearching: action.payload };
+  case SearchActionTypes.SET_SEARCHING:
+    return { ...state, isSearching: action.payload };
 
-    case SearchActionTypes.RESET_SEARCH:
-      return {
-        ...state,
-        searchQuery: '',
-        searchFilters: {},
-        searchResults: [],
-        isSearching: false,
-      };
+  case SearchActionTypes.RESET_SEARCH:
+    return {
+      ...state,
+      searchQuery: '',
+      searchFilters: {},
+      searchResults: [],
+      isSearching: false,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 

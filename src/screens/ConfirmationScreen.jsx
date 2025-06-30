@@ -507,7 +507,9 @@ function ConfirmationScreen() {
   };
 
   const formatDateTime = dateTime => {
-    if (!dateTime) return '';
+    if (!dateTime) {
+      return '';
+    }
 
     const date = new Date(dateTime.date);
     const dayNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
@@ -657,16 +659,16 @@ function ConfirmationScreen() {
               <InputsContainer>
                 <InputField>
                   <Input
-                    type="text"
                     placeholder="Имя"
+                    type="text"
                     value={formData.name}
                     onChange={e => handleInputChange('name', e.target.value)}
                   />
                 </InputField>
                 <InputField>
                   <Input
-                    type="tel"
                     placeholder="Телефон"
+                    type="tel"
                     value={formData.phone}
                     onChange={e => handleInputChange('phone', e.target.value)}
                   />
@@ -697,9 +699,9 @@ function ConfirmationScreen() {
         <Bottom>
           <ButtonContainer>
             <ConfirmButton
-              onClick={handleConfirm}
               disabled={!isFormValid()}
               style={{ opacity: isFormValid() ? 1 : 0.5 }}
+              onClick={handleConfirm}
             >
               <div>Подтвердить запись • {getTotalPrice()} ₽</div>
             </ConfirmButton>

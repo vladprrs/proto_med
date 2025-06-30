@@ -39,78 +39,78 @@ const BookingActionTypes = {
 // Reducer function
 function bookingReducer(state, action) {
   switch (action.type) {
-    case BookingActionTypes.SELECT_CLINIC:
-      return {
-        ...state,
-        selectedClinic: action.payload,
-        currentStep: BookingSteps.SERVICES,
-      };
+  case BookingActionTypes.SELECT_CLINIC:
+    return {
+      ...state,
+      selectedClinic: action.payload,
+      currentStep: BookingSteps.SERVICES,
+    };
 
-    case BookingActionTypes.SELECT_SERVICES: {
-      const services = action.payload;
-      const totalPrice = services.reduce((sum, service) => {
-        const price =
+  case BookingActionTypes.SELECT_SERVICES: {
+    const services = action.payload;
+    const totalPrice = services.reduce((sum, service) => {
+      const price =
           typeof service.price === 'string'
             ? parseInt(service.price.replace(/\D/g, '')) || 0
             : service.price || 0;
-        return sum + price;
-      }, 0);
-      const totalDuration = services.reduce((sum, service) => sum + (service.duration || 30), 0);
+      return sum + price;
+    }, 0);
+    const totalDuration = services.reduce((sum, service) => sum + (service.duration || 30), 0);
 
-      return {
-        ...state,
-        selectedServices: services,
-        totalPrice,
-        estimatedDuration: totalDuration,
-        currentStep: BookingSteps.SPECIALIST,
-      };
-    }
+    return {
+      ...state,
+      selectedServices: services,
+      totalPrice,
+      estimatedDuration: totalDuration,
+      currentStep: BookingSteps.SPECIALIST,
+    };
+  }
 
-    case BookingActionTypes.SELECT_SPECIALIST:
-      return {
-        ...state,
-        selectedSpecialist: action.payload,
-        currentStep: BookingSteps.DATETIME,
-      };
+  case BookingActionTypes.SELECT_SPECIALIST:
+    return {
+      ...state,
+      selectedSpecialist: action.payload,
+      currentStep: BookingSteps.DATETIME,
+    };
 
-    case BookingActionTypes.SELECT_DATE_TIME:
-      return {
-        ...state,
-        selectedDate: action.payload.date,
-        selectedTime: action.payload.time,
-        currentStep: BookingSteps.CONFIRM,
-      };
+  case BookingActionTypes.SELECT_DATE_TIME:
+    return {
+      ...state,
+      selectedDate: action.payload.date,
+      selectedTime: action.payload.time,
+      currentStep: BookingSteps.CONFIRM,
+    };
 
-    case BookingActionTypes.SET_CURRENT_STEP:
-      return { ...state, currentStep: action.payload };
+  case BookingActionTypes.SET_CURRENT_STEP:
+    return { ...state, currentStep: action.payload };
 
-    case BookingActionTypes.SET_BOOKING_RESULT:
-      return {
-        ...state,
-        bookingResult: action.payload,
-        currentStep: BookingSteps.SUCCESS,
-      };
+  case BookingActionTypes.SET_BOOKING_RESULT:
+    return {
+      ...state,
+      bookingResult: action.payload,
+      currentStep: BookingSteps.SUCCESS,
+    };
 
-    case BookingActionTypes.SET_BOOKING_IN_PROGRESS:
-      return { ...state, isBookingInProgress: action.payload };
+  case BookingActionTypes.SET_BOOKING_IN_PROGRESS:
+    return { ...state, isBookingInProgress: action.payload };
 
-    case BookingActionTypes.RESET_BOOKING_FLOW:
-      return {
-        ...state,
-        selectedClinic: null,
-        selectedServices: [],
-        selectedSpecialist: null,
-        selectedDate: null,
-        selectedTime: null,
-        totalPrice: 0,
-        estimatedDuration: 0,
-        bookingResult: null,
-        currentStep: BookingSteps.SEARCH,
-        isBookingInProgress: false,
-      };
+  case BookingActionTypes.RESET_BOOKING_FLOW:
+    return {
+      ...state,
+      selectedClinic: null,
+      selectedServices: [],
+      selectedSpecialist: null,
+      selectedDate: null,
+      selectedTime: null,
+      totalPrice: 0,
+      estimatedDuration: 0,
+      bookingResult: null,
+      currentStep: BookingSteps.SEARCH,
+      isBookingInProgress: false,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 
@@ -213,7 +213,7 @@ export function BookingProvider({ children }) {
     },
 
     getFormattedPrice: () => {
-      return state.totalPrice.toLocaleString('ru-RU') + ' ₽';
+      return `${state.totalPrice.toLocaleString('ru-RU')  } ₽`;
     },
 
     getFormattedDuration: () => {

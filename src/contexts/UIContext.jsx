@@ -35,63 +35,63 @@ const UIActionTypes = {
 // Reducer function
 function uiReducer(state, action) {
   switch (action.type) {
-    case UIActionTypes.SET_LOADING:
-      return { ...state, isLoading: action.payload };
+  case UIActionTypes.SET_LOADING:
+    return { ...state, isLoading: action.payload };
 
-    case UIActionTypes.SET_ERROR:
-      return {
-        ...state,
-        errors: { ...state.errors, [action.payload.field]: action.payload.error },
-      };
+  case UIActionTypes.SET_ERROR:
+    return {
+      ...state,
+      errors: { ...state.errors, [action.payload.field]: action.payload.error },
+    };
 
-    case UIActionTypes.CLEAR_ERROR:
-      const { [action.payload]: removed, ...remainingErrors } = state.errors;
-      return { ...state, errors: remainingErrors };
+  case UIActionTypes.CLEAR_ERROR:
+    const { [action.payload]: removed, ...remainingErrors } = state.errors;
+    return { ...state, errors: remainingErrors };
 
-    case UIActionTypes.CLEAR_ALL_ERRORS:
-      return { ...state, errors: {} };
+  case UIActionTypes.CLEAR_ALL_ERRORS:
+    return { ...state, errors: {} };
 
-    case UIActionTypes.SHOW_TOAST:
-      return { ...state, toast: action.payload };
+  case UIActionTypes.SHOW_TOAST:
+    return { ...state, toast: action.payload };
 
-    case UIActionTypes.HIDE_TOAST:
-      return { ...state, toast: null };
+  case UIActionTypes.HIDE_TOAST:
+    return { ...state, toast: null };
 
-    case UIActionTypes.TOGGLE_MODAL:
-      return {
-        ...state,
-        modals: { ...state.modals, [action.payload.modal]: action.payload.isOpen },
-      };
+  case UIActionTypes.TOGGLE_MODAL:
+    return {
+      ...state,
+      modals: { ...state.modals, [action.payload.modal]: action.payload.isOpen },
+    };
 
-    case UIActionTypes.CLOSE_ALL_MODALS:
-      const closedModals = Object.keys(state.modals).reduce((acc, key) => {
-        acc[key] = false;
-        return acc;
-      }, {});
-      return { ...state, modals: closedModals };
+  case UIActionTypes.CLOSE_ALL_MODALS:
+    const closedModals = Object.keys(state.modals).reduce((acc, key) => {
+      acc[key] = false;
+      return acc;
+    }, {});
+    return { ...state, modals: closedModals };
 
-    case UIActionTypes.SHOW_BOTTOM_SHEET:
-      return {
-        ...state,
-        bottomSheet: {
-          isOpen: true,
-          content: action.payload.content,
-          height: action.payload.height || 'auto',
-        },
-      };
+  case UIActionTypes.SHOW_BOTTOM_SHEET:
+    return {
+      ...state,
+      bottomSheet: {
+        isOpen: true,
+        content: action.payload.content,
+        height: action.payload.height || 'auto',
+      },
+    };
 
-    case UIActionTypes.HIDE_BOTTOM_SHEET:
-      return {
-        ...state,
-        bottomSheet: {
-          isOpen: false,
-          content: null,
-          height: 'auto',
-        },
-      };
+  case UIActionTypes.HIDE_BOTTOM_SHEET:
+    return {
+      ...state,
+      bottomSheet: {
+        isOpen: false,
+        content: null,
+        height: 'auto',
+      },
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 
@@ -117,7 +117,7 @@ export function UIProvider({ children }) {
       const toastId = Date.now().toString();
       dispatch({
         type: UIActionTypes.SHOW_TOAST,
-        payload: { id: toastId, message, type, duration },
+        payload: { id: toastId, message, type, duration, show: true },
       });
 
       // Auto-hide toast after duration

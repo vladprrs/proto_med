@@ -38,7 +38,7 @@ export const useThrottle = (func, delay) => {
         lastRun.current = Date.now();
       }
     },
-    [func, delay]
+    [func, delay],
   );
 };
 

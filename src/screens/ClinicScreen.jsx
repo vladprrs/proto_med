@@ -888,7 +888,7 @@ const ClinicScreen = () => {
 
   // Получаем записи пользователя из контекста
   const appointmentsContext = useAppointmentsContext();
-  const appointments = appointmentsContext.appointments;
+  const {appointments} = appointmentsContext;
 
   // Используем API хуки для получения данных клиники, докторов и слотов
   const { data: clinicData, isLoading, error } = useClinic(clinicId);
@@ -900,7 +900,9 @@ const ClinicScreen = () => {
 
   // Фильтруем записи пользователя в эту клинику
   const clinicAppointments = appointments.filter(appointment => {
-    if (!appointment.clinic) return false;
+    if (!appointment.clinic) {
+      return false;
+    }
 
     // Сравниваем по ID клиники или по названию (для совместимости)
     const appointmentClinicId = appointment.clinic.id?.toString();
@@ -952,7 +954,7 @@ const ClinicScreen = () => {
         'specialists:',
         !!specialists && Array.isArray(specialists),
         'timeSlots:',
-        !!timeSlots
+        !!timeSlots,
       );
       return [];
     }
@@ -963,7 +965,7 @@ const ClinicScreen = () => {
       'specialists:',
       specialists.length,
       'timeSlots:',
-      timeSlots.length
+      timeSlots.length,
     );
 
     // Создаем маппинг категорий услуг к специальностям
@@ -986,7 +988,7 @@ const ClinicScreen = () => {
       });
 
       console.log(
-        `🔸 Service "${service.name}" (${service.category}): found ${availableSpecialists.length} specialists`
+        `🔸 Service "${service.name}" (${service.category}): found ${availableSpecialists.length} specialists`,
       );
 
       // Для каждого специалиста получаем доступные слоты
@@ -998,7 +1000,7 @@ const ClinicScreen = () => {
             .slice(0, 4) || []; // Показываем максимум 4 слота
 
         console.log(
-          `🔸 Specialist "${specialist.name}" (id: ${specialist.id}): found ${availableSlots.length} slots`
+          `🔸 Specialist "${specialist.name}" (id: ${specialist.id}): found ${availableSlots.length} slots`,
         );
 
         return {
@@ -1044,8 +1046,8 @@ const ClinicScreen = () => {
       state: {
         prefilledData: {
           clinic: enrichedClinicData,
-          service: service,
-          specialist: specialist,
+          service,
+          specialist,
           selectedTime: slot,
           skipSteps: ['service', 'specialist'], // Пропускаем выбор услуги и специалиста
         },
@@ -1104,7 +1106,7 @@ const ClinicScreen = () => {
 
     console.log('🔧 Debug functions for clinic appointments:');
     console.log(
-      '  window.debugClinicAppointments.create() - создать тестовую запись в эту клинику'
+      '  window.debugClinicAppointments.create() - создать тестовую запись в эту клинику',
     );
     console.log('  window.debugClinicAppointments.check() - проверить записи');
   }, [appointments, clinicAppointments, clinicId, clinicData]);
@@ -1142,221 +1144,221 @@ const ClinicScreen = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'overview':
+    case 'overview':
+      return (
+        <>
+          {/* Блок записей пользователя в эту клинику */}
+          {clinicAppointments.length > 0 && (
+            <ContentCard>
+              <ContentTitle>Ваши записи в {clinicData?.name || 'эту клинику'}</ContentTitle>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                  marginTop: '12px',
+                }}
+              >
+                {clinicAppointments.map(appointment => (
+                  <AppointmentCard key={appointment.id} appointment={appointment} />
+                ))}
+              </div>
+            </ContentCard>
+          )}
+
+          <ContentCard>
+            <ContentTitle>О клинике</ContentTitle>
+            <ContentText>{clinicData.description}</ContentText>
+          </ContentCard>
+
+          <ContentCard>
+            <ContentTitle>Контактная информация</ContentTitle>
+            <InfoGrid>
+              <InfoRow>
+                <InfoLabel>Адрес</InfoLabel>
+                <InfoValue>{clinicData.address}</InfoValue>
+              </InfoRow>
+              <InfoRow>
+                <InfoLabel>Телефон</InfoLabel>
+                <InfoValue>{clinicData.phone}</InfoValue>
+              </InfoRow>
+              <InfoRow>
+                <InfoLabel>Режим работы</InfoLabel>
+                <InfoValue>{clinicData.workingHours}</InfoValue>
+              </InfoRow>
+            </InfoGrid>
+          </ContentCard>
+
+          <ContentCard>
+            <ContentTitle>Популярные услуги</ContentTitle>
+            <InfoGrid>
+              <InfoRow>
+                <InfoLabel>Консультация терапевта</InfoLabel>
+                <InfoValue>от 1500 ₽</InfoValue>
+              </InfoRow>
+              <InfoRow>
+                <InfoLabel>УЗИ диагностика</InfoLabel>
+                <InfoValue>от 2000 ₽</InfoValue>
+              </InfoRow>
+              <InfoRow>
+                <InfoLabel>Анализы крови</InfoLabel>
+                <InfoValue>от 800 ₽</InfoValue>
+              </InfoRow>
+            </InfoGrid>
+          </ContentCard>
+        </>
+      );
+
+    case 'menu':
+      // Проверяем наличие данных перед вызовом функции
+      if (!services || !specialists) {
         return (
-          <>
-            {/* Блок записей пользователя в эту клинику */}
-            {clinicAppointments.length > 0 && (
-              <ContentCard>
-                <ContentTitle>Ваши записи в {clinicData?.name || 'эту клинику'}</ContentTitle>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px',
-                    marginTop: '12px',
-                  }}
-                >
-                  {clinicAppointments.map(appointment => (
-                    <AppointmentCard key={appointment.id} appointment={appointment} />
-                  ))}
-                </div>
-              </ContentCard>
-            )}
-
-            <ContentCard>
-              <ContentTitle>О клинике</ContentTitle>
-              <ContentText>{clinicData.description}</ContentText>
-            </ContentCard>
-
-            <ContentCard>
-              <ContentTitle>Контактная информация</ContentTitle>
-              <InfoGrid>
-                <InfoRow>
-                  <InfoLabel>Адрес</InfoLabel>
-                  <InfoValue>{clinicData.address}</InfoValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoLabel>Телефон</InfoLabel>
-                  <InfoValue>{clinicData.phone}</InfoValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoLabel>Режим работы</InfoLabel>
-                  <InfoValue>{clinicData.workingHours}</InfoValue>
-                </InfoRow>
-              </InfoGrid>
-            </ContentCard>
-
-            <ContentCard>
-              <ContentTitle>Популярные услуги</ContentTitle>
-              <InfoGrid>
-                <InfoRow>
-                  <InfoLabel>Консультация терапевта</InfoLabel>
-                  <InfoValue>от 1500 ₽</InfoValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoLabel>УЗИ диагностика</InfoLabel>
-                  <InfoValue>от 2000 ₽</InfoValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoLabel>Анализы крови</InfoLabel>
-                  <InfoValue>от 800 ₽</InfoValue>
-                </InfoRow>
-              </InfoGrid>
-            </ContentCard>
-          </>
+          <ContentCard>
+            <ContentTitle>Медицинские услуги</ContentTitle>
+            <ContentText>Загрузка услуг...</ContentText>
+          </ContentCard>
         );
+      }
 
-      case 'menu':
-        // Проверяем наличие данных перед вызовом функции
-        if (!services || !specialists) {
-          return (
-            <ContentCard>
-              <ContentTitle>Медицинские услуги</ContentTitle>
-              <ContentText>Загрузка услуг...</ContentText>
-            </ContentCard>
-          );
-        }
+      const servicesWithSpecialists = getServicesWithSpecialists();
 
-        const servicesWithSpecialists = getServicesWithSpecialists();
-
-        if (servicesWithSpecialists.length === 0) {
-          return (
-            <ContentCard>
-              <ContentTitle>Медицинские услуги</ContentTitle>
-              <ContentText>Услуги не найдены или недоступны для онлайн записи</ContentText>
-            </ContentCard>
-          );
-        }
-
+      if (servicesWithSpecialists.length === 0) {
         return (
-          <ServicesContainer>
-            {servicesWithSpecialists.map(service => (
-              <ServiceCard key={service.id}>
-                <ServiceHeader>
-                  <ServiceInfo>
-                    <ServiceName>{service.name}</ServiceName>
-                    <ServiceDescription>{service.description}</ServiceDescription>
-                    <ServiceMeta>
-                      <ServicePrice>{service.price}</ServicePrice>
-                      <ServiceDuration>{service.duration}</ServiceDuration>
-                    </ServiceMeta>
-                  </ServiceInfo>
-                  <ServiceCategory>{service.category}</ServiceCategory>
-                </ServiceHeader>
+          <ContentCard>
+            <ContentTitle>Медицинские услуги</ContentTitle>
+            <ContentText>Услуги не найдены или недоступны для онлайн записи</ContentText>
+          </ContentCard>
+        );
+      }
 
-                {service.availableSpecialists.length > 0 && (
-                  <AvailableDoctors>
-                    {service.availableSpecialists.map(specialist => (
-                      <DoctorCard key={specialist.id}>
-                        <DoctorCardHeader>
-                          <DoctorCardInfo>
-                            <DoctorCardName>{specialist.name}</DoctorCardName>
-                            <DoctorCardSpecialty>
-                              {specialist.specialty} • {specialist.experience}
-                            </DoctorCardSpecialty>
-                          </DoctorCardInfo>
-                          <DoctorCardPrice>{specialist.price}</DoctorCardPrice>
-                        </DoctorCardHeader>
+      return (
+        <ServicesContainer>
+          {servicesWithSpecialists.map(service => (
+            <ServiceCard key={service.id}>
+              <ServiceHeader>
+                <ServiceInfo>
+                  <ServiceName>{service.name}</ServiceName>
+                  <ServiceDescription>{service.description}</ServiceDescription>
+                  <ServiceMeta>
+                    <ServicePrice>{service.price}</ServicePrice>
+                    <ServiceDuration>{service.duration}</ServiceDuration>
+                  </ServiceMeta>
+                </ServiceInfo>
+                <ServiceCategory>{service.category}</ServiceCategory>
+              </ServiceHeader>
 
-                        {specialist.firstVisitPrice && (
-                          <DoctorFirstVisitBadge>
-                            <DoctorCheckIcon />
-                            <DoctorFirstVisitText>Цена за первый приём</DoctorFirstVisitText>
-                          </DoctorFirstVisitBadge>
-                        )}
+              {service.availableSpecialists.length > 0 && (
+                <AvailableDoctors>
+                  {service.availableSpecialists.map(specialist => (
+                    <DoctorCard key={specialist.id}>
+                      <DoctorCardHeader>
+                        <DoctorCardInfo>
+                          <DoctorCardName>{specialist.name}</DoctorCardName>
+                          <DoctorCardSpecialty>
+                            {specialist.specialty} • {specialist.experience}
+                          </DoctorCardSpecialty>
+                        </DoctorCardInfo>
+                        <DoctorCardPrice>{specialist.price}</DoctorCardPrice>
+                      </DoctorCardHeader>
 
-                        {specialist.availableSlots.length > 0 ? (
-                          <DoctorSlots>
-                            <DoctorSlotsDate>{specialist.slotsDate}</DoctorSlotsDate>
-                            <DoctorSlotsContainer>
-                              {specialist.availableSlots.map((slot, index) => (
-                                <DoctorSlotButton
-                                  key={index}
-                                  onClick={e =>
-                                    handleServiceSlotClick(service, specialist, slot, e)
-                                  }
-                                >
-                                  <DoctorSlotText>{slot}</DoctorSlotText>
-                                </DoctorSlotButton>
-                              ))}
-                            </DoctorSlotsContainer>
-                          </DoctorSlots>
-                        ) : (
-                          <DoctorSlots>
-                            <DoctorSlotsDate>Нет доступных слотов</DoctorSlotsDate>
-                            <DoctorSlotsContainer>
+                      {specialist.firstVisitPrice && (
+                        <DoctorFirstVisitBadge>
+                          <DoctorCheckIcon />
+                          <DoctorFirstVisitText>Цена за первый приём</DoctorFirstVisitText>
+                        </DoctorFirstVisitBadge>
+                      )}
+
+                      {specialist.availableSlots.length > 0 ? (
+                        <DoctorSlots>
+                          <DoctorSlotsDate>{specialist.slotsDate}</DoctorSlotsDate>
+                          <DoctorSlotsContainer>
+                            {specialist.availableSlots.map((slot, index) => (
                               <DoctorSlotButton
-                                style={{ background: '#898989' }}
-                                onClick={e => handleServiceSlotClick(service, specialist, null, e)}
+                                key={index}
+                                onClick={e =>
+                                  handleServiceSlotClick(service, specialist, slot, e)
+                                }
                               >
-                                <DoctorSlotText>Записаться</DoctorSlotText>
+                                <DoctorSlotText>{slot}</DoctorSlotText>
                               </DoctorSlotButton>
-                            </DoctorSlotsContainer>
-                          </DoctorSlots>
-                        )}
-                      </DoctorCard>
-                    ))}
-                  </AvailableDoctors>
-                )}
+                            ))}
+                          </DoctorSlotsContainer>
+                        </DoctorSlots>
+                      ) : (
+                        <DoctorSlots>
+                          <DoctorSlotsDate>Нет доступных слотов</DoctorSlotsDate>
+                          <DoctorSlotsContainer>
+                            <DoctorSlotButton
+                              style={{ background: '#898989' }}
+                              onClick={e => handleServiceSlotClick(service, specialist, null, e)}
+                            >
+                              <DoctorSlotText>Записаться</DoctorSlotText>
+                            </DoctorSlotButton>
+                          </DoctorSlotsContainer>
+                        </DoctorSlots>
+                      )}
+                    </DoctorCard>
+                  ))}
+                </AvailableDoctors>
+              )}
 
-                {service.availableSpecialists.length === 0 && (
-                  <ContentText style={{ color: 'rgba(20, 20, 20, 0.50)', fontSize: '14px' }}>
+              {service.availableSpecialists.length === 0 && (
+                <ContentText style={{ color: 'rgba(20, 20, 20, 0.50)', fontSize: '14px' }}>
                     Нет доступных специалистов для данной услуги
-                  </ContentText>
-                )}
-              </ServiceCard>
-            ))}
-          </ServicesContainer>
-        );
+                </ContentText>
+              )}
+            </ServiceCard>
+          ))}
+        </ServicesContainer>
+      );
 
-      case 'photos':
-        return (
-          <ContentCard>
-            <ContentTitle>Фотографии клиники</ContentTitle>
-            <ContentText>Галерея из 432 фотографий будет загружена...</ContentText>
-          </ContentCard>
-        );
+    case 'photos':
+      return (
+        <ContentCard>
+          <ContentTitle>Фотографии клиники</ContentTitle>
+          <ContentText>Галерея из 432 фотографий будет загружена...</ContentText>
+        </ContentCard>
+      );
 
-      case 'reviews':
-        return (
-          <ContentCard>
-            <ContentTitle>Отзывы пациентов</ContentTitle>
-            <ContentText>232 отзыва от пациентов будут загружены...</ContentText>
-          </ContentCard>
-        );
+    case 'reviews':
+      return (
+        <ContentCard>
+          <ContentTitle>Отзывы пациентов</ContentTitle>
+          <ContentText>232 отзыва от пациентов будут загружены...</ContentText>
+        </ContentCard>
+      );
 
-      case 'info':
-        return (
-          <ContentCard>
-            <ContentTitle>Дополнительная информация</ContentTitle>
-            <ContentText>Подробная информация о клинике, лицензиях и сертификатах...</ContentText>
-          </ContentCard>
-        );
+    case 'info':
+      return (
+        <ContentCard>
+          <ContentTitle>Дополнительная информация</ContentTitle>
+          <ContentText>Подробная информация о клинике, лицензиях и сертификатах...</ContentText>
+        </ContentCard>
+      );
 
-      case 'promotions':
-        return (
-          <ContentCard>
-            <ContentTitle>Акции и скидки</ContentTitle>
-            <ContentText>Актуальные акции и специальные предложения клиники...</ContentText>
-          </ContentCard>
-        );
+    case 'promotions':
+      return (
+        <ContentCard>
+          <ContentTitle>Акции и скидки</ContentTitle>
+          <ContentText>Актуальные акции и специальные предложения клиники...</ContentText>
+        </ContentCard>
+      );
 
-      default:
-        return (
-          <ContentCard>
-            <ContentTitle>Контент не найден</ContentTitle>
-            <ContentText>Выберите другую вкладку</ContentText>
-          </ContentCard>
-        );
+    default:
+      return (
+        <ContentCard>
+          <ContentTitle>Контент не найден</ContentTitle>
+          <ContentText>Выберите другую вкладку</ContentText>
+        </ContentCard>
+      );
     }
   };
 
   return (
     <MapScreenLayout
-      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
-      mapHeight="244px"
       contentTop="211px"
+      mapHeight="244px"
+      mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
     >
       <ContentContainer>
         <OrganizationCard>
@@ -1391,7 +1393,7 @@ const ClinicScreen = () => {
                     <TitleSection>
                       <TitleRow>
                         <CrownBadge>
-                          <CrownIcon width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <CrownIcon fill="none" height="16" viewBox="0 0 16 16" width="16">
                             <path
                               d="M7.42163 0.410057C7.76809 0.164421 8.23191 0.164421 8.57837 0.410058L9.49903 1.06279C9.69411 1.2011 9.9323 1.26493 10.1704 1.24269L11.2941 1.13773C11.7169 1.09823 12.1186 1.33015 12.2959 1.7161L12.7668 2.74172C12.8666 2.95904 13.041 3.13341 13.2583 3.2332L14.2839 3.70414C14.6699 3.88137 14.9018 4.28305 14.8623 4.70591L14.7573 5.8296C14.7351 6.0677 14.7989 6.30588 14.9372 6.50097L15.5899 7.42163C15.8356 7.76809 15.8356 8.23191 15.5899 8.57837L14.9372 9.49903C14.7989 9.69411 14.7351 9.9323 14.7573 10.1704L14.8623 11.2941C14.9018 11.7169 14.6699 12.1186 14.2839 12.2959L13.2583 12.7668C13.041 12.8666 12.8666 13.041 12.7668 13.2583L12.2959 14.2839C12.1186 14.6699 11.7169 14.9018 11.2941 14.8623L10.1704 14.7573C9.9323 14.7351 9.69411 14.7989 9.49903 14.9372L8.57837 15.5899C8.23191 15.8356 7.76809 15.8356 7.42163 15.5899L6.50097 14.9372C6.30588 14.7989 6.0677 14.7351 5.82959 14.7573L4.70591 14.8623C4.28305 14.9018 3.88137 14.6699 3.70414 14.2839L3.2332 13.2583C3.13341 13.041 2.95904 12.8666 2.74172 12.7668L1.7161 12.2959C1.33015 12.1186 1.09823 11.7169 1.13773 11.2941L1.24269 10.1704C1.26493 9.9323 1.2011 9.69411 1.06279 9.49903L0.410057 8.57837C0.164421 8.23191 0.164421 7.76809 0.410058 7.42163L1.06279 6.50097C1.2011 6.30588 1.26493 6.0677 1.24269 5.8296L1.13773 4.70591C1.09823 4.28305 1.33015 3.88137 1.7161 3.70414L2.74172 3.2332C2.95904 3.13341 3.13341 2.95904 3.2332 2.74172L3.70414 1.7161C3.88137 1.33014 4.28305 1.09823 4.70591 1.13773L5.8296 1.24269C6.0677 1.26493 6.30588 1.2011 6.50097 1.06279L7.42163 0.410057Z"
                               fill="#1BA136"
@@ -1425,58 +1427,58 @@ const ClinicScreen = () => {
           {/* Показываем быстрое бронирование для рекламодателей с доступными слотами */}
           {enrichedClinicData.availableDoctor &&
           enrichedClinicData.availableDoctor.availableSlots.length > 0 ? (
-            <QuickBookingSection>
-              <QuickBookingContent>
-                <QuickBookingTextContent>
-                  <QuickBookingTitle>Ближайшие доступные слоты</QuickBookingTitle>
-                  <DoctorInfo>
-                    <DoctorName>{enrichedClinicData.availableDoctor.name}</DoctorName>
-                    <DoctorSpecialty>
-                      {enrichedClinicData.availableDoctor.specialty}
-                    </DoctorSpecialty>
-                    <DoctorExperience>
-                      {enrichedClinicData.availableDoctor.experience}
-                    </DoctorExperience>
-                  </DoctorInfo>
-                  <PriceSection>
-                    <PriceText>{enrichedClinicData.availableDoctor.price}</PriceText>
-                    {enrichedClinicData.availableDoctor.firstVisitPrice && (
-                      <FirstVisitBadge>
-                        <CheckIcon />
-                        <FirstVisitText>Цена за первый приём</FirstVisitText>
-                      </FirstVisitBadge>
-                    )}
-                  </PriceSection>
+              <QuickBookingSection>
+                <QuickBookingContent>
+                  <QuickBookingTextContent>
+                    <QuickBookingTitle>Ближайшие доступные слоты</QuickBookingTitle>
+                    <DoctorInfo>
+                      <DoctorName>{enrichedClinicData.availableDoctor.name}</DoctorName>
+                      <DoctorSpecialty>
+                        {enrichedClinicData.availableDoctor.specialty}
+                      </DoctorSpecialty>
+                      <DoctorExperience>
+                        {enrichedClinicData.availableDoctor.experience}
+                      </DoctorExperience>
+                    </DoctorInfo>
+                    <PriceSection>
+                      <PriceText>{enrichedClinicData.availableDoctor.price}</PriceText>
+                      {enrichedClinicData.availableDoctor.firstVisitPrice && (
+                        <FirstVisitBadge>
+                          <CheckIcon />
+                          <FirstVisitText>Цена за первый приём</FirstVisitText>
+                        </FirstVisitBadge>
+                      )}
+                    </PriceSection>
 
-                  <SlotsSection>
-                    <SlotsDate>{enrichedClinicData.availableDoctor.todaySlots}</SlotsDate>
-                    <SlotsContainer>
-                      {enrichedClinicData.availableDoctor.availableSlots.map((slot, index) => (
-                        <SlotButton key={index} onClick={e => handleSlotClick(slot, e)}>
-                          <SlotText>{slot}</SlotText>
-                        </SlotButton>
-                      ))}
-                    </SlotsContainer>
-                  </SlotsSection>
-                </QuickBookingTextContent>
-              </QuickBookingContent>
-            </QuickBookingSection>
-          ) : (
-            <QuickBookingSection>
-              <QuickBookingContent>
-                <QuickBookingTextContent>
-                  <QuickBookingTitle>
+                    <SlotsSection>
+                      <SlotsDate>{enrichedClinicData.availableDoctor.todaySlots}</SlotsDate>
+                      <SlotsContainer>
+                        {enrichedClinicData.availableDoctor.availableSlots.map((slot, index) => (
+                          <SlotButton key={index} onClick={e => handleSlotClick(slot, e)}>
+                            <SlotText>{slot}</SlotText>
+                          </SlotButton>
+                        ))}
+                      </SlotsContainer>
+                    </SlotsSection>
+                  </QuickBookingTextContent>
+                </QuickBookingContent>
+              </QuickBookingSection>
+            ) : (
+              <QuickBookingSection>
+                <QuickBookingContent>
+                  <QuickBookingTextContent>
+                    <QuickBookingTitle>
                     Скажи кодовое слово «МедПоиск» и получи карточку лояльности!
-                  </QuickBookingTitle>
-                </QuickBookingTextContent>
-              </QuickBookingContent>
-              <ButtonContainer>
-                <AdButton onClick={handleBookAppointment}>
-                  <AdButtonText>Записаться на прием</AdButtonText>
-                </AdButton>
-              </ButtonContainer>
-            </QuickBookingSection>
-          )}
+                    </QuickBookingTitle>
+                  </QuickBookingTextContent>
+                </QuickBookingContent>
+                <ButtonContainer>
+                  <AdButton onClick={handleBookAppointment}>
+                    <AdButtonText>Записаться на прием</AdButtonText>
+                  </AdButton>
+                </ButtonContainer>
+              </QuickBookingSection>
+            )}
         </OrganizationCard>
 
         <TabBar>

@@ -8,7 +8,9 @@ const PerformanceMonitor = ({ enabled = true, reportWebVitals = true }) => {
   const startTime = useRef(Date.now());
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     // Логируем время монтирования компонента
     console.log('🔍 PerformanceMonitor: Monitoring started');
@@ -93,11 +95,11 @@ const PerformanceMonitor = ({ enabled = true, reportWebVitals = true }) => {
     // Мониторинг памяти (только Chrome)
     const monitorMemory = () => {
       if ('memory' in performance) {
-        const memory = performance.memory;
-        console.log(`💾 Memory usage:`, {
+        const {memory} = performance;
+        console.log('💾 Memory usage:', {
           used: `${(memory.usedJSHeapSize / 1024 / 1024).toFixed(2)} MB`,
           total: `${(memory.totalJSHeapSize / 1024 / 1024).toFixed(2)} MB`,
-          limit: `${(memory.jsHeapSizeLimit / 1024 / 1024).toFixed(2)} MB`
+          limit: `${(memory.jsHeapSizeLimit / 1024 / 1024).toFixed(2)} MB`,
         });
 
         // Предупреждение о высоком использовании памяти
@@ -130,14 +132,16 @@ const PerformanceMonitor = ({ enabled = true, reportWebVitals = true }) => {
 
   // Web Vitals мониторинг
   useEffect(() => {
-    if (!reportWebVitals || !enabled) return;
+    if (!reportWebVitals || !enabled) {
+      return;
+    }
 
     const reportVital = (metric) => {
       console.log(`📈 Web Vital - ${metric.name}:`, {
         value: metric.value.toFixed(2),
         rating: getWebVitalRating(metric.name, metric.value),
         delta: metric.delta?.toFixed(2),
-        id: metric.id
+        id: metric.id,
       });
     };
 
@@ -148,12 +152,16 @@ const PerformanceMonitor = ({ enabled = true, reportWebVitals = true }) => {
         FID: [100, 300],
         LCP: [2500, 4000],
         FCP: [1800, 3000],
-        TTFB: [800, 1800]
+        TTFB: [800, 1800],
       };
 
       const [good, needsImprovement] = thresholds[name] || [0, 0];
-      if (value <= good) return 'good';
-      if (value <= needsImprovement) return 'needs-improvement';
+      if (value <= good) {
+        return 'good';
+      }
+      if (value <= needsImprovement) {
+        return 'needs-improvement';
+      }
       return 'poor';
     };
 
@@ -170,7 +178,7 @@ const PerformanceMonitor = ({ enabled = true, reportWebVitals = true }) => {
               reportVital({
                 name: 'LCP',
                 value: lastEntry.startTime,
-                id: 'lcp-' + Date.now()
+                id: `lcp-${  Date.now()}`,
               });
             }
           }).observe({ entryTypes: ['largest-contentful-paint'] });
@@ -180,12 +188,12 @@ const PerformanceMonitor = ({ enabled = true, reportWebVitals = true }) => {
       }
 
       // FID будет измеряться автоматически при взаимодействии
-      document.addEventListener('click', function measureFID() {
+      document.addEventListener('click', () => {
         const fidValue = performance.now() - Date.now();
         reportVital({
           name: 'FID',
           value: Math.abs(fidValue),
-          id: 'fid-' + Date.now()
+          id: `fid-${  Date.now()}`,
         });
       }, { once: true });
     };
@@ -218,7 +226,9 @@ export const usePerformanceMeasure = (componentName, dependencies = []) => {
 
   return {
     renderCount: renderCount.current,
-    markRenderStart: () => { renderStart.current = Date.now(); }
+    markRenderStart: () => {
+      renderStart.current = Date.now(); 
+    },
   };
 };
 

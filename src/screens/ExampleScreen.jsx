@@ -75,25 +75,25 @@ const ExampleScreen = () => {
 
   return (
     <MapScreenLayout mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg">
-      <BottomSheet showDragger={true} scrollable={true}>
+      <BottomSheet scrollable showDragger>
         <Navigation
-          title="Пример экрана"
+          showBackButton
+          showCloseButton
           subtitle="Демонстрация новых компонентов"
+          title="Пример экрана"
           onBack={handleBack}
           onClose={handleClose}
-          showBackButton={true}
-          showCloseButton={true}
         />
 
         <ContentSection>
           <SearchSection>
             <SearchField
+              large
+              background={theme.colors.backgroundSecondary}
+              height="48px"
               placeholder="Поиск..."
               value={searchValue}
               onChange={handleSearchChange}
-              large={true}
-              background={theme.colors.backgroundSecondary}
-              height="48px"
             />
 
             <SegmentedControl
@@ -103,27 +103,27 @@ const ExampleScreen = () => {
             />
           </SearchSection>
 
-          <Card hoverable={true} fullWidth={true}>
+          <Card fullWidth hoverable>
             <CardTitle>Интерактивная карточка</CardTitle>
             <CardDescription>
               Эта карточка использует новый компонент Card с эффектом наведения
             </CardDescription>
           </Card>
 
-          <Card fullWidth={true}>
+          <Card fullWidth>
             <CardTitle>Кнопки</CardTitle>
             <CardDescription>Примеры различных вариантов кнопок</CardDescription>
             <ButtonGroup>
-              <Button variant="primary" fullWidth={true}>
+              <Button fullWidth variant="primary">
                 Основная кнопка
               </Button>
-              <Button variant="secondary" fullWidth={true}>
+              <Button fullWidth variant="secondary">
                 Вторичная кнопка
               </Button>
             </ButtonGroup>
           </Card>
 
-          <Card fullWidth={true}>
+          <Card fullWidth>
             <CardTitle>Поиск и фильтры</CardTitle>
             <CardDescription>
               Поле поиска: "{searchValue || 'не введено'}"<br />
@@ -133,12 +133,12 @@ const ExampleScreen = () => {
           </Card>
 
           <Card
-            fullWidth={true}
-            padding={theme.spacing.xl}
+            fullWidth
             customStyles={`
               background: linear-gradient(135deg, ${theme.colors.brandPrimary} 0%, ${theme.colors.brandAccent} 100%);
               color: ${theme.colors.textWhite};
             `}
+            padding={theme.spacing.xl}
           >
             <CardTitle style={{ color: theme.colors.textWhite }}>Кастомная карточка</CardTitle>
             <CardDescription style={{ color: theme.colors.textWhite, opacity: 0.9 }}>

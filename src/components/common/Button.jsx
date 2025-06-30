@@ -24,12 +24,12 @@ const Button = ({
 }) => {
   const getButtonComponent = () => {
     switch (variant) {
-      case 'secondary':
-        return SecondaryButton;
-      case 'icon':
-        return IconButtonStyled;
-      default:
-        return PrimaryButton;
+    case 'secondary':
+      return SecondaryButton;
+    case 'icon':
+      return IconButtonStyled;
+    default:
+      return PrimaryButton;
     }
   };
 
@@ -37,9 +37,9 @@ const Button = ({
 
   return (
     <ButtonComponent
-      onClick={onClick}
       disabled={disabled}
       style={{ width: fullWidth ? '100%' : 'auto' }}
+      onClick={onClick}
       {...props}
     >
       {children}

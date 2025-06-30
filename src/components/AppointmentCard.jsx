@@ -226,7 +226,9 @@ function AppointmentCard({ appointment, onClick }) {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const formatDateTime = dateTime => {
-    if (!dateTime) return '14 июня, вт, 10:30';
+    if (!dateTime) {
+      return '14 июня, вт, 10:30';
+    }
 
     const date = new Date(dateTime.date);
     const dayNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
@@ -317,7 +319,7 @@ function AppointmentCard({ appointment, onClick }) {
 
           <AppointmentActions>
             {appointment.status === 'active' && (
-              <ActionButton variant="cancel" onClick={handleCancelClick} title="Отменить запись">
+              <ActionButton title="Отменить запись" variant="cancel" onClick={handleCancelClick}>
                 ✕
               </ActionButton>
             )}

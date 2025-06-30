@@ -15,7 +15,7 @@ class ImageDataRemover {
     
     return new Promise((resolve, reject) => {
       const inputStream = fs.createReadStream(filePath, { encoding: 'utf8' });
-      const outputPath = filePath + '.tmp';
+      const outputPath = `${filePath  }.tmp`;
       const outputStream = fs.createWriteStream(outputPath, { encoding: 'utf8' });
       
       let buffer = '';
@@ -37,8 +37,9 @@ class ImageDataRemover {
           let arrayEnd = -1;
           
           while (i < buffer.length) {
-            if (buffer[i] === '[') bracketCount++;
-            else if (buffer[i] === ']') {
+            if (buffer[i] === '[') {
+              bracketCount++;
+            } else if (buffer[i] === ']') {
               if (bracketCount === 0) {
                 arrayEnd = i;
                 break;
@@ -94,7 +95,7 @@ class ImageDataRemover {
           console.log(`✅ Removed ${removedArrays} imageData arrays from ${path.basename(filePath)}`);
           this.processedFiles.push({
             file: filePath,
-            removedArrays: removedArrays
+            removedArrays,
           });
           resolve(removedArrays);
         });
@@ -120,7 +121,7 @@ class ImageDataRemover {
   }
 
   printSummary() {
-    console.log('\n' + '='.repeat(50));
+    console.log(`\n${  '='.repeat(50)}`);
     console.log('📊 REMOVAL SUMMARY');
     console.log('='.repeat(50));
     
@@ -139,7 +140,7 @@ class ImageDataRemover {
 async function main() {
   const jsonFiles = [
     'done.json',
-    'confirmation.json'
+    'confirmation.json',
   ].map(file => path.join(__dirname, '..', file));
 
   const remover = new ImageDataRemover();

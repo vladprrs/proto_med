@@ -34,25 +34,25 @@ function App() {
       <AppContainer>
         <Routes>
           {/* Main routes */}
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/search" element={<SearchPageScreen />} />
-          <Route path="/appointments" element={<AppointmentsScreen />} />
-          <Route path="/profile" element={<ProfileScreen />} />
-          <Route path="/example" element={<ExampleScreen />} />
+          <Route element={<Dashboard />} path="/" />
+          <Route element={<SearchPageScreen />} path="/search" />
+          <Route element={<AppointmentsScreen />} path="/appointments" />
+          <Route element={<ProfileScreen />} path="/profile" />
+          <Route element={<ExampleScreen />} path="/example" />
 
           {/* Clinic routes */}
-          <Route path="/clinic/:clinicId" element={<ClinicScreen />} />
-          <Route path="/clinic/:clinicId/services" element={<ServicesScreen />} />
-          <Route path="/clinic/:clinicId/specialists" element={<SpecialistsScreen />} />
-          <Route path="/clinic/:clinicId/datetime" element={<DateTimeScreen />} />
-          <Route path="/clinic/:clinicId/confirmation" element={<ConfirmationScreen />} />
-          <Route path="/clinic/:clinicId/done" element={<DoneScreen />} />
+          <Route element={<ClinicScreen />} path="/clinic/:clinicId" />
+          <Route element={<ServicesScreen />} path="/clinic/:clinicId/services" />
+          <Route element={<SpecialistsScreen />} path="/clinic/:clinicId/specialists" />
+          <Route element={<DateTimeScreen />} path="/clinic/:clinicId/datetime" />
+          <Route element={<ConfirmationScreen />} path="/clinic/:clinicId/confirmation" />
+          <Route element={<DoneScreen />} path="/clinic/:clinicId/done" />
 
           {/* Appointment ticket route */}
-          <Route path="/appointment" element={<DoneScreen />} />
+          <Route element={<DoneScreen />} path="/appointment" />
 
           {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
 
         {/* Global Toast notifications */}

@@ -35,7 +35,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <ErrorBoundary onError={handleGlobalError} showDetails={process.env.NODE_ENV === 'development'}>
+    <ErrorBoundary showDetails={process.env.NODE_ENV === 'development'} onError={handleGlobalError}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <ContextProvider>
@@ -47,5 +47,5 @@ root.render(
         </QueryClientProvider>
       </BrowserRouter>
     </ErrorBoundary>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

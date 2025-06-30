@@ -16,11 +16,11 @@ export { UIProvider, useUIContext, UIActionTypes } from './UIContext';
 
 // Import React for the combined provider
 import React from 'react';
-import { SearchProvider } from './SearchContext';
-import { BookingProvider } from './BookingContext';
-import { UserProvider } from './UserContext';
-import { AppointmentsProvider } from './AppointmentsContext';
-import { UIProvider } from './UIContext';
+import { SearchProvider, useSearchContext } from './SearchContext';
+import { BookingProvider, useBookingContext } from './BookingContext';
+import { UserProvider, useUserContext } from './UserContext';
+import { AppointmentsProvider, useAppointmentsContext } from './AppointmentsContext';
+import { UIProvider, useUIContext } from './UIContext';
 
 // Combined context provider that wraps all providers
 export function ContextProvider({ children }) {

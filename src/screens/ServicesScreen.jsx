@@ -290,9 +290,9 @@ const ExpandIcon = styled.div`
     left: 0px;
     top: ${props => (props.$expanded ? '2px' : '8px')};
     clip-path: ${props =>
-      props.$expanded
-        ? 'polygon(0% 100%, 50% 0%, 100% 100%)'
-        : 'polygon(0% 0%, 50% 100%, 100% 0%)'};
+    props.$expanded
+      ? 'polygon(0% 100%, 50% 0%, 100% 100%)'
+      : 'polygon(0% 0%, 50% 100%, 100% 0%)'};
     transform: ${props => (props.$expanded ? 'none' : 'none')};
   }
 `;
@@ -580,8 +580,8 @@ const ServicesScreen = () => {
                 ? doctorInfo.price 
                 : parseInt(doctorInfo.price?.replace(/[^\d]/g, '') || '1500'),
               duration: '30 мин',
-              category: 'Консультация'
-            }
+              category: 'Консультация',
+            },
           ];
         }
         
@@ -623,18 +623,18 @@ const ServicesScreen = () => {
   // Преобразуем данные услуг для использования в компоненте
   const services = Array.isArray(servicesData)
     ? servicesData.map(service => ({
-        id: service.id,
-        name: service.name,
-        description: service.description,
-        price:
+      id: service.id,
+      name: service.name,
+      description: service.description,
+      price:
           typeof service.price === 'number' ? `${service.price.toLocaleString()} ₽` : service.price,
-        priceValue:
+      priceValue:
           typeof service.price === 'number'
             ? service.price
             : parseInt(service.price?.replace(/[^\d]/g, '') || '0'),
-        duration: service.duration,
-        category: service.category,
-      }))
+      duration: service.duration,
+      category: service.category,
+    }))
     : [];
 
   // Извлекаем уникальные категории
@@ -679,7 +679,7 @@ const ServicesScreen = () => {
     return services.filter(
       service =>
         service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.category.toLowerCase().includes(searchTerm.toLowerCase())
+        service.category.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   };
 
@@ -717,7 +717,7 @@ const ServicesScreen = () => {
       navigate(`/clinic/${fallbackClinicId}/specialists`, {
         state: {
           selectedServices: selectedServicesData,
-          clinicData: clinicData,
+          clinicData,
         },
       });
     }
@@ -825,8 +825,8 @@ const ServicesScreen = () => {
           <SearchSection>
             <SearchField>
               <SearchInput
-                type="text"
                 placeholder="Поиск"
+                type="text"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
               />
@@ -850,7 +850,7 @@ const ServicesScreen = () => {
                     >
                       <ServiceContent>
                         <CheckboxContainer>
-                          <Checkbox $checked={true} />
+                          <Checkbox $checked />
                         </CheckboxContainer>
                         <ServiceDetails>
                           <ServiceName>{service.name}</ServiceName>
@@ -865,15 +865,17 @@ const ServicesScreen = () => {
 
             {categories.map(category => {
               const categoryServices = filteredServices.filter(
-                service => service.category === category
+                service => service.category === category,
               );
-              if (categoryServices.length === 0) return null;
+              if (categoryServices.length === 0) {
+                return null;
+              }
 
               const isExpanded = expandedCategories.has(category);
 
               return (
                 <SelectedSection key={category}>
-                  <SectionHeader $clickable={true} onClick={() => toggleCategory(category)}>
+                  <SectionHeader $clickable onClick={() => toggleCategory(category)}>
                     <SectionTitle>
                       <SectionTitleText>{category}</SectionTitleText>
                     </SectionTitle>

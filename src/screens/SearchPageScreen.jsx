@@ -429,7 +429,7 @@ const SearchPageScreen = () => {
     'isLoading:',
     isLoading,
     'error:',
-    error
+    error,
   );
 
   // Показываем детальную информацию о результатах
@@ -443,7 +443,7 @@ const SearchPageScreen = () => {
         featuredDoctorId: r.featuredDoctorId,
         hasAvailableDoctor: !!r.availableDoctor,
         hasOnlineBooking: r.hasOnlineBooking,
-      }))
+      })),
     );
 
     // Информация о фильтре онлайн записи
@@ -452,7 +452,7 @@ const SearchPageScreen = () => {
       console.log(
         '🔍 Online booking filter active - showing',
         onlineBookingCount,
-        'clinics with online booking'
+        'clinics with online booking',
       );
     }
   }
@@ -485,14 +485,14 @@ const SearchPageScreen = () => {
                     <SearchIcon />
                   </SearchIconContainer>
                   <SearchInput
+                    placeholder="Поиск"
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="Поиск"
                   />
                   <SalutIcon>
                     <SalutImage
-                      src="/assets/images/0235e2ec7b64e89803c2ebe320dbddf014cebf7a_48.jpg"
                       alt=""
+                      src="/assets/images/0235e2ec7b64e89803c2ebe320dbddf014cebf7a_48.jpg"
                     />
                   </SalutIcon>
                 </SearchField>
@@ -574,7 +574,7 @@ const SearchPageScreen = () => {
           <SushiBanner>
             <SushiBannerCard>
               <SushiImageContainer>
-                <SushiImage src="/assets/clinic_placeholder.svg" alt="" />
+                <SushiImage alt="" src="/assets/clinic_placeholder.svg" />
               </SushiImageContainer>
               <SushiContent>
                 <SushiTitle>МедКлиника «ЗдоровьеПлюс»</SushiTitle>

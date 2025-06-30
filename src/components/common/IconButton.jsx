@@ -106,13 +106,13 @@ const IconButton = ({ icon, onClick, disabled, ...props }) => {
 
   if (!IconComponent) {
     console.warn(
-      `Icon "${icon}" not found. Available icons: ${Object.keys(iconComponents).join(', ')}`
+      `Icon "${icon}" not found. Available icons: ${Object.keys(iconComponents).join(', ')}`,
     );
     return null;
   }
 
   return (
-    <StyledIconButton onClick={onClick} disabled={disabled} {...props}>
+    <StyledIconButton disabled={disabled} onClick={onClick} {...props}>
       <IconComponent />
     </StyledIconButton>
   );

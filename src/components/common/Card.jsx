@@ -23,12 +23,12 @@ const Card = ({
 }) => {
   return (
     <CardContainer
-      onClick={onClick}
-      hoverable={hoverable || !!onClick}
-      padding={padding}
+      customStyles={customStyles}
       fullWidth={fullWidth}
       height={height}
-      customStyles={customStyles}
+      hoverable={hoverable || !!onClick}
+      padding={padding}
+      onClick={onClick}
       {...props}
     >
       {children}

@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  useClinic,
-  useDoctors,
-  useSlots,
-  useServices,
-  useSpecialists,
-  useTimeSlots,
-} from '../hooks/useApi';
+import { useClinic, useDoctors, useSlots, useServices, useSpecialists, useTimeSlots } from '../hooks/useApi';
 import { MapScreenLayout } from '../components/layout';
-import { useAppointmentsContext } from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 import AppointmentCard from '../components/AppointmentCard';
 
 // Удалены Container, MapBackground, BlurOverlay - заменены на ScreenLayout
@@ -32,7 +25,7 @@ const OrganizationCard = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
-  background: #fff;
+  background: #FFF;
   box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.06);
   position: relative;
 `;
@@ -44,7 +37,7 @@ const HeaderSection = styled.div`
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
-  background: linear-gradient(157deg, #e8f5e8 0%, #fff 78.03%);
+  background: linear-gradient(157deg, #E8F5E8 0%, #FFF 78.03%);
   position: relative;
 `;
 
@@ -89,7 +82,7 @@ const BackIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-
+  
   &::after {
     content: '';
     width: 10px;
@@ -175,10 +168,10 @@ const Avatar = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 12px;
-  border: 2px solid #fff;
+  border: 2px solid #FFF;
   background: url('/assets/wizard/angelika.jpg') center / cover no-repeat;
   position: relative;
-  margin-left: ${props => (props.index > 0 ? '-8px' : '0')};
+  margin-left: ${props => props.index > 0 ? '-8px' : '0'};
   z-index: ${props => 10 - props.index};
 `;
 
@@ -218,7 +211,7 @@ const CrownIcon = styled.svg`
 `;
 
 const SubtitleText = styled.div`
-  color: rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.50);
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -241,7 +234,7 @@ const NavButton = styled.button`
   border-radius: 8px;
   border: none;
   cursor: pointer;
-
+  
   &:hover {
     background: rgba(20, 20, 20, 0.12);
   }
@@ -251,7 +244,7 @@ const CloseIcon = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
-
+  
   &::before,
   &::after {
     content: '';
@@ -263,11 +256,11 @@ const CloseIcon = styled.div`
     background-color: #141414;
     transform-origin: center;
   }
-
+  
   &::before {
     transform: translate(-50%, -50%) rotate(45deg);
   }
-
+  
   &::after {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
@@ -307,14 +300,14 @@ const Star = styled.div`
   width: 16px;
   height: 16px;
   position: relative;
-
+  
   &::after {
     content: '★';
     position: absolute;
     top: 0;
     left: 0;
     font-size: 16px;
-    color: ${props => (props.filled ? '#FFD700' : '#D4D4D4')};
+    color: ${props => props.filled ? '#FFD700' : '#D4D4D4'};
   }
 `;
 
@@ -327,7 +320,7 @@ const RatingText = styled.div`
 `;
 
 const ReviewCount = styled.div`
-  color: rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.50);
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -345,7 +338,7 @@ const TimeIcon = styled.div`
   width: 16px;
   height: 16px;
   position: relative;
-
+  
   &::after {
     content: '🚗';
     position: absolute;
@@ -356,7 +349,7 @@ const TimeIcon = styled.div`
 `;
 
 const TimeText = styled.div`
-  color: rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.50);
   font-size: 15px;
   font-weight: 500;
   line-height: 20px;
@@ -365,11 +358,12 @@ const TimeText = styled.div`
 
 const QuickBookingSection = styled.div`
   display: flex;
-  padding: 0px 0px 8px 16px;
+  padding: 0px 16px 8px 16px;
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
   position: relative;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 `;
 
 const QuickBookingContent = styled.div`
@@ -378,8 +372,8 @@ const QuickBookingContent = styled.div`
   align-items: flex-start;
   gap: 12px;
   align-self: stretch;
-  background: rgba(0, 0, 0, 0);
-  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.3) inset;
+  background: rgba(0, 0, 0, 0.00);
+  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.30) inset;
   position: relative;
 `;
 
@@ -418,7 +412,7 @@ const DoctorName = styled.div`
 `;
 
 const DoctorSpecialty = styled.div`
-  color: rgba(20, 20, 20, 0.7);
+  color: rgba(20, 20, 20, 0.70);
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -426,7 +420,7 @@ const DoctorSpecialty = styled.div`
 `;
 
 const DoctorExperience = styled.div`
-  color: rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.50);
   font-size: 13px;
   font-weight: 400;
   line-height: 16px;
@@ -461,7 +455,7 @@ const CheckIcon = styled.div`
 `;
 
 const FirstVisitText = styled.div`
-  color: #1ba136;
+  color: #1BA136;
   font-size: 13px;
   font-weight: 400;
   line-height: 16px;
@@ -478,7 +472,7 @@ const SlotsSection = styled.div`
 `;
 
 const SlotsDate = styled.div`
-  color: rgba(20, 20, 20, 0.7);
+  color: rgba(20, 20, 20, 0.70);
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -499,16 +493,16 @@ const SlotButton = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: #1ba136;
+  background: #1BA136;
   cursor: pointer;
-
+  
   &:hover {
-    background: #169a2e;
+    background: #169A2E;
   }
 `;
 
 const SlotText = styled.div`
-  color: #fff;
+  color: #FFF;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -525,20 +519,31 @@ const ButtonContainer = styled.div`
   position: relative;
 `;
 
-const AdButton = styled.div`
+const AdButton = styled.button`
   display: flex;
   padding: 13px 16px 15px 16px;
+  margin-top: 12px;
   justify-content: center;
   align-items: center;
   align-self: stretch;
   border-radius: 10px;
-  border: 2px solid rgba(20, 20, 20, 0.06);
+  border: none;
   background: #1ba136;
   cursor: pointer;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+
+  &:hover {
+    background: #169a2e;
+  }
 `;
 
 const AdButtonText = styled.div`
-  color: #fff;
+  color: #FFF;
   text-align: center;
   font-size: 16px;
   font-weight: 600;
@@ -560,7 +565,7 @@ const ServiceCard = styled.div`
   align-items: flex-start;
   gap: 16px;
   border-radius: 12px;
-  background: #fff;
+  background: #FFF;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -591,7 +596,7 @@ const ServiceName = styled.div`
 `;
 
 const ServiceDescription = styled.div`
-  color: rgba(20, 20, 20, 0.7);
+  color: rgba(20, 20, 20, 0.70);
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -614,7 +619,7 @@ const ServicePrice = styled.div`
 `;
 
 const ServiceDuration = styled.div`
-  color: rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.50);
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -626,8 +631,8 @@ const ServiceCategory = styled.div`
   padding: 4px 8px;
   align-items: center;
   border-radius: 6px;
-  background: rgba(27, 161, 54, 0.1);
-  color: #1ba136;
+  background: rgba(27, 161, 54, 0.10);
+  color: #1BA136;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -646,7 +651,7 @@ const DoctorCard = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 16px;
-  background: #f8f8f8;
+  background: #F8F8F8;
   border-radius: 12px;
 `;
 
@@ -702,7 +707,7 @@ const DoctorCheckIcon = styled.div`
 `;
 
 const DoctorFirstVisitText = styled.div`
-  color: #1ba136;
+  color: #1BA136;
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -732,17 +737,17 @@ const DoctorSlotButton = styled.div`
   padding: 6px 12px;
   justify-content: center;
   align-items: center;
-  background: #1ba136;
+  background: #1BA136;
   border-radius: 8px;
   cursor: pointer;
-
+  
   &:hover {
-    background: #169a2e;
+    background: #169A2E;
   }
 `;
 
 const DoctorSlotText = styled.div`
-  color: #fff;
+  color: #FFF;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -754,7 +759,7 @@ const TabBar = styled.div`
   width: 100%;
   height: 48px;
   position: relative;
-  background: #fff;
+  background: #FFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 `;
 
@@ -767,7 +772,7 @@ const TabsContainer = styled.div`
   height: 48px;
   overflow-x: auto;
   scrollbar-width: none;
-
+  
   &::-webkit-scrollbar {
     display: none;
   }
@@ -779,14 +784,14 @@ const Tab = styled.div`
   align-items: center;
   gap: 6px;
   border-radius: 8px;
-  background: ${props => (props.active ? '#F1F1F1' : 'transparent')};
+  background: ${props => props.active ? '#F1F1F1' : 'transparent'};
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
 `;
 
 const TabLabel = styled.div`
-  color: ${props => (props.active ? '#141414' : '#898989')};
+  color: ${props => props.active ? '#141414' : '#898989'};
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -798,12 +803,12 @@ const TabCounter = styled.div`
   padding: 1px 5px 2px 5px;
   justify-content: center;
   align-items: center;
-  background: rgba(20, 20, 20, 0.3);
+  background: rgba(20, 20, 20, 0.30);
   border-radius: 12px;
 `;
 
 const CounterText = styled.div`
-  color: #fff;
+  color: #FFF;
   text-align: center;
   font-size: 13px;
   font-weight: 500;
@@ -818,7 +823,7 @@ const MainContent = styled.div`
   align-items: flex-start;
   gap: 16px;
   align-self: stretch;
-  background: #f1f1f1;
+  background: #F1F1F1;
   position: relative;
   min-height: 400px;
 `;
@@ -831,7 +836,7 @@ const ContentCard = styled.div`
   gap: 12px;
   align-self: stretch;
   border-radius: 12px;
-  background: #fff;
+  background: #FFF;
 `;
 
 const ContentTitle = styled.div`
@@ -843,7 +848,7 @@ const ContentTitle = styled.div`
 `;
 
 const ContentText = styled.div`
-  color: rgba(20, 20, 20, 0.7);
+  color: rgba(20, 20, 20, 0.70);
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -865,7 +870,7 @@ const InfoRow = styled.div`
 `;
 
 const InfoLabel = styled.div`
-  color: rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.50);
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
@@ -885,10 +890,10 @@ const ClinicScreen = () => {
   const navigate = useNavigate();
   const { clinicId } = useParams();
   const [activeTab, setActiveTab] = useState('overview');
-
+  
   // Получаем записи пользователя из контекста
-  const appointmentsContext = useAppointmentsContext();
-  const {appointments} = appointmentsContext;
+  const { state } = useAppContext();
+  const { appointments } = state;
 
   // Используем API хуки для получения данных клиники, докторов и слотов
   const { data: clinicData, isLoading, error } = useClinic(clinicId);
@@ -897,18 +902,17 @@ const ClinicScreen = () => {
   const { data: services } = useServices(clinicId);
   const { data: specialists } = useSpecialists(clinicId);
   const { data: timeSlots } = useTimeSlots(1, '2024-01-15'); // Для примера используем специалиста 1 и дату
-
+  
   // Фильтруем записи пользователя в эту клинику
   const clinicAppointments = appointments.filter(appointment => {
-    if (!appointment.clinic) {
-      return false;
-    }
-
+    if (!appointment.clinic) return false;
+    
     // Сравниваем по ID клиники или по названию (для совместимости)
     const appointmentClinicId = appointment.clinic.id?.toString();
     const currentClinicId = clinicId?.toString();
-
-    return appointmentClinicId === currentClinicId || appointment.clinic.name === clinicData?.name;
+    
+    return appointmentClinicId === currentClinicId || 
+           appointment.clinic.name === clinicData?.name;
   });
 
   // Функция для обогащения данных клиники информацией о докторе
@@ -923,105 +927,84 @@ const ClinicScreen = () => {
     }
 
     const doctorSlots = slots.find(s => s.doctorId === doctor.id);
-
+    if (!doctorSlots) {
+      return clinic;
+    }
+    
     return {
       ...clinic,
       availableDoctor: {
+        id: doctor.id,
         name: doctor.name,
         specialty: doctor.specialty,
         experience: doctor.experience,
         photo: doctor.photo,
         price: doctor.price,
         firstVisitPrice: doctor.firstVisitPrice,
-        availableSlots: doctorSlots?.slots || [],
-        todaySlots: doctorSlots?.dateLabel || 'Нет доступных слотов',
+        availableSlots: doctorSlots.slots || [],
+        todaySlots: doctorSlots.dateLabel || 'Сегодня',
+        date: doctorSlots.date,
       },
     };
   };
 
   // Функция для связывания услуг со специалистами
   const getServicesWithSpecialists = () => {
-    if (
-      !services ||
-      !Array.isArray(services) ||
-      !specialists ||
-      !Array.isArray(specialists) ||
-      !timeSlots
-    ) {
-      console.log(
-        '🔸 getServicesWithSpecialists: Missing data - services:',
-        !!services && Array.isArray(services),
-        'specialists:',
-        !!specialists && Array.isArray(specialists),
-        'timeSlots:',
-        !!timeSlots,
-      );
+    if (!services || !Array.isArray(services) || !specialists || !Array.isArray(specialists) || !timeSlots) {
+      console.log('🔸 getServicesWithSpecialists: Missing data - services:', !!services && Array.isArray(services), 'specialists:', !!specialists && Array.isArray(specialists), 'timeSlots:', !!timeSlots);
       return [];
     }
 
-    console.log(
-      '🔸 getServicesWithSpecialists: services:',
-      services.length,
-      'specialists:',
-      specialists.length,
-      'timeSlots:',
-      timeSlots.length,
-    );
+    console.log('🔸 getServicesWithSpecialists: services:', services.length, 'specialists:', specialists.length, 'timeSlots:', timeSlots.length);
 
     // Создаем маппинг категорий услуг к специальностям
     const categoryToSpecialty = {
-      Терапия: ['Терапевт'],
-      Кардиология: ['Кардиолог', 'Терапевт'],
-      Эндокринология: ['Эндокринолог', 'Терапевт'],
-      Неврология: ['Невролог'],
-      Стоматология: ['Стоматолог'],
-      Гинекология: ['Гинеколог'],
-      Диагностика: ['Терапевт', 'Кардиолог', 'Эндокринолог'],
-      'Лабораторная диагностика': ['Терапевт', 'Кардиолог', 'Эндокринолог'],
+      'Терапия': ['Терапевт'],
+      'Кардиология': ['Кардиолог', 'Терапевт'],
+      'Эндокринология': ['Эндокринолог', 'Терапевт'],
+      'Неврология': ['Невролог'],
+      'Стоматология': ['Стоматолог'],
+      'Гинекология': ['Гинеколог'],
+      'Диагностика': ['Терапевт', 'Кардиолог', 'Эндокринолог'],
+      'Лабораторная диагностика': ['Терапевт', 'Кардиолог', 'Эндокринолог']
     };
 
-    return services.map(service => {
-      // Находим специалистов, которые могут выполнить эту услугу
-      const availableSpecialists = specialists.filter(specialist => {
-        const specialtiesForCategory = categoryToSpecialty[service.category] || [];
-        return specialtiesForCategory.includes(specialist.specialty);
-      });
+          return services.map(service => {
+        // Находим специалистов, которые могут выполнить эту услугу
+        const availableSpecialists = specialists.filter(specialist => {
+          const specialtiesForCategory = categoryToSpecialty[service.category] || [];
+          return specialtiesForCategory.includes(specialist.specialty);
+        });
 
-      console.log(
-        `🔸 Service "${service.name}" (${service.category}): found ${availableSpecialists.length} specialists`,
-      );
+        console.log(`🔸 Service "${service.name}" (${service.category}): found ${availableSpecialists.length} specialists`);
 
-      // Для каждого специалиста получаем доступные слоты
-      const specialistsWithSlots = availableSpecialists.map(specialist => {
-        const availableSlots =
-          timeSlots
-            ?.filter(slot => slot.specialistId === specialist.id && slot.available)
-            .map(slot => slot.time)
-            .slice(0, 4) || []; // Показываем максимум 4 слота
+        // Для каждого специалиста получаем доступные слоты
+        const specialistsWithSlots = availableSpecialists.map(specialist => {
+          const availableSlots = timeSlots?.filter(slot => 
+            slot.specialistId === specialist.id && slot.available
+          ).map(slot => slot.time).slice(0, 4) || []; // Показываем максимум 4 слота
 
-        console.log(
-          `🔸 Specialist "${specialist.name}" (id: ${specialist.id}): found ${availableSlots.length} slots`,
-        );
+          console.log(`🔸 Specialist "${specialist.name}" (id: ${specialist.id}): found ${availableSlots.length} slots`);
+
+          return {
+            ...specialist,
+            availableSlots,
+            slotsDate: 'Сегодня, 15 янв'
+          };
+        });
 
         return {
-          ...specialist,
-          availableSlots,
-          slotsDate: 'Сегодня, 15 янв',
+          ...service,
+          availableSpecialists: specialistsWithSlots
         };
       });
-
-      return {
-        ...service,
-        availableSpecialists: specialistsWithSlots,
-      };
-    });
   };
 
   // Функция для обработки клика по слоту
   const handleSlotClick = (slot, event) => {
     event.preventDefault();
     event.stopPropagation();
-
+    
     // Переходим на визард с предзаполненными данными
     const fallbackClinicId = clinicId || '1';
     navigate(`/clinic/${fallbackClinicId}/services`, {
@@ -1030,9 +1013,9 @@ const ClinicScreen = () => {
           clinic: enrichedClinicData,
           doctor: enrichedClinicData.availableDoctor,
           selectedTime: slot,
-          skipSteps: ['specialist'], // Пропускаем выбор специалиста, но проходим через услуги
-        },
-      },
+          skipSteps: ['specialist'] // Пропускаем выбор специалиста, но проходим через услуги
+        }
+      }
     });
   };
 
@@ -1040,18 +1023,18 @@ const ClinicScreen = () => {
   const handleServiceSlotClick = (service, specialist, slot, event) => {
     event.preventDefault();
     event.stopPropagation();
-
+    
     const fallbackClinicId = clinicId || '1';
     navigate(`/clinic/${fallbackClinicId}/services`, {
       state: {
         prefilledData: {
           clinic: enrichedClinicData,
-          service,
-          specialist,
+          service: service,
+          specialist: specialist,
           selectedTime: slot,
-          skipSteps: ['service', 'specialist'], // Пропускаем выбор услуги и специалиста
-        },
-      },
+          skipSteps: ['service', 'specialist'] // Пропускаем выбор услуги и специалиста
+        }
+      }
     });
   };
 
@@ -1068,23 +1051,23 @@ const ClinicScreen = () => {
   const createTestAppointmentForClinic = () => {
     const testAppointment = {
       id: `test-clinic-${clinicId}-${Date.now()}`,
-      clinic: {
+      clinic: { 
         id: parseInt(clinicId),
-        name: clinicData?.name || `Клиника ${clinicId}`,
+        name: clinicData?.name || `Клиника ${clinicId}` 
       },
       dateTime: {
         date: '2024-07-15',
-        time: '14:00',
+        time: '14:00'
       },
       services: [{ name: 'Консультация терапевта', price: '1500 ₽' }],
       specialist: { name: 'Петров Дмитрий Сергеевич', specialty: 'Терапевт' },
       status: 'active',
-      patient: { name: 'Владислав Прищепов', phone: '+7(999)4620809' },
+      patient: { name: 'Владислав Прищепов', phone: '+7(999)4620809' }
     };
-
+    
     // Добавляем через actions из контекста
-    if (appointmentsContext?.actions?.addAppointment) {
-      appointmentsContext.actions.addAppointment(testAppointment);
+    if (state?.actions?.addAppointment) {
+      state.actions.addAppointment(testAppointment);
       console.log('🎯 Test appointment created for clinic:', testAppointment);
     } else {
       console.error('❌ Actions not available in context');
@@ -1101,13 +1084,11 @@ const ClinicScreen = () => {
         console.log('🔍 Current clinic ID:', clinicId);
         console.log('🔍 Current clinic data:', clinicData);
         return { all: appointments, clinic: clinicAppointments, clinicId, clinicData };
-      },
+      }
     };
-
+    
     console.log('🔧 Debug functions for clinic appointments:');
-    console.log(
-      '  window.debugClinicAppointments.create() - создать тестовую запись в эту клинику',
-    );
+    console.log('  window.debugClinicAppointments.create() - создать тестовую запись в эту клинику');
     console.log('  window.debugClinicAppointments.check() - проверить записи');
   }, [appointments, clinicAppointments, clinicId, clinicData]);
 
@@ -1123,12 +1104,14 @@ const ClinicScreen = () => {
   // Обогащаем данные клиники информацией о докторе
   const enrichedClinicData = enrichClinicWithDoctorData(clinicData, doctors, slots);
 
-  const renderStars = rating => {
+  const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
-
+    
     for (let i = 0; i < 5; i++) {
-      stars.push(<Star key={i} filled={i < fullStars} />);
+      stars.push(
+        <Star key={i} filled={i < fullStars} />
+      );
     }
     return stars;
   };
@@ -1139,226 +1122,238 @@ const ClinicScreen = () => {
     { id: 'photos', label: 'Фото', counter: 432 },
     { id: 'reviews', label: 'Отзывы', counter: 232 },
     { id: 'info', label: 'Инфо' },
-    { id: 'promotions', label: 'Акции' },
+    { id: 'promotions', label: 'Акции' }
   ];
 
   const renderTabContent = () => {
     switch (activeTab) {
-    case 'overview':
-      return (
-        <>
-          {/* Блок записей пользователя в эту клинику */}
-          {clinicAppointments.length > 0 && (
+      case 'overview':
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <ContentCard>
-              <ContentTitle>Ваши записи в {clinicData?.name || 'эту клинику'}</ContentTitle>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                  marginTop: '12px',
-                }}
-              >
-                {clinicAppointments.map(appointment => (
-                  <AppointmentCard key={appointment.id} appointment={appointment} />
-                ))}
-              </div>
+              <ContentTitle>О клинике</ContentTitle>
+              <ContentText>
+                {clinicData.subtitle ||
+                  'Многопрофильная клиника с современным оборудованием и квалифицированными специалистами.'}
+              </ContentText>
             </ContentCard>
-          )}
 
-          <ContentCard>
-            <ContentTitle>О клинике</ContentTitle>
-            <ContentText>{clinicData.description}</ContentText>
-          </ContentCard>
+            {clinicData.hasCrown && enrichedClinicData.availableDoctor && (
+              <ContentCard>
+                <ContentTitle>Ближайшие доступные слоты</ContentTitle>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
+                  <img src={enrichedClinicData.availableDoctor.photo} style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
+                  <div>
+                    <ContentText style={{ fontWeight: '600' }}>{enrichedClinicData.availableDoctor.name}</ContentText>
+                    <ContentText style={{ fontSize: '14px', color: 'rgba(20, 20, 20, 0.7)' }}>
+                      {enrichedClinicData.availableDoctor.specialty}
+                    </ContentText>
+                  </div>
+                </div>
 
-          <ContentCard>
-            <ContentTitle>Контактная информация</ContentTitle>
-            <InfoGrid>
-              <InfoRow>
-                <InfoLabel>Адрес</InfoLabel>
-                <InfoValue>{clinicData.address}</InfoValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoLabel>Телефон</InfoLabel>
-                <InfoValue>{clinicData.phone}</InfoValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoLabel>Режим работы</InfoLabel>
-                <InfoValue>{clinicData.workingHours}</InfoValue>
-              </InfoRow>
-            </InfoGrid>
-          </ContentCard>
+                <div style={{ marginTop: '16px', width: '100%' }}>
+                  <ContentText style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+                    {enrichedClinicData.availableDoctor.todaySlots}
+                  </ContentText>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    {enrichedClinicData.availableDoctor.availableSlots.map((slot, index) => (
+                      <AdButton
+                        key={index}
+                        onClick={(e) => handleSlotClick(slot, e)}
+                        style={{ flex: '1 1 calc(25% - 8px)', background: '#1BA136', color: 'white', padding: '8px 12px' }}
+                      >
+                        {slot}
+                      </AdButton>
+                    ))}
+                  </div>
+                </div>
+              </ContentCard>
+            )}
 
-          <ContentCard>
-            <ContentTitle>Популярные услуги</ContentTitle>
-            <InfoGrid>
-              <InfoRow>
-                <InfoLabel>Консультация терапевта</InfoLabel>
-                <InfoValue>от 1500 ₽</InfoValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoLabel>УЗИ диагностика</InfoLabel>
-                <InfoValue>от 2000 ₽</InfoValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoLabel>Анализы крови</InfoLabel>
-                <InfoValue>от 800 ₽</InfoValue>
-              </InfoRow>
-            </InfoGrid>
-          </ContentCard>
-        </>
-      );
-
-    case 'menu':
-      // Проверяем наличие данных перед вызовом функции
-      if (!services || !specialists) {
-        return (
-          <ContentCard>
-            <ContentTitle>Медицинские услуги</ContentTitle>
-            <ContentText>Загрузка услуг...</ContentText>
-          </ContentCard>
+            <ContentCard>
+              <ContentTitle>Контактная информация</ContentTitle>
+              <InfoGrid>
+                <InfoRow>
+                  <InfoLabel>Адрес</InfoLabel>
+                  <InfoValue>{clinicData.address}</InfoValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoLabel>Телефон</InfoLabel>
+                  <InfoValue>{clinicData.phone}</InfoValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoLabel>Режим работы</InfoLabel>
+                  <InfoValue>{clinicData.workingHours}</InfoValue>
+                </InfoRow>
+              </InfoGrid>
+            </ContentCard>
+            
+            <ContentCard>
+              <ContentTitle>Популярные услуги</ContentTitle>
+              <InfoGrid>
+                <InfoRow>
+                  <InfoLabel>Консультация терапевта</InfoLabel>
+                  <InfoValue>от 1500 ₽</InfoValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoLabel>УЗИ диагностика</InfoLabel>
+                  <InfoValue>от 2000 ₽</InfoValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoLabel>Анализы крови</InfoLabel>
+                  <InfoValue>от 800 ₽</InfoValue>
+                </InfoRow>
+              </InfoGrid>
+            </ContentCard>
+          </div>
         );
-      }
+      
+      case 'menu':
+        // Проверяем наличие данных перед вызовом функции
+        if (!services || !specialists) {
+          return (
+            <ContentCard>
+              <ContentTitle>Медицинские услуги</ContentTitle>
+              <ContentText>Загрузка услуг...</ContentText>
+            </ContentCard>
+          );
+        }
+        
+        const servicesWithSpecialists = getServicesWithSpecialists();
 
-      const servicesWithSpecialists = getServicesWithSpecialists();
+        if (servicesWithSpecialists.length === 0) {
+          return (
+            <ContentCard>
+              <ContentTitle>Медицинские услуги</ContentTitle>
+              <ContentText>Услуги не найдены или недоступны для онлайн записи</ContentText>
+            </ContentCard>
+          );
+        }
 
-      if (servicesWithSpecialists.length === 0) {
         return (
-          <ContentCard>
-            <ContentTitle>Медицинские услуги</ContentTitle>
-            <ContentText>Услуги не найдены или недоступны для онлайн записи</ContentText>
-          </ContentCard>
-        );
-      }
-
-      return (
-        <ServicesContainer>
-          {servicesWithSpecialists.map(service => (
-            <ServiceCard key={service.id}>
-              <ServiceHeader>
-                <ServiceInfo>
-                  <ServiceName>{service.name}</ServiceName>
-                  <ServiceDescription>{service.description}</ServiceDescription>
-                  <ServiceMeta>
-                    <ServicePrice>{service.price}</ServicePrice>
-                    <ServiceDuration>{service.duration}</ServiceDuration>
-                  </ServiceMeta>
-                </ServiceInfo>
-                <ServiceCategory>{service.category}</ServiceCategory>
-              </ServiceHeader>
-
-              {service.availableSpecialists.length > 0 && (
-                <AvailableDoctors>
-                  {service.availableSpecialists.map(specialist => (
-                    <DoctorCard key={specialist.id}>
-                      <DoctorCardHeader>
-                        <DoctorCardInfo>
-                          <DoctorCardName>{specialist.name}</DoctorCardName>
-                          <DoctorCardSpecialty>
-                            {specialist.specialty} • {specialist.experience}
-                          </DoctorCardSpecialty>
-                        </DoctorCardInfo>
-                        <DoctorCardPrice>{specialist.price}</DoctorCardPrice>
-                      </DoctorCardHeader>
-
-                      {specialist.firstVisitPrice && (
-                        <DoctorFirstVisitBadge>
-                          <DoctorCheckIcon />
-                          <DoctorFirstVisitText>Цена за первый приём</DoctorFirstVisitText>
-                        </DoctorFirstVisitBadge>
-                      )}
-
-                      {specialist.availableSlots.length > 0 ? (
-                        <DoctorSlots>
-                          <DoctorSlotsDate>{specialist.slotsDate}</DoctorSlotsDate>
-                          <DoctorSlotsContainer>
-                            {specialist.availableSlots.map((slot, index) => (
-                              <DoctorSlotButton
-                                key={index}
-                                onClick={e =>
-                                  handleServiceSlotClick(service, specialist, slot, e)
-                                }
-                              >
-                                <DoctorSlotText>{slot}</DoctorSlotText>
-                              </DoctorSlotButton>
-                            ))}
-                          </DoctorSlotsContainer>
-                        </DoctorSlots>
-                      ) : (
-                        <DoctorSlots>
-                          <DoctorSlotsDate>Нет доступных слотов</DoctorSlotsDate>
-                          <DoctorSlotsContainer>
-                            <DoctorSlotButton
-                              style={{ background: '#898989' }}
-                              onClick={e => handleServiceSlotClick(service, specialist, null, e)}
-                            >
-                              <DoctorSlotText>Записаться</DoctorSlotText>
-                            </DoctorSlotButton>
-                          </DoctorSlotsContainer>
-                        </DoctorSlots>
-                      )}
-                    </DoctorCard>
-                  ))}
-                </AvailableDoctors>
-              )}
-
-              {service.availableSpecialists.length === 0 && (
-                <ContentText style={{ color: 'rgba(20, 20, 20, 0.50)', fontSize: '14px' }}>
+          <ServicesContainer>
+            {servicesWithSpecialists.map((service) => (
+              <ServiceCard key={service.id}>
+                <ServiceHeader>
+                  <ServiceInfo>
+                    <ServiceName>{service.name}</ServiceName>
+                    <ServiceDescription>{service.description}</ServiceDescription>
+                    <ServiceMeta>
+                      <ServicePrice>{service.price}</ServicePrice>
+                      <ServiceDuration>{service.duration}</ServiceDuration>
+                    </ServiceMeta>
+                  </ServiceInfo>
+                  <ServiceCategory>{service.category}</ServiceCategory>
+                </ServiceHeader>
+                
+                {service.availableSpecialists.length > 0 && (
+                  <AvailableDoctors>
+                    {service.availableSpecialists.map((specialist) => (
+                                             <DoctorCard key={specialist.id}>
+                         <DoctorCardHeader>
+                           <DoctorCardInfo>
+                             <DoctorCardName>{specialist.name}</DoctorCardName>
+                             <DoctorCardSpecialty>{specialist.specialty} • {specialist.experience}</DoctorCardSpecialty>
+                           </DoctorCardInfo>
+                           <DoctorCardPrice>{specialist.price}</DoctorCardPrice>
+                         </DoctorCardHeader>
+                         
+                         {specialist.firstVisitPrice && (
+                           <DoctorFirstVisitBadge>
+                             <DoctorCheckIcon />
+                             <DoctorFirstVisitText>Цена за первый приём</DoctorFirstVisitText>
+                           </DoctorFirstVisitBadge>
+                         )}
+                        
+                        {specialist.availableSlots.length > 0 ? (
+                          <DoctorSlots>
+                            <DoctorSlotsDate>{specialist.slotsDate}</DoctorSlotsDate>
+                            <DoctorSlotsContainer>
+                              {specialist.availableSlots.map((slot, index) => (
+                                <DoctorSlotButton 
+                                  key={index} 
+                                  onClick={(e) => handleServiceSlotClick(service, specialist, slot, e)}
+                                >
+                                  <DoctorSlotText>{slot}</DoctorSlotText>
+                                </DoctorSlotButton>
+                              ))}
+                            </DoctorSlotsContainer>
+                          </DoctorSlots>
+                                                 ) : (
+                           <DoctorSlots>
+                             <DoctorSlotsDate>Нет доступных слотов</DoctorSlotsDate>
+                             <DoctorSlotsContainer>
+                               <DoctorSlotButton 
+                                 style={{ background: '#898989' }}
+                                 onClick={(e) => handleServiceSlotClick(service, specialist, null, e)}
+                               >
+                                 <DoctorSlotText>Записаться</DoctorSlotText>
+                               </DoctorSlotButton>
+                             </DoctorSlotsContainer>
+                           </DoctorSlots>
+                         )}
+                      </DoctorCard>
+                    ))}
+                  </AvailableDoctors>
+                )}
+                
+                {service.availableSpecialists.length === 0 && (
+                  <ContentText style={{ color: 'rgba(20, 20, 20, 0.50)', fontSize: '14px' }}>
                     Нет доступных специалистов для данной услуги
-                </ContentText>
-              )}
-            </ServiceCard>
-          ))}
-        </ServicesContainer>
-      );
-
-    case 'photos':
-      return (
-        <ContentCard>
-          <ContentTitle>Фотографии клиники</ContentTitle>
-          <ContentText>Галерея из 432 фотографий будет загружена...</ContentText>
-        </ContentCard>
-      );
-
-    case 'reviews':
-      return (
-        <ContentCard>
-          <ContentTitle>Отзывы пациентов</ContentTitle>
-          <ContentText>232 отзыва от пациентов будут загружены...</ContentText>
-        </ContentCard>
-      );
-
-    case 'info':
-      return (
-        <ContentCard>
-          <ContentTitle>Дополнительная информация</ContentTitle>
-          <ContentText>Подробная информация о клинике, лицензиях и сертификатах...</ContentText>
-        </ContentCard>
-      );
-
-    case 'promotions':
-      return (
-        <ContentCard>
-          <ContentTitle>Акции и скидки</ContentTitle>
-          <ContentText>Актуальные акции и специальные предложения клиники...</ContentText>
-        </ContentCard>
-      );
-
-    default:
-      return (
-        <ContentCard>
-          <ContentTitle>Контент не найден</ContentTitle>
-          <ContentText>Выберите другую вкладку</ContentText>
-        </ContentCard>
-      );
+                  </ContentText>
+                )}
+              </ServiceCard>
+            ))}
+          </ServicesContainer>
+        );
+      
+      case 'photos':
+        return (
+          <ContentCard>
+            <ContentTitle>Фотографии клиники</ContentTitle>
+            <ContentText>Галерея из 432 фотографий будет загружена...</ContentText>
+          </ContentCard>
+        );
+      
+      case 'reviews':
+        return (
+          <ContentCard>
+            <ContentTitle>Отзывы пациентов</ContentTitle>
+            <ContentText>232 отзыва от пациентов будут загружены...</ContentText>
+          </ContentCard>
+        );
+      
+      case 'info':
+        return (
+          <ContentCard>
+            <ContentTitle>Дополнительная информация</ContentTitle>
+            <ContentText>Подробная информация о клинике, лицензиях и сертификатах...</ContentText>
+          </ContentCard>
+        );
+      
+      case 'promotions':
+        return (
+          <ContentCard>
+            <ContentTitle>Акции и скидки</ContentTitle>
+            <ContentText>Актуальные акции и специальные предложения клиники...</ContentText>
+          </ContentCard>
+        );
+      
+      default:
+        return (
+          <ContentCard>
+            <ContentTitle>Контент не найден</ContentTitle>
+            <ContentText>Выберите другую вкладку</ContentText>
+          </ContentCard>
+        );
     }
   };
 
   return (
-    <MapScreenLayout
-      contentTop="211px"
-      mapHeight="244px"
+    <MapScreenLayout 
       mapImage="/assets/images/ac1a736678ef011fb9dd2811df6a312eb7f804bd_750.jpg"
+      mapHeight="244px"
+      contentTop="211px"
     >
       <ContentContainer>
         <OrganizationCard>
@@ -1377,7 +1372,7 @@ const ClinicScreen = () => {
                 </NavButton>
               </NavContent>
             </NavBar>
-
+            
             <HeaderContent>
               <TopSection>
                 <TopRow>
@@ -1389,16 +1384,13 @@ const ClinicScreen = () => {
                         ))}
                       </FriendsAvatars>
                     </FriendsSection>
-
+                    
                     <TitleSection>
                       <TitleRow>
                         <CrownBadge>
-                          <CrownIcon fill="none" height="16" viewBox="0 0 16 16" width="16">
-                            <path
-                              d="M7.42163 0.410057C7.76809 0.164421 8.23191 0.164421 8.57837 0.410058L9.49903 1.06279C9.69411 1.2011 9.9323 1.26493 10.1704 1.24269L11.2941 1.13773C11.7169 1.09823 12.1186 1.33015 12.2959 1.7161L12.7668 2.74172C12.8666 2.95904 13.041 3.13341 13.2583 3.2332L14.2839 3.70414C14.6699 3.88137 14.9018 4.28305 14.8623 4.70591L14.7573 5.8296C14.7351 6.0677 14.7989 6.30588 14.9372 6.50097L15.5899 7.42163C15.8356 7.76809 15.8356 8.23191 15.5899 8.57837L14.9372 9.49903C14.7989 9.69411 14.7351 9.9323 14.7573 10.1704L14.8623 11.2941C14.9018 11.7169 14.6699 12.1186 14.2839 12.2959L13.2583 12.7668C13.041 12.8666 12.8666 13.041 12.7668 13.2583L12.2959 14.2839C12.1186 14.6699 11.7169 14.9018 11.2941 14.8623L10.1704 14.7573C9.9323 14.7351 9.69411 14.7989 9.49903 14.9372L8.57837 15.5899C8.23191 15.8356 7.76809 15.8356 7.42163 15.5899L6.50097 14.9372C6.30588 14.7989 6.0677 14.7351 5.82959 14.7573L4.70591 14.8623C4.28305 14.9018 3.88137 14.6699 3.70414 14.2839L3.2332 13.2583C3.13341 13.041 2.95904 12.8666 2.74172 12.7668L1.7161 12.2959C1.33015 12.1186 1.09823 11.7169 1.13773 11.2941L1.24269 10.1704C1.26493 9.9323 1.2011 9.69411 1.06279 9.49903L0.410057 8.57837C0.164421 8.23191 0.164421 7.76809 0.410058 7.42163L1.06279 6.50097C1.2011 6.30588 1.26493 6.0677 1.24269 5.8296L1.13773 4.70591C1.09823 4.28305 1.33015 3.88137 1.7161 3.70414L2.74172 3.2332C2.95904 3.13341 3.13341 2.95904 3.2332 2.74172L3.70414 1.7161C3.88137 1.33014 4.28305 1.09823 4.70591 1.13773L5.8296 1.24269C6.0677 1.26493 6.30588 1.2011 6.50097 1.06279L7.42163 0.410057Z"
-                              fill="#1BA136"
-                            />
-                            <path d="M4 5L5 11H11L12 5L10 6L8 4L6 6L4 5Z" fill="white" />
+                          <CrownIcon width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M7.42163 0.410057C7.76809 0.164421 8.23191 0.164421 8.57837 0.410058L9.49903 1.06279C9.69411 1.2011 9.9323 1.26493 10.1704 1.24269L11.2941 1.13773C11.7169 1.09823 12.1186 1.33015 12.2959 1.7161L12.7668 2.74172C12.8666 2.95904 13.041 3.13341 13.2583 3.2332L14.2839 3.70414C14.6699 3.88137 14.9018 4.28305 14.8623 4.70591L14.7573 5.8296C14.7351 6.0677 14.7989 6.30588 14.9372 6.50097L15.5899 7.42163C15.8356 7.76809 15.8356 8.23191 15.5899 8.57837L14.9372 9.49903C14.7989 9.69411 14.7351 9.9323 14.7573 10.1704L14.8623 11.2941C14.9018 11.7169 14.6699 12.1186 14.2839 12.2959L13.2583 12.7668C13.041 12.8666 12.8666 13.041 12.7668 13.2583L12.2959 14.2839C12.1186 14.6699 11.7169 14.9018 11.2941 14.8623L10.1704 14.7573C9.9323 14.7351 9.69411 14.7989 9.49903 14.9372L8.57837 15.5899C8.23191 15.8356 7.76809 15.8356 7.42163 15.5899L6.50097 14.9372C6.30588 14.7989 6.0677 14.7351 5.82959 14.7573L4.70591 14.8623C4.28305 14.9018 3.88137 14.6699 3.70414 14.2839L3.2332 13.2583C3.13341 13.041 2.95904 12.8666 2.74172 12.7668L1.7161 12.2959C1.33015 12.1186 1.09823 11.7169 1.13773 11.2941L1.24269 10.1704C1.26493 9.9323 1.2011 9.69411 1.06279 9.49903L0.410057 8.57837C0.164421 8.23191 0.164421 7.76809 0.410058 7.42163L1.06279 6.50097C1.2011 6.30588 1.26493 6.0677 1.24269 5.8296L1.13773 4.70591C1.09823 4.28305 1.33015 3.88137 1.7161 3.70414L2.74172 3.2332C2.95904 3.13341 3.13341 2.95904 3.2332 2.74172L3.70414 1.7161C3.88137 1.33014 4.28305 1.09823 4.70591 1.13773L5.8296 1.24269C6.0677 1.26493 6.30588 1.2011 6.50097 1.06279L7.42163 0.410057Z" fill="#1BA136"/>
+                            <path d="M4 5L5 11H11L12 5L10 6L8 4L6 6L4 5Z" fill="white"/>
                           </CrownIcon>
                         </CrownBadge>
                       </TitleRow>
@@ -1406,11 +1398,13 @@ const ClinicScreen = () => {
                     </TitleSection>
                   </ContentSection>
                 </TopRow>
-
+                
                 <SecondaryLine>
                   <SecondaryContent>
                     <RatingSection>
-                      <StarsContainer>{renderStars(clinicData.rating)}</StarsContainer>
+                      <StarsContainer>
+                        {renderStars(clinicData.rating)}
+                      </StarsContainer>
                       <RatingText>{clinicData.rating}</RatingText>
                       <ReviewCount>{clinicData.reviewCount} оценок</ReviewCount>
                     </RatingSection>
@@ -1421,85 +1415,38 @@ const ClinicScreen = () => {
                   </SecondaryContent>
                 </SecondaryLine>
               </TopSection>
+
+              {clinicData.hasOnlineBooking && (
+                <QuickBookingSection>
+                  <AdButton onClick={handleBookAppointment}>Записаться на прием</AdButton>
+                </QuickBookingSection>
+              )}
             </HeaderContent>
           </HeaderSection>
-
-          {/* Показываем быстрое бронирование для рекламодателей с доступными слотами */}
-          {enrichedClinicData.availableDoctor &&
-          enrichedClinicData.availableDoctor.availableSlots.length > 0 ? (
-              <QuickBookingSection>
-                <QuickBookingContent>
-                  <QuickBookingTextContent>
-                    <QuickBookingTitle>Ближайшие доступные слоты</QuickBookingTitle>
-                    <DoctorInfo>
-                      <DoctorName>{enrichedClinicData.availableDoctor.name}</DoctorName>
-                      <DoctorSpecialty>
-                        {enrichedClinicData.availableDoctor.specialty}
-                      </DoctorSpecialty>
-                      <DoctorExperience>
-                        {enrichedClinicData.availableDoctor.experience}
-                      </DoctorExperience>
-                    </DoctorInfo>
-                    <PriceSection>
-                      <PriceText>{enrichedClinicData.availableDoctor.price}</PriceText>
-                      {enrichedClinicData.availableDoctor.firstVisitPrice && (
-                        <FirstVisitBadge>
-                          <CheckIcon />
-                          <FirstVisitText>Цена за первый приём</FirstVisitText>
-                        </FirstVisitBadge>
-                      )}
-                    </PriceSection>
-
-                    <SlotsSection>
-                      <SlotsDate>{enrichedClinicData.availableDoctor.todaySlots}</SlotsDate>
-                      <SlotsContainer>
-                        {enrichedClinicData.availableDoctor.availableSlots.map((slot, index) => (
-                          <SlotButton key={index} onClick={e => handleSlotClick(slot, e)}>
-                            <SlotText>{slot}</SlotText>
-                          </SlotButton>
-                        ))}
-                      </SlotsContainer>
-                    </SlotsSection>
-                  </QuickBookingTextContent>
-                </QuickBookingContent>
-              </QuickBookingSection>
-            ) : (
-              <QuickBookingSection>
-                <QuickBookingContent>
-                  <QuickBookingTextContent>
-                    <QuickBookingTitle>
-                    Скажи кодовое слово «МедПоиск» и получи карточку лояльности!
-                    </QuickBookingTitle>
-                  </QuickBookingTextContent>
-                </QuickBookingContent>
-                <ButtonContainer>
-                  <AdButton onClick={handleBookAppointment}>
-                    <AdButtonText>Записаться на прием</AdButtonText>
-                  </AdButton>
-                </ButtonContainer>
-              </QuickBookingSection>
-            )}
+          
+          {/* Табы */}
+          <TabBar>
+            <TabsContainer>
+              {tabs.map((tab) => (
+                <Tab key={tab.id} active={tab.id === activeTab} onClick={() => setActiveTab(tab.id)}>
+                  <TabLabel active={tab.id === activeTab}>{tab.label}</TabLabel>
+                  {tab.counter && (
+                    <TabCounter>
+                      <CounterText>{tab.counter}</CounterText>
+                    </TabCounter>
+                  )}
+                </Tab>
+              ))}
+            </TabsContainer>
+          </TabBar>
+          
+          <MainContent>
+            {renderTabContent()}
+          </MainContent>
         </OrganizationCard>
-
-        <TabBar>
-          <TabsContainer>
-            {tabs.map(tab => (
-              <Tab key={tab.id} active={tab.id === activeTab} onClick={() => setActiveTab(tab.id)}>
-                <TabLabel active={tab.id === activeTab}>{tab.label}</TabLabel>
-                {tab.counter && (
-                  <TabCounter>
-                    <CounterText>{tab.counter}</CounterText>
-                  </TabCounter>
-                )}
-              </Tab>
-            ))}
-          </TabsContainer>
-        </TabBar>
-
-        <MainContent>{renderTabContent()}</MainContent>
       </ContentContainer>
     </MapScreenLayout>
   );
 };
 
-export default ClinicScreen;
+export default ClinicScreen; 

@@ -20,7 +20,7 @@ const BottomSheet = styled.div`
   border-radius: 16px 16px 0px 0px;
   background: #f1f1f1;
   position: relative;
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
 `;
 
 const Dragger = styled.div`
@@ -134,10 +134,57 @@ const ContentArea = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  flex: 1;
+  flex-grow: 1;
   align-self: stretch;
   background: #f1f1f1;
   position: relative;
+  overflow-y: auto;
+  min-height: 0;
+`;
+
+const NotificationCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+  margin-top: 12px;
+`;
+
+const NotificationHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const NotificationIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-color: #e4f5e7;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: '🔔';
+    font-size: 14px;
+  }
+`;
+
+const NotificationTitle = styled.div`
+  color: #141414;
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+const NotificationText = styled.div`
+  color: #898989;
+  font-size: 14px;
+  line-height: 18px;
 `;
 
 const InfoCard = styled.div`
@@ -147,9 +194,8 @@ const InfoCard = styled.div`
   align-self: stretch;
   border-radius: 12px;
   background: #fff;
-  box-shadow:
-    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
-    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 0.5px 0px 0px rgba(137, 137, 137, 0.2);
+  flex-shrink: 0;
   position: relative;
 `;
 
@@ -384,6 +430,53 @@ const HomeIndicator = styled.div`
   }
 `;
 
+const ActionButtonsCard = styled.div`
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
+    0px 1px 4px 0px rgba(0, 0, 0, 0.08);
+  position: relative;
+`;
+
+const ActionButtonsContent = styled.div`
+  display: flex;
+  padding: 12px 16px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex: 1 0 0;
+  position: relative;
+`;
+
+const ActionButton = styled.button`
+  display: flex;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: ${props => props.variant === 'secondary' ? '#F8F8F8' : '#1BA136'};
+  border: none;
+  cursor: pointer;
+  align-self: stretch;
+
+  div {
+    color: ${props => props.variant === 'secondary' ? '#141414' : '#fff'};
+    font-family: 'SB Sans Text';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.28px;
+  }
+
+  &:hover {
+    background: ${props => props.variant === 'secondary' ? '#EEEEEE' : '#169A2E'};
+  }
+`;
+
 function DoneScreen() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -395,6 +488,10 @@ function DoneScreen() {
 
   // Если мы попали сюда через маршрут /appointment, показываем данные из activeAppointment
   const isAppointmentView = location.pathname === '/appointment';
+
+  console.log('🔸 DoneScreen: isAppointmentView:', isAppointmentView);
+  console.log('🔸 DoneScreen: activeAppointment:', appointments.activeAppointment);
+  console.log('🔸 DoneScreen: location.pathname:', location.pathname);
 
   let displayData;
   if (isAppointmentView && appointments.activeAppointment) {
@@ -434,33 +531,10 @@ function DoneScreen() {
       // Если мы в режиме просмотра талона, просто возвращаемся на главную
       navigate('/');
     } else {
-      // Сохраняем информацию о записи в контексте для отображения на главном экране
-      const appointmentData = {
-        id: `appointment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // Уникальный ID
-        clinic: clinicData,
-        services: selectedServices,
-        specialist: selectedSpecialist,
-        dateTime: selectedDateTime,
-        patient: contactInfo,
-        status: 'active',
-        createdAt: new Date().toISOString(),
-        bookingNumber: `MP${Date.now().toString().slice(-6)}`, // Номер бронирования
-      };
-
-      // Добавляем запись в массив appointments для отображения на дашборде
-      appointments.actions.addAppointment(appointmentData);
-
-      // Также сохраняем как активную запись
-      appointments.actions.setActiveAppointment(appointmentData);
-
-      // Показываем уведомление об успешной записи
-      ui.actions.showSuccess('Запись успешно создана!');
-
-      // Очищаем данные о текущем бронировании
+      // Запись уже создана на экране подтверждения (ConfirmationScreen).
+      // Здесь мы просто очищаем состояние потока бронирования и возвращаемся на главный экран.
       booking.actions.resetBookingFlow();
-
-      console.log('🔸 DoneScreen: Appointment created successfully:', appointmentData);
-
+      console.log('🔸 DoneScreen: Booking flow finished, navigating to home.');
       navigate('/');
     }
   };
@@ -524,6 +598,17 @@ function DoneScreen() {
         </NavBar>
 
         <ContentArea>
+          {/* Уведомления */}
+          <NotificationCard>
+            <NotificationHeader>
+              <NotificationIcon />
+              <NotificationTitle>Уведомления</NotificationTitle>
+            </NotificationHeader>
+            <NotificationText>
+              Мы пришлем вам уведомление и напомним о приеме за день до записи
+            </NotificationText>
+          </NotificationCard>
+
           {/* Информация о записи */}
           <InfoCard>
             <InfoContent>
@@ -615,6 +700,24 @@ function DoneScreen() {
               </defs>
             </svg>
           </SuccessIllustration>
+
+          {/* Кнопки действий */}
+          <ActionButtonsCard>
+            <ActionButtonsContent>
+              <ActionButton 
+                onClick={() => ui.actions.showSuccess('Добавлено в календарь')}
+                style={{ marginBottom: '8px' }}
+              >
+                <div>Добавить в календарь</div>
+              </ActionButton>
+              <ActionButton 
+                onClick={() => ui.actions.showSuccess('Маршрут построен')}
+                variant="secondary"
+              >
+                <div>Построить маршрут</div>
+              </ActionButton>
+            </ActionButtonsContent>
+          </ActionButtonsCard>
         </ContentArea>
 
         <Bottom>
@@ -629,11 +732,11 @@ function DoneScreen() {
                 <CancelButton
                   onClick={() => {
                     // Удаляем запись из массива appointments
-                    if (state.activeAppointment?.id) {
-                      actions.removeAppointment(state.activeAppointment.id);
+                    if (appointments.activeAppointment?.id) {
+                      appointments.actions.removeAppointment(appointments.activeAppointment.id);
                     }
                     // Очищаем активную запись
-                    actions.clearActiveAppointment();
+                    appointments.actions.clearActiveAppointment();
                     navigate('/');
                   }}
                 >

@@ -34,14 +34,14 @@ const Container = styled.div`
 
 const BottomSheet = styled.div`
   display: flex;
-  padding: 16px 0px 12px 0px;
+  padding: 16px 0px 0px 0px;
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
   border-radius: 16px 16px 0px 0px;
   background: #f1f1f1;
   position: relative;
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
   overflow: hidden;
 `;
 
@@ -161,8 +161,9 @@ const ContentArea = styled.div`
   align-self: stretch;
   background: #f1f1f1;
   position: relative;
-  flex: 1;
+  flex-grow: 1;
   overflow-y: auto;
+  min-height: 0;
 `;
 
 const InfoCard = styled.div`
@@ -175,6 +176,7 @@ const InfoCard = styled.div`
     0px 0px 0px 0.5px rgba(0, 0, 0, 0.04),
     0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   position: relative;
+  flex-shrink: 0;
 `;
 
 const InfoContent = styled.div`

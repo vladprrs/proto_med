@@ -15,9 +15,21 @@ const Container = styled.div`
   max-width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: ${props => (props.hasBottomSheet ? 'flex-end' : 'flex-start')};
+  justify-content: flex-start;
   align-items: center;
   padding-top: ${props => (props.hasBottomSheet ? '64px' : '0')};
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MapBackground = styled.div`
@@ -85,7 +97,7 @@ const ScreenLayout = ({
         </StatusBar>
       )}
 
-      {children}
+      <ContentWrapper>{children}</ContentWrapper>
     </Container>
   );
 };

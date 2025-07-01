@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const MapBackground = styled.img`
   width: 100%;
-  height: ${props => props.height || '812px'};
+  height: ${props => props.$height || '812px'};
   flex-shrink: 0;
   position: absolute;
   left: 0px;
@@ -30,16 +30,16 @@ const MapBackground = styled.img`
 const ContentContainer = styled.div`
   display: flex;
   width: 100%;
-  min-height: ${props => props.contentMinHeight || 'calc(100vh - 160px)'};
+  min-height: ${props => props.$contentMinHeight || 'calc(100vh - 160px)'};
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
-  border-radius: ${props => (props.noRadius ? '0' : '16px 16px 0px 0px')};
+  border-radius: ${props => (props.$noRadius ? '0' : '16px 16px 0px 0px')};
   background: #f1f1f1;
   position: absolute;
   left: 0px;
-  top: ${props => props.contentTop || '160px'};
-  padding-bottom: ${props => props.paddingBottom || '50px'};
+  top: ${props => props.$contentTop || '160px'};
+  padding-bottom: ${props => props.$paddingBottom || '50px'};
 `;
 
 const MapScreenLayout = ({
@@ -53,13 +53,13 @@ const MapScreenLayout = ({
 }) => {
   return (
     <Container>
-      <MapBackground alt="" height={mapHeight} src={mapImage} />
+      <MapBackground alt="" $height={mapHeight} src={mapImage} />
 
       <ContentContainer
-        contentMinHeight={contentMinHeight}
-        contentTop={contentTop}
-        noRadius={noRadius}
-        paddingBottom={paddingBottom}
+        $contentMinHeight={contentMinHeight}
+        $contentTop={contentTop}
+        $noRadius={noRadius}
+        $paddingBottom={paddingBottom}
       >
         {children}
       </ContentContainer>

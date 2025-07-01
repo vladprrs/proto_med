@@ -197,15 +197,15 @@ const FilterButton = styled.div`
   align-items: center;
   padding: 8px 12px;
   border-radius: 16px;
-  background: ${props => (props.active ? '#E8E8E8' : '#FFFFFF')};
-  border: ${props => (props.active ? '1px solid #D0D0D0' : '1px solid rgba(0, 0, 0, 0.12)')};
+  background: ${props => (props.$active ? '#E8E8E8' : '#FFFFFF')};
+  border: ${props => (props.$active ? '1px solid #D0D0D0' : '1px solid rgba(0, 0, 0, 0.12)')};
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 32px;
 
   &:hover {
-    background: ${props => (props.active ? '#E8E8E8' : '#F5F5F5')};
+    background: ${props => (props.$active ? '#E8E8E8' : '#F5F5F5')};
   }
 `;
 
@@ -218,20 +218,20 @@ const FilterIcon = styled.div`
 `;
 
 const FilterLabel = styled.span`
-  color: ${props => (props.active ? '#333' : '#666')};
+  color: ${props => (props.$active ? '#333' : '#666')};
   font-family:
     'SB Sans Text',
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
   font-size: 14px;
-  font-weight: ${props => (props.active ? '600' : '500')};
+  font-weight: ${props => (props.$active ? '600' : '500')};
   line-height: 1.2;
 `;
 
 const FilterArrow = styled.span`
   margin-left: 4px;
-  color: ${props => (props.active ? '#333' : '#666')};
+  color: ${props => (props.$active ? '#333' : '#666')};
   font-size: 11px;
   font-weight: 500;
 `;
@@ -517,32 +517,32 @@ const SearchPageScreen = () => {
         </FilterButton>
 
         {/* Кнопка "Рядом" */}
-        <FilterButton active={filters.nearby} onClick={() => handleFilterToggle('nearby')}>
-          <FilterLabel active={filters.nearby}>Рядом</FilterLabel>
+        <FilterButton $active={filters.nearby} onClick={() => handleFilterToggle('nearby')}>
+          <FilterLabel $active={filters.nearby}>Рядом</FilterLabel>
         </FilterButton>
 
         {/* Кнопка "Онлайн запись" */}
         <FilterButton
-          active={filters.onlineBooking}
+          $active={filters.onlineBooking}
           onClick={() => handleFilterToggle('onlineBooking')}
         >
-          <FilterLabel active={filters.onlineBooking}>Онлайн запись</FilterLabel>
+          <FilterLabel $active={filters.onlineBooking}>Онлайн запись</FilterLabel>
         </FilterButton>
 
         {/* Кнопка "Открыто" */}
-        <FilterButton active={filters.open} onClick={() => handleFilterToggle('open')}>
-          <FilterLabel active={filters.open}>Открыто</FilterLabel>
+        <FilterButton $active={filters.open} onClick={() => handleFilterToggle('open')}>
+          <FilterLabel $active={filters.open}>Открыто</FilterLabel>
         </FilterButton>
 
         {/* Кнопка "Рейтинг" */}
-        <FilterButton active={filters.rating} onClick={() => handleFilterToggle('rating')}>
-          <FilterLabel active={filters.rating}>Рейтинг</FilterLabel>
-          <FilterArrow active={filters.rating}>▼</FilterArrow>
+        <FilterButton $active={filters.rating} onClick={() => handleFilterToggle('rating')}>
+          <FilterLabel $active={filters.rating}>Рейтинг</FilterLabel>
+          <FilterArrow $active={filters.rating}>▼</FilterArrow>
         </FilterButton>
 
         {/* Кнопка "Были друзья" */}
-        <FilterButton active={filters.friends} onClick={() => handleFilterToggle('friends')}>
-          <FilterLabel active={filters.friends}>Были друзья</FilterLabel>
+        <FilterButton $active={filters.friends} onClick={() => handleFilterToggle('friends')}>
+          <FilterLabel $active={filters.friends}>Были друзья</FilterLabel>
         </FilterButton>
       </FiltersContainer>
 

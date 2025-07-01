@@ -221,7 +221,7 @@ const ConfirmButton = styled.button`
 
 function AppointmentCard({ appointment, onClick }) {
   const navigate = useNavigate();
-  const { removeAppointment, updateAppointment } = useAppointmentsContext();
+  const { removeAppointment, updateAppointment, actions } = useAppointmentsContext();
   const { actions: uiActions } = useUIContext();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
@@ -257,13 +257,18 @@ function AppointmentCard({ appointment, onClick }) {
   const handleClick = e => {
     // Если клик не по кнопкам действий
     if (!e.target.closest('button')) {
+      console.log('🔸 AppointmentCard: Card clicked, appointment:', appointment);
       if (onClick) {
+        console.log('🔸 AppointmentCard: Using onClick prop');
         onClick();
       } else {
+        console.log('🔸 AppointmentCard: Setting active appointment and navigating to /appointment');
         // Устанавливаем эту запись как активную и переходим к просмотру
         actions.setActiveAppointment(appointment);
         navigate('/appointment');
       }
+    } else {
+      console.log('🔸 AppointmentCard: Click on button, ignoring');
     }
   };
 
@@ -319,9 +324,17 @@ function AppointmentCard({ appointment, onClick }) {
 
           <AppointmentActions>
             {appointment.status === 'active' && (
-              <ActionButton title="Отменить запись" variant="cancel" onClick={handleCancelClick}>
-                ✕
-              </ActionButton>
+              <>
+                <ActionButton title="Добавить в календарь" onClick={() => uiActions.showSuccess('Добавлено в календарь')}>
+                  📅
+                </ActionButton>
+                <ActionButton title="Построить маршрут" onClick={() => uiActions.showSuccess('Маршрут построен')}>
+                  🗺️
+                </ActionButton>
+                <ActionButton title="Отменить запись" variant="cancel" onClick={handleCancelClick}>
+                  ✕
+                </ActionButton>
+              </>
             )}
             <ChevronIcon />
           </AppointmentActions>

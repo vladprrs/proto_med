@@ -12,6 +12,12 @@ async function fetchData(endpoint) {
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }
 
+  // Проверяем, что ответ действительно JSON, а не HTML fallback от Vite
+  const contentType = response.headers.get('content-type');
+  if (!contentType || !contentType.includes('application/json')) {
+    throw new Error(`Invalid content-type: ${contentType}, expected JSON`);
+  }
+
   return response.json();
 }
 
@@ -116,6 +122,7 @@ function enrichClinicWithDoctorData(clinic, doctors, slots) {
       firstVisitPrice: doctor.firstVisitPrice,
       availableSlots: doctorSlots?.slots || [],
       todaySlots: doctorSlots?.dateLabel || 'Нет доступных слотов',
+      date: doctorSlots?.date,
     },
   };
 
@@ -511,14 +518,29 @@ export function useServices(clinicId) {
   return useQuery({
     queryKey: ['services', clinicId],
     queryFn: async () => {
+      console.log(`🔸 useServices: Loading services for clinicId: ${clinicId}`);
       try {
         const data = await fetchData(`services_${clinicId}.json`);
-        // Извлекаем массив услуг из объекта response
-        return data?.services || [];
+        console.log(`🔸 useServices: Loaded ${Array.isArray(data) ? data.length : 0} services for clinic ${clinicId}`);
+        // Файлы с услугами содержат массив напрямую
+        const result = Array.isArray(data) ? data : (data?.services || []);
+        console.log(`🔸 useServices: Returning ${result.length} services for clinic ${clinicId}`);
+        return result;
       } catch (error) {
-        console.warn(`Failed to load services for clinic ${clinicId}, using mock data:`, error);
-        const mockData = getMockServices();
-        return mockData?.services || mockData || [];
+        console.warn(`Failed to load services_${clinicId}.json, trying fallback...`, error);
+        
+        // Пробуем загрузить fallback файл services_1.json для клиник без собственных данных
+        try {
+          const fallbackData = await fetchData('services_1.json');
+          console.log(`🔸 useServices: Using fallback services_1.json with ${fallbackData.length} services for clinic ${clinicId}`);
+          return Array.isArray(fallbackData) ? fallbackData : (fallbackData?.services || []);
+        } catch (fallbackError) {
+          console.warn(`Failed to load fallback services, using mock data:`, fallbackError);
+          const mockData = getMockServices();
+          console.log(`🔸 useServices: Using mock data with ${mockData.length} services`);
+          // getMockServices возвращает массив напрямую
+          return Array.isArray(mockData) ? mockData : (mockData?.services || []);
+        }
       }
     },
     enabled: !!clinicId,
@@ -531,11 +553,29 @@ export function useSpecialists(clinicId) {
   return useQuery({
     queryKey: ['specialists', clinicId],
     queryFn: async () => {
+      console.log(`🔸 useSpecialists: Loading specialists for clinicId: ${clinicId}`);
       try {
-        return await fetchData(`specialists_${clinicId}.json`);
+        const data = await fetchData(`specialists_${clinicId}.json`);
+        console.log(`🔸 useSpecialists: Loaded ${Array.isArray(data) ? data.length : 0} specialists for clinic ${clinicId}`);
+        // Файлы со специалистами содержат массив напрямую
+        const result = Array.isArray(data) ? data : (data?.specialists || []);
+        console.log(`🔸 useSpecialists: Returning ${result.length} specialists for clinic ${clinicId}`);
+        return result;
       } catch (error) {
-        console.warn(`Failed to load specialists for clinic ${clinicId}, using mock data:`, error);
-        return getMockSpecialists();
+        console.warn(`Failed to load specialists_${clinicId}.json, trying fallback...`, error);
+        
+        // Пробуем загрузить fallback файл specialists_1.json для клиник без собственных данных
+        try {
+          const fallbackData = await fetchData('specialists_1.json');
+          console.log(`🔸 useSpecialists: Using fallback specialists_1.json with ${fallbackData.length} specialists for clinic ${clinicId}`);
+          return Array.isArray(fallbackData) ? fallbackData : (fallbackData?.specialists || []);
+        } catch (fallbackError) {
+          console.warn(`Failed to load fallback specialists, using mock data:`, fallbackError);
+          const mockData = getMockSpecialists();
+          console.log(`🔸 useSpecialists: Using mock data with ${mockData.length} specialists`);
+          // getMockSpecialists возвращает массив напрямую
+          return Array.isArray(mockData) ? mockData : (mockData?.specialists || []);
+        }
       }
     },
     enabled: !!clinicId,

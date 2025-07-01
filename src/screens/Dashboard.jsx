@@ -369,68 +369,64 @@ const Dashboard = () => {
           <IconButton icon="menu" />
         </NavBar>
 
-        {appointments.length > 0 &&
-          (() => {
-            // Находим ближайшую запись по дате и времени
-            const getNextAppointment = appointments => {
-              const now = new Date();
+        {(() => {
+          // Фильтруем только активные записи для дашборда
+          const activeAppointments = appointments.filter(appointment => appointment.status !== 'cancelled');
+          
+          if (activeAppointments.length === 0) {
+            return null; // Не показываем блок если нет активных записей
+          }
 
-              // Сортируем записи по дате и времени
-              const sortedAppointments = appointments
-                .filter(appointment => appointment.dateTime)
-                .sort((a, b) => {
-                  const dateA = new Date(`${a.dateTime.date  } ${  a.dateTime.time}`);
-                  const dateB = new Date(`${b.dateTime.date  } ${  b.dateTime.time}`);
-                  return dateA - dateB;
-                });
+          // Находим ближайшую запись среди активных
+          const now = new Date();
+          const sortedAppointments = activeAppointments
+            .filter(appointment => appointment.dateTime)
+            .sort((a, b) => {
+              const dateA = new Date(`${a.dateTime.date} ${a.dateTime.time}`);
+              const dateB = new Date(`${b.dateTime.date} ${b.dateTime.time}`);
+              return dateA - dateB;
+            });
 
-              // Ищем первую запись в будущем
-              const futureAppointment = sortedAppointments.find(appointment => {
-                const appointmentDate = new Date(
-                  `${appointment.dateTime.date  } ${  appointment.dateTime.time}`,
-                );
-                return appointmentDate > now;
-              });
+          // Ищем первую запись в будущем
+          const futureAppointment = sortedAppointments.find(appointment => {
+            const appointmentDate = new Date(`${appointment.dateTime.date} ${appointment.dateTime.time}`);
+            return appointmentDate > now;
+          });
 
-              // Если нет будущих записей, возвращаем самую свежую
-              return futureAppointment || sortedAppointments[0];
-            };
+          // Если нет будущих записей, берем самую свежую
+          const nextAppointment = futureAppointment || sortedAppointments[0];
 
-            const nextAppointment = getNextAppointment(appointments);
-
-            return (
-              <ContentSection>
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                >
-                  <SectionTitle style={{ margin: 0 }}>Ближайшая запись</SectionTitle>
-                  {appointments.length > 1 && (
-                    <button
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: '#1BA136',
-                        fontSize: '14px',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        padding: '8px 12px',
-                        borderRadius: '8px',
-                        transition: 'background 0.2s',
-                      }}
-                      onClick={() => navigate('/profile')}
-                      onMouseEnter={e => (e.target.style.background = '#F0F9F3')}
-                      onMouseLeave={e => (e.target.style.background = 'none')}
-                    >
-                      Все записи
-                    </button>
-                  )}
-                </div>
-                {nextAppointment && (
-                  <AppointmentCard key={nextAppointment.id} appointment={nextAppointment} />
+          return (
+            <ContentSection>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <SectionTitle style={{ margin: 0 }}>Ближайшая запись</SectionTitle>
+                {activeAppointments.length > 1 && (
+                  <button
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#1BA136',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      padding: '8px 12px',
+                      borderRadius: '8px',
+                      transition: 'background 0.2s',
+                    }}
+                    onClick={() => navigate('/profile')}
+                    onMouseEnter={e => (e.target.style.background = '#F0F9F3')}
+                    onMouseLeave={e => (e.target.style.background = 'none')}
+                  >
+                    Все записи
+                  </button>
                 )}
-              </ContentSection>
-            );
-          })()}
+              </div>
+              {nextAppointment && (
+                <AppointmentCard key={nextAppointment.id} appointment={nextAppointment} />
+              )}
+            </ContentSection>
+          );
+        })()}
 
         <ContentSection>
           <SectionTitle>Советы к месту</SectionTitle>

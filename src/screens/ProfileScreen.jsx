@@ -203,15 +203,15 @@ const Tab = styled.button`
   padding: 16px 12px;
   border: none;
   background: none;
-  color: ${props => (props.active ? '#1BA136' : '#898989')};
+  color: ${props => (props.$active ? '#1BA136' : '#898989')};
   font-size: 14px;
-  font-weight: ${props => (props.active ? '600' : '500')};
+  font-weight: ${props => (props.$active ? '600' : '500')};
   cursor: pointer;
   position: relative;
-  border-bottom: ${props => (props.active ? '2px solid #1BA136' : '2px solid transparent')};
+  border-bottom: ${props => (props.$active ? '2px solid #1BA136' : '2px solid transparent')};
 
   &:hover {
-    color: ${props => (props.active ? '#1BA136' : '#141414')};
+    color: ${props => (props.$active ? '#1BA136' : '#141414')};
   }
 `;
 
@@ -220,7 +220,7 @@ const TabLabel = styled.span`
 `;
 
 const TabCounter = styled.span`
-  color: ${props => (props.active ? '#1BA136' : '#898989')};
+  color: ${props => (props.$active ? '#1BA136' : '#898989')};
   font-weight: 500;
 `;
 
@@ -525,9 +525,9 @@ const ProfileScreen = () => {
 
       <TabsContainer>
         {tabs.map(tab => (
-          <Tab key={tab.id} active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)}>
+          <Tab key={tab.id} $active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)}>
             <TabLabel>{tab.label}</TabLabel>
-            <TabCounter active={activeTab === tab.id}>{tab.count}</TabCounter>
+            <TabCounter $active={activeTab === tab.id}>{tab.count}</TabCounter>
           </Tab>
         ))}
       </TabsContainer>

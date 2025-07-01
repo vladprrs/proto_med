@@ -72,15 +72,15 @@ const FilterTab = styled.button`
   padding: 8px 12px;
   border: none;
   border-radius: 8px;
-  background: ${props => (props.active ? 'white' : 'transparent')};
-  color: ${props => (props.active ? '#141414' : '#898989')};
-  font-weight: ${props => (props.active ? '600' : '400')};
+  background: ${props => (props.$active ? 'white' : 'transparent')};
+  color: ${props => (props.$active ? '#141414' : '#898989')};
+  font-weight: ${props => (props.$active ? '600' : '400')};
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${props => (props.active ? 'white' : '#EEEEEE')};
+    background: ${props => (props.$active ? 'white' : '#EEEEEE')};
   }
 `;
 
@@ -198,20 +198,20 @@ const AppointmentsScreen = () => {
         </HeaderContent>
 
         <FilterTabs>
-          <FilterTab active={activeFilter === 'all'} onClick={() => setActiveFilter('all')}>
+          <FilterTab $active={activeFilter === 'all'} onClick={() => setActiveFilter('all')}>
             Все ({appointments.length})
           </FilterTab>
-          <FilterTab active={activeFilter === 'active'} onClick={() => setActiveFilter('active')}>
+          <FilterTab $active={activeFilter === 'active'} onClick={() => setActiveFilter('active')}>
             Активные ({filterAppointments(appointments, 'active').length})
           </FilterTab>
           <FilterTab
-            active={activeFilter === 'completed'}
+            $active={activeFilter === 'completed'}
             onClick={() => setActiveFilter('completed')}
           >
             Завершенные ({filterAppointments(appointments, 'completed').length})
           </FilterTab>
           <FilterTab
-            active={activeFilter === 'cancelled'}
+            $active={activeFilter === 'cancelled'}
             onClick={() => setActiveFilter('cancelled')}
           >
             Отмененные ({filterAppointments(appointments, 'cancelled').length})

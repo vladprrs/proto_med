@@ -544,6 +544,18 @@ const ServicesScreen = () => {
   } = useServices(clinicId);
   const { data: clinicData, isLoading: clinicLoading, error: clinicError } = useClinic(clinicId);
 
+  // Отладочная информация (можно удалить в продакшене)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🔸 ServicesScreen render:', {
+      clinicId,
+      servicesData: servicesData?.length || 0,
+      servicesLoading,
+      servicesError,
+      clinicData: clinicData?.name,
+      prefilledData: !!prefilledData,
+    });
+  }
+
   // Обрабатываем предзаполненные данные при загрузке
   useEffect(() => {
     if (prefilledData) {

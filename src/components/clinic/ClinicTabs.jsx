@@ -34,7 +34,7 @@ const TabButton = styled.button`
   position: relative;
 
   ${props =>
-    props.active &&
+    props.$active &&
     `
     &::after {
       content: '';
@@ -50,9 +50,9 @@ const TabButton = styled.button`
 `;
 
 const TabText = styled.div`
-  color: ${props => (props.active ? theme.colors.textPrimary : theme.colors.textSecondary)};
+  color: ${props => (props.$active ? theme.colors.textPrimary : theme.colors.textSecondary)};
   ${typography.subhead}
-  font-weight: ${props => (props.active ? theme.fontWeights.medium : theme.fontWeights.regular)};
+  font-weight: ${props => (props.$active ? theme.fontWeights.medium : theme.fontWeights.regular)};
   text-align: center;
 `;
 
@@ -77,8 +77,8 @@ const ClinicTabs = ({ activeTab, onTabChange, children }) => {
     <TabsContainer>
       <TabsHeader>
         {tabs.map(tab => (
-          <TabButton key={tab.id} active={activeTab === tab.id} onClick={() => onTabChange(tab.id)}>
-            <TabText active={activeTab === tab.id}>{tab.label}</TabText>
+          <TabButton key={tab.id} $active={activeTab === tab.id} onClick={() => onTabChange(tab.id)}>
+            <TabText $active={activeTab === tab.id}>{tab.label}</TabText>
           </TabButton>
         ))}
       </TabsHeader>

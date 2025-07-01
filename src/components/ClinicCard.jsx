@@ -288,27 +288,7 @@ const LocationsText = styled.div`
   margin-top: 4px;
 `;
 
-const BookingButton = styled.div`
-  display: flex;
-  padding: 12px 24px;
-  justify-content: center;
-  align-items: center;
-  background: #1ba136;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 16px;
 
-  &:hover {
-    background: #169a2e;
-  }
-`;
-
-const BookingButtonText = styled.div`
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
-`;
 
 const DoctorSection = styled.div`
   display: flex;
@@ -572,14 +552,7 @@ const ClinicCard = ({ clinic, onCardClick }) => {
     });
   };
 
-  // Функция для обработки клика кнопки "Записаться" для клиник без короны
-  const handleBookingClick = event => {
-    event.preventDefault(); // Предотвращаем переход по ссылке клиники
-    event.stopPropagation(); // Останавливаем всплытие события
 
-    // Переходим к выбору услуг для записи
-    navigate(`/clinic/${clinic.id}/services`);
-  };
 
   return (
     <ResultCardLink to={`/clinic/${clinic.id}`} onClick={onCardClick}>
@@ -633,12 +606,7 @@ const ClinicCard = ({ clinic, onCardClick }) => {
 
             {clinic.locations && <LocationsText>{clinic.locations}</LocationsText>}
 
-            {/* Для обычных клиник (без короны) - показываем кнопку "Записаться" только если есть онлайн запись */}
-            {!clinic.hasCrown && clinic.hasOnlineBooking && (
-              <BookingButton onClick={handleBookingClick}>
-                <BookingButtonText>Записаться</BookingButtonText>
-              </BookingButton>
-            )}
+
 
             {/* Для рекламодателей (с короной) с онлайн записью - показываем доступного врача и слоты */}
             {clinic.hasCrown && clinic.hasOnlineBooking && clinic.availableDoctor && (

@@ -174,7 +174,7 @@ export function AppointmentsProvider({ children }) {
       const appointmentWithDefaults = {
         id: Date.now().toString(),
         createdAt: new Date().toISOString(),
-        status: 'confirmed',
+        status: 'active',
         ...appointment,
       };
       dispatch({ type: AppointmentsActionTypes.ADD_APPOINTMENT, payload: appointmentWithDefaults });

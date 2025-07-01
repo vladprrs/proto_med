@@ -58,7 +58,7 @@ const IconColor = styled.div`
   position: absolute;
   left: ${props => props.left || '3px'};
   top: ${props => props.top || '3px'};
-  background: ${props => (props.active ? '#1BA136' : '#898989')};
+  background: ${props => (props.$active ? '#1BA136' : '#898989')};
 
   ${props =>
     props.isOverview &&
@@ -96,7 +96,7 @@ const UserPic = styled.div`
 
 const TabLabel = styled.span`
   align-self: stretch;
-  color: ${props => (props.active ? '#1BA136' : '#898989')};
+  color: ${props => (props.$active ? '#1BA136' : '#898989')};
   text-align: center;
   font-family:
     'SB Sans Text',
@@ -145,14 +145,14 @@ const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
           <IconContainer>
             <IconColor
               isOverview
-              active={activeTab === 'overview'}
+              $active={activeTab === 'overview'}
               height="18px"
               left="3px"
               top="3px"
               width="18px"
             />
           </IconContainer>
-          <TabLabel active={activeTab === 'overview'}>Обзор</TabLabel>
+          <TabLabel $active={activeTab === 'overview'}>Обзор</TabLabel>
         </TabContent>
       </TabItem>
 
@@ -162,14 +162,14 @@ const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
           <IconContainer>
             <IconColor
               isRoutes
-              active={activeTab === 'routes'}
+              $active={activeTab === 'routes'}
               height="18px"
               left="2px"
               top="3px"
               width="20px"
             />
           </IconContainer>
-          <TabLabel active={activeTab === 'routes'}>Маршруты</TabLabel>
+          <TabLabel $active={activeTab === 'routes'}>Маршруты</TabLabel>
         </TabContent>
       </TabItem>
 
@@ -179,7 +179,7 @@ const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
           <IconContainer>
             <UserPic src={user.currentUser.avatar} />
           </IconContainer>
-          <TabLabel active={activeTab === 'profile'}>Профиль</TabLabel>
+          <TabLabel $active={activeTab === 'profile'}>Профиль</TabLabel>
         </TabContent>
       </TabItem>
     </NavBarContainer>

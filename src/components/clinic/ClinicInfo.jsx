@@ -116,7 +116,113 @@ const ClinicDistance = styled.div`
   ${typography.footnote}
 `;
 
-const ClinicInfo = ({ clinic, showCrown = false }) => {
+// Стили для CTA секции
+const CtaSection = styled.div`
+  display: flex;
+  padding: 0px 16px 16px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+`;
+
+const CtaButton = styled.button`
+  display: flex;
+  height: 44px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: #1ba136;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #149929;
+  }
+`;
+
+const CtaButtonText = styled.div`
+  color: #fff;
+  text-align: center;
+  font-family: 'SB Sans Text';
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.168px;
+`;
+
+// Стили для секции со слотами
+const SlotsSection = styled.div`
+  display: flex;
+  padding: 0px 16px 16px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+`;
+
+const DoctorInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+`;
+
+const DoctorName = styled.div`
+  color: #141414;
+  font-family: 'SB Sans Text';
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+`;
+
+const DoctorSpecialty = styled.div`
+  color: #898989;
+  font-family: 'SB Sans Text';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.168px;
+`;
+
+const SlotsContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  flex-wrap: wrap;
+`;
+
+const SlotButton = styled.button`
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  background: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: #f8f9fa;
+    border-color: #1ba136;
+  }
+`;
+
+const SlotText = styled.div`
+  color: #141414;
+  text-align: center;
+  font-family: 'SB Sans Text';
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.168px;
+`;
+
+const ClinicInfo = ({ clinic, availableDoctor, showCrown = false, onBookingClick, onSlotClick }) => {
   if (!clinic) {
     return null;
   }

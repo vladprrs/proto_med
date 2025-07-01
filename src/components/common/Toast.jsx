@@ -16,14 +16,14 @@ const ToastContainer = styled.div`
 const ToastMessage = styled.div`
   background: ${props => {
     switch (props.type) {
-    case 'success':
-      return '#4CAF50';
-    case 'error':
-      return '#FF5252';
-    case 'warning':
-      return '#FF9800';
-    default:
-      return '#2196F3';
+      case 'success':
+        return '#4CAF50';
+      case 'error':
+        return '#FF5252';
+      case 'warning':
+        return '#FF9800';
+      default:
+        return '#2196F3';
     }
   }};
   color: white;

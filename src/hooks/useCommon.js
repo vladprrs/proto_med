@@ -38,7 +38,7 @@ export const useThrottle = (func, delay) => {
         lastRun.current = Date.now();
       }
     },
-    [func, delay],
+    [func, delay]
   );
 };
 
@@ -59,15 +59,18 @@ export const useLocalStorage = (key, initialValue) => {
     }
   });
 
-  const setValue = useCallback((value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.error(`Error setting localStorage key "${key}":`, error);
-    }
-  }, [key, storedValue]);
+  const setValue = useCallback(
+    value => {
+      try {
+        const valueToStore = value instanceof Function ? value(storedValue) : value;
+        setStoredValue(valueToStore);
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      } catch (error) {
+        console.error(`Error setting localStorage key "${key}":`, error);
+      }
+    },
+    [key, storedValue]
+  );
 
   return [storedValue, setValue];
 };
@@ -77,7 +80,7 @@ export const useLocalStorage = (key, initialValue) => {
  * @param {*} value - текущее значение
  * @returns {*} предыдущее значение
  */
-export const usePrevious = (value) => {
+export const usePrevious = value => {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -107,7 +110,7 @@ export const useToggle = (initialValue = false) => {
 export const useClipboard = () => {
   const [hasCopied, setHasCopied] = useState(false);
 
-  const copyToClipboard = useCallback(async (text) => {
+  const copyToClipboard = useCallback(async text => {
     try {
       await navigator.clipboard.writeText(text);
       setHasCopied(true);
@@ -126,12 +129,18 @@ export const useClipboard = () => {
  * @returns {Object} { width, height, isMobile, isTablet, isDesktop }
  */
 export const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const isClient = typeof window !== 'undefined';
+
+  const [windowSize, setWindowSize] = useState(() => ({
+    width: isClient ? window.innerWidth : 0,
+    height: isClient ? window.innerHeight : 0,
+  }));
 
   useEffect(() => {
+    if (!isClient) {
+      return undefined;
+    }
+
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
@@ -141,13 +150,16 @@ export const useWindowSize = () => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isClient]);
 
-  const breakpoints = useMemo(() => ({
-    isMobile: windowSize.width < 768,
-    isTablet: windowSize.width >= 768 && windowSize.width < 1024,
-    isDesktop: windowSize.width >= 1024,
-  }), [windowSize.width]);
+  const breakpoints = useMemo(
+    () => ({
+      isMobile: windowSize.width < 768,
+      isTablet: windowSize.width >= 768 && windowSize.width < 1024,
+      isDesktop: windowSize.width >= 1024,
+    }),
+    [windowSize.width]
+  );
 
   return {
     ...windowSize,
@@ -194,9 +206,9 @@ export const useAsync = () => {
     data: null,
   });
 
-  const execute = useCallback(async (asyncFunction) => {
+  const execute = useCallback(async asyncFunction => {
     setState({ loading: true, error: null, data: null });
-    
+
     try {
       const result = await asyncFunction();
       setState({ loading: false, error: null, data: result });
@@ -270,33 +282,42 @@ export const useForm = (initialValues = {}, validate) => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
-  const handleChange = useCallback((name, value) => {
-    setValues(prev => ({ ...prev, [name]: value }));
-    
-    if (touched[name] && validate) {
-      const fieldErrors = validate({ ...values, [name]: value });
-      setErrors(prev => ({ ...prev, [name]: fieldErrors[name] }));
-    }
-  }, [values, touched, validate]);
+  const handleChange = useCallback(
+    (name, value) => {
+      setValues(prev => ({ ...prev, [name]: value }));
 
-  const handleBlur = useCallback((name) => {
-    setTouched(prev => ({ ...prev, [name]: true }));
-    
-    if (validate) {
-      const fieldErrors = validate(values);
-      setErrors(prev => ({ ...prev, [name]: fieldErrors[name] }));
-    }
-  }, [values, validate]);
+      if (touched[name] && validate) {
+        const fieldErrors = validate({ ...values, [name]: value });
+        setErrors(prev => ({ ...prev, [name]: fieldErrors[name] }));
+      }
+    },
+    [values, touched, validate]
+  );
 
-  const handleSubmit = useCallback((onSubmit) => {
-    const formErrors = validate ? validate(values) : {};
-    setErrors(formErrors);
-    setTouched(Object.keys(values).reduce((acc, key) => ({ ...acc, [key]: true }), {}));
+  const handleBlur = useCallback(
+    name => {
+      setTouched(prev => ({ ...prev, [name]: true }));
 
-    if (Object.keys(formErrors).length === 0) {
-      onSubmit(values);
-    }
-  }, [values, validate]);
+      if (validate) {
+        const fieldErrors = validate(values);
+        setErrors(prev => ({ ...prev, [name]: fieldErrors[name] }));
+      }
+    },
+    [values, validate]
+  );
+
+  const handleSubmit = useCallback(
+    onSubmit => {
+      const formErrors = validate ? validate(values) : {};
+      setErrors(formErrors);
+      setTouched(Object.keys(values).reduce((acc, key) => ({ ...acc, [key]: true }), {}));
+
+      if (Object.keys(formErrors).length === 0) {
+        onSubmit(values);
+      }
+    },
+    [values, validate]
+  );
 
   const reset = useCallback(() => {
     setValues(initialValues);
@@ -314,4 +335,4 @@ export const useForm = (initialValues = {}, validate) => {
     reset,
     isValid: Object.keys(errors).length === 0,
   };
-}; 
+};

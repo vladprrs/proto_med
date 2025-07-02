@@ -37,7 +37,7 @@
 ```bash
 # Клонирование репозитория
 git clone <repository-url>
-cd web_med
+cd proto_med
 
 # Установка зависимостей
 npm install
@@ -318,10 +318,7 @@ interface Specialist {
 ### Стратегия тестирования
 
 ```bash
-# Планируемые типы тестов
-npm run test:unit     # Unit тесты компонентов
-npm run test:e2e      # End-to-end тесты
-npm run test:a11y     # Тесты доступности
+npm run test  # Запустить тесты (пока не настроено)
 ```
 
 ### Тестируемые сценарии

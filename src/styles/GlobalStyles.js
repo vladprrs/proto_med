@@ -54,6 +54,14 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
   }
 
+  /* Limit width on larger screens to keep mobile layout */
+  #root {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+  }
+
   /* Typography styles */
   h1, h2, h3, h4, h5, h6 {
     margin: 0;

@@ -1,11 +1,50 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 
 // Base API configuration
 const BASE_URL = '/data/';
 const CACHE_TIME = 5 * 60 * 1000; // 5 minutes
 
+// Simple in-memory cache for fetched data
+const cache = {};
+
+// Generic helper to run async functions in React hooks
+function useAsync(fn, deps = [], enabled = true) {
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!enabled) {
+      setLoading(false);
+      return;
+    }
+    let ignore = false;
+    setLoading(true);
+    fn()
+      .then(result => {
+        if (!ignore) {
+          setData(result);
+          setError(null);
+        }
+      })
+      .catch(err => {
+        if (!ignore) setError(err);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false);
+      });
+    return () => {
+      ignore = true;
+    };
+  }, [...deps, enabled]);
+
+  return { data, isLoading, error };
+}
+
 // Generic fetch function
 async function fetchData(endpoint) {
+  if (cache[endpoint]) return cache[endpoint];
+
   const response = await fetch(`${BASE_URL}${endpoint}`);
 
   if (!response.ok) {
@@ -18,7 +57,9 @@ async function fetchData(endpoint) {
     throw new Error(`Invalid content-type: ${contentType}, expected JSON`);
   }
 
-  return response.json();
+  const data = await response.json();
+  cache[endpoint] = data;
+  return data;
 }
 
 // Search clinics with filters
@@ -273,13 +314,12 @@ const getMockTimeSlots = () => [
   { time: '16:00', available: true, period: 'afternoon' },
 ];
 
-// React Query hooks
+// Hook-based API access
 
 // Get all clinics
 export function useClinics() {
-  return useQuery({
-    queryKey: ['clinics'],
-    queryFn: async () => {
+  return useAsync(
+    async () => {
       try {
         return await fetchData('clinics.json');
       } catch (error) {
@@ -287,34 +327,28 @@ export function useClinics() {
         return getMockClinics();
       }
     },
-    staleTime: CACHE_TIME,
-    gcTime: CACHE_TIME, // Обновлено: cacheTime -> gcTime
-    retry: 1,
-  });
+    []
+  );
 }
 
 // Get clinic by ID
 export function useClinic(clinicId) {
-  const { data: clinics } = useClinics();
+  const { data: clinics, isLoading, error } = useClinics();
+  const [clinic, setClinic] = useState(null);
 
-  return useQuery({
-    queryKey: ['clinic', clinicId],
-    queryFn: () => {
-      if (!clinics) {
-        return null;
-      }
-      return clinics.find(clinic => String(clinic.id) === String(clinicId));
-    },
-    enabled: !!clinics && !!clinicId,
-    staleTime: CACHE_TIME,
-  });
+  useEffect(() => {
+    if (clinics && clinicId) {
+      setClinic(clinics.find(c => String(c.id) === String(clinicId)) || null);
+    }
+  }, [clinics, clinicId]);
+
+  return { data: clinic, isLoading, error };
 }
 
 // Get all doctors
 export function useDoctors() {
-  return useQuery({
-    queryKey: ['doctors'],
-    queryFn: async () => {
+  return useAsync(
+    async () => {
       try {
         return await fetchData('doctors.json');
       } catch (error) {
@@ -322,62 +356,48 @@ export function useDoctors() {
         return getMockDoctors();
       }
     },
-    staleTime: CACHE_TIME,
-    gcTime: CACHE_TIME, // Обновлено: cacheTime -> gcTime
-    retry: 1,
-  });
+    []
+  );
 }
 
 // Get doctor by ID
 export function useDoctor(doctorId) {
-  const { data: doctors } = useDoctors();
+  const { data: doctors, isLoading, error } = useDoctors();
+  const [doctor, setDoctor] = useState(null);
 
-  return useQuery({
-    queryKey: ['doctor', doctorId],
-    queryFn: () => {
-      if (!doctors) {
-        return null;
-      }
-      return doctors.find(doctor => String(doctor.id) === String(doctorId));
-    },
-    enabled: !!doctors && !!doctorId,
-    staleTime: CACHE_TIME,
-  });
+  useEffect(() => {
+    if (doctors && doctorId) {
+      setDoctor(doctors.find(d => String(d.id) === String(doctorId)) || null);
+    }
+  }, [doctors, doctorId]);
+
+  return { data: doctor, isLoading, error };
 }
 
 // Get doctors by clinic ID
 export function useDoctorsByClinic(clinicId) {
-  const { data: doctors } = useDoctors();
+  const { data: doctors, isLoading, error } = useDoctors();
+  const [list, setList] = useState([]);
 
-  return useQuery({
-    queryKey: ['doctors', 'clinic', clinicId],
-    queryFn: () => {
-      if (!doctors) {
-        return [];
-      }
-      return doctors.filter(doctor => String(doctor.clinicId) === String(clinicId));
-    },
-    enabled: !!doctors && !!clinicId,
-    staleTime: CACHE_TIME,
-  });
+  useEffect(() => {
+    if (doctors && clinicId) {
+      setList(doctors.filter(d => String(d.clinicId) === String(clinicId)));
+    }
+  }, [doctors, clinicId]);
+
+  return { data: list, isLoading, error };
 }
 
 // Get all slots
 export function useSlots() {
-  return useQuery({
-    queryKey: ['slots'],
-    queryFn: async () => {
-      console.log('🔸 Loading slots data...');
-
-      // Всегда используем статические данные для стабильности
-      const slotsData = [
-        {
-          doctorId: 1,
-          clinicId: 1,
-          date: '2024-01-18',
-          dateLabel: 'Сегодня, 18.06',
-          slots: ['14:00', '15:30', '16:15'],
-        },
+  const slotsData = [
+      {
+        doctorId: 1,
+        clinicId: 1,
+        date: '2024-01-18',
+        dateLabel: 'Сегодня, 18.06',
+        slots: ['14:00', '15:30', '16:15'],
+      },
         {
           doctorId: 2,
           clinicId: 3,
@@ -415,30 +435,28 @@ export function useSlots() {
         },
       ];
 
-      console.log('🔸 Slots loaded:', slotsData?.length);
-      return slotsData;
-    },
-    staleTime: 0, // Без кэширования для стабильности
-    gcTime: 0, // Обновлено: cacheTime -> gcTime
-    retry: 0, // Без повторов
-  });
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log('🔸 Loading slots data...');
+    setData(slotsData);
+  }, []);
+
+  return { data, isLoading: false, error: null };
 }
 
 // Get slots by doctor ID
 export function useSlotsByDoctor(doctorId) {
-  const { data: slots } = useSlots();
+  const { data: slots, isLoading, error } = useSlots();
+  const [slot, setSlot] = useState(null);
 
-  return useQuery({
-    queryKey: ['slots', 'doctor', doctorId],
-    queryFn: () => {
-      if (!slots) {
-        return null;
-      }
-      return slots.find(slot => String(slot.doctorId) === String(doctorId));
-    },
-    enabled: !!slots && !!doctorId,
-    staleTime: CACHE_TIME,
-  });
+  useEffect(() => {
+    if (slots && doctorId) {
+      setSlot(slots.find(s => String(s.doctorId) === String(doctorId)) || null);
+    }
+  }, [slots, doctorId]);
+
+  return { data: slot, isLoading, error };
 }
 
 // Search clinics with enriched doctor data
@@ -446,148 +464,91 @@ export function useSearchClinics(query, filters) {
   const { data: clinics, isLoading: clinicsLoading, error: clinicsError } = useClinics();
   const { data: doctors, isLoading: doctorsLoading } = useDoctors();
   const { data: slots, isLoading: slotsLoading, error: slotsError } = useSlots();
+  const [results, setResults] = useState([]);
 
-  console.log(
-    '🔸 useSearchClinics - clinics:',
-    clinics?.length,
-    'doctors:',
-    doctors?.length,
-    'slots:',
-    slots?.length,
-  );
-  console.log(
-    '🔸 Loading states - clinics:',
-    clinicsLoading,
-    'doctors:',
-    doctorsLoading,
-    'slots:',
-    slotsLoading,
-  );
-  if (slotsError) {
-    console.log('🔸 Slots error:', slotsError);
-  }
+  const loading = clinicsLoading || doctorsLoading || slotsLoading;
+  const error = clinicsError || slotsError;
 
-  return useQuery({
-    queryKey: ['searchClinics', query, filters],
-    queryFn: () => {
-      console.log('useSearchClinics query function - clinics:', clinics?.length, 'query:', query);
-      if (!clinics) {
-        return [];
-      }
+  useEffect(() => {
+    if (!clinics) return;
 
-      // First filter clinics
-      const filteredClinics = searchClinics(clinics, query, filters);
-      console.log('Filtered clinics:', filteredClinics.length);
+    console.log(
+      'useSearchClinics compute:',
+      clinics.length,
+      doctors?.length,
+      slots?.length,
+      query,
+    );
 
-      // Then enrich with doctor data if available
-      if (doctors && slots) {
-        console.log('🔸 Enriching clinics with doctor data...');
-        const enriched = filteredClinics.map(clinic =>
-          enrichClinicWithDoctorData(clinic, doctors, slots),
-        );
-        console.log('🔸 Enriched clinics:', enriched.length);
+    const filteredClinics = searchClinics(clinics, query, filters);
+    if (doctors && slots) {
+      const enriched = filteredClinics.map(c => enrichClinicWithDoctorData(c, doctors, slots));
+      setResults(enriched);
+    } else {
+      setResults(filteredClinics);
+    }
+  }, [clinics, doctors, slots, query, JSON.stringify(filters)]);
 
-        // Проверяем, что обогащение прошло успешно для клиник с короной
-        const crownClinics = enriched.filter(c => c.hasCrown);
-        const enrichedCrownClinics = crownClinics.filter(c => c.availableDoctor);
-        console.log(
-          '🔸 Crown clinics:',
-          crownClinics.length,
-          'enriched:',
-          enrichedCrownClinics.length,
-        );
-
-        return enriched;
-      }
-
-      console.log(
-        '🔸 Returning filtered clinics without enrichment - doctors:',
-        !!doctors,
-        'slots:',
-        !!slots,
-      );
-      return filteredClinics;
-    },
-    enabled: !!clinics,
-    staleTime: CACHE_TIME,
-  });
+  return { data: results, isLoading: loading, error };
 }
 
 // Get services for a clinic
 export function useServices(clinicId) {
-  return useQuery({
-    queryKey: ['services', clinicId],
-    queryFn: async () => {
+  return useAsync(
+    async () => {
       console.log(`🔸 useServices: Loading services for clinicId: ${clinicId}`);
       try {
         const data = await fetchData(`services_${clinicId}.json`);
         console.log(`🔸 useServices: Loaded ${Array.isArray(data) ? data.length : 0} services for clinic ${clinicId}`);
-        // Файлы с услугами содержат массив напрямую
         const result = Array.isArray(data) ? data : (data?.services || []);
-        console.log(`🔸 useServices: Returning ${result.length} services for clinic ${clinicId}`);
         return result;
       } catch (error) {
         console.warn(`Failed to load services_${clinicId}.json, trying fallback...`, error);
-        
-        // Пробуем загрузить fallback файл services_1.json для клиник без собственных данных
         try {
           const fallbackData = await fetchData('services_1.json');
-          console.log(`🔸 useServices: Using fallback services_1.json with ${fallbackData.length} services for clinic ${clinicId}`);
           return Array.isArray(fallbackData) ? fallbackData : (fallbackData?.services || []);
         } catch (fallbackError) {
           console.warn(`Failed to load fallback services, using mock data:`, fallbackError);
           const mockData = getMockServices();
-          console.log(`🔸 useServices: Using mock data with ${mockData.length} services`);
-          // getMockServices возвращает массив напрямую
           return Array.isArray(mockData) ? mockData : (mockData?.services || []);
         }
       }
     },
-    enabled: !!clinicId,
-    staleTime: CACHE_TIME,
-  });
+    [clinicId],
+    !!clinicId
+  );
 }
 
 // Get specialists for a clinic
 export function useSpecialists(clinicId) {
-  return useQuery({
-    queryKey: ['specialists', clinicId],
-    queryFn: async () => {
+  return useAsync(
+    async () => {
       console.log(`🔸 useSpecialists: Loading specialists for clinicId: ${clinicId}`);
       try {
         const data = await fetchData(`specialists_${clinicId}.json`);
-        console.log(`🔸 useSpecialists: Loaded ${Array.isArray(data) ? data.length : 0} specialists for clinic ${clinicId}`);
-        // Файлы со специалистами содержат массив напрямую
         const result = Array.isArray(data) ? data : (data?.specialists || []);
-        console.log(`🔸 useSpecialists: Returning ${result.length} specialists for clinic ${clinicId}`);
         return result;
       } catch (error) {
         console.warn(`Failed to load specialists_${clinicId}.json, trying fallback...`, error);
-        
-        // Пробуем загрузить fallback файл specialists_1.json для клиник без собственных данных
         try {
           const fallbackData = await fetchData('specialists_1.json');
-          console.log(`🔸 useSpecialists: Using fallback specialists_1.json with ${fallbackData.length} specialists for clinic ${clinicId}`);
           return Array.isArray(fallbackData) ? fallbackData : (fallbackData?.specialists || []);
         } catch (fallbackError) {
           console.warn(`Failed to load fallback specialists, using mock data:`, fallbackError);
           const mockData = getMockSpecialists();
-          console.log(`🔸 useSpecialists: Using mock data with ${mockData.length} specialists`);
-          // getMockSpecialists возвращает массив напрямую
           return Array.isArray(mockData) ? mockData : (mockData?.specialists || []);
         }
       }
     },
-    enabled: !!clinicId,
-    staleTime: CACHE_TIME,
-  });
+    [clinicId],
+    !!clinicId
+  );
 }
 
 // Get time slots for a specialist on a specific date
 export function useTimeSlots(specialistId, date) {
-  return useQuery({
-    queryKey: ['timeSlots', specialistId, date],
-    queryFn: async () => {
+  return useAsync(
+    async () => {
       try {
         return await fetchData(`slots_${specialistId}_${date}.json`);
       } catch (error) {
@@ -598,29 +559,30 @@ export function useTimeSlots(specialistId, date) {
         return getMockTimeSlots();
       }
     },
-    enabled: !!specialistId && !!date,
-    staleTime: CACHE_TIME,
-  });
+    [specialistId, date],
+    !!specialistId && !!date
+  );
 }
 
 // Get available dates for clinic
 export function useAvailableDates(clinicId, daysAhead = 14) {
-  return useQuery({
-    queryKey: ['availableDates', clinicId, daysAhead],
-    queryFn: () => generateAvailableDates(daysAhead),
-    enabled: !!clinicId,
-    staleTime: CACHE_TIME,
-  });
+  return useAsync(
+    () => generateAvailableDates(daysAhead),
+    [clinicId, daysAhead],
+    !!clinicId
+  );
 }
 
 // Create booking mutation
 export function useCreateBooking() {
-  const queryClient = useQueryClient();
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  return useMutation({
-    mutationFn: bookingData => {
-      // Mock booking creation - in real app would POST to API
-      return new Promise(resolve => {
+  const createBooking = async bookingData => {
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await new Promise(resolve => {
         setTimeout(() => {
           resolve({
             id: Math.random().toString(36).substr(2, 9),
@@ -630,51 +592,38 @@ export function useCreateBooking() {
           });
         }, 1000);
       });
-    },
-    onSuccess: () => {
-      // Invalidate relevant queries to refresh data
-      queryClient.invalidateQueries({ queryKey: ['timeSlots'] });
-    },
-  });
+      return result;
+    } catch (e) {
+      setError(e);
+      throw e;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { createBooking, isLoading, error };
 }
 
 // Prefetch data for better UX
 export function usePrefetchData() {
-  const queryClient = useQueryClient();
-
   const prefetchClinics = () => {
-    queryClient.prefetchQuery({
-      queryKey: ['clinics'],
-      queryFn: () => fetchData('clinics.json'),
-    });
+    fetchData('clinics.json').catch(() => {});
   };
 
   const prefetchServices = clinicId => {
-    queryClient.prefetchQuery({
-      queryKey: ['services', clinicId],
-      queryFn: () => fetchData(`services_${clinicId}.json`),
-    });
+    if (clinicId) fetchData(`services_${clinicId}.json`).catch(() => {});
   };
 
   const prefetchSpecialists = clinicId => {
-    queryClient.prefetchQuery({
-      queryKey: ['specialists', clinicId],
-      queryFn: () => fetchData(`specialists_${clinicId}.json`),
-    });
+    if (clinicId) fetchData(`specialists_${clinicId}.json`).catch(() => {});
   };
 
   const prefetchDoctors = () => {
-    queryClient.prefetchQuery({
-      queryKey: ['doctors'],
-      queryFn: () => fetchData('doctors.json'),
-    });
+    fetchData('doctors.json').catch(() => {});
   };
 
   const prefetchSlots = () => {
-    queryClient.prefetchQuery({
-      queryKey: ['slots'],
-      queryFn: () => fetchData('slots.json'),
-    });
+    fetchData('slots.json').catch(() => {});
   };
 
   return {

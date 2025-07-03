@@ -114,43 +114,18 @@ function searchClinics(clinics, query, filters = {}) {
 
 // Helper function to combine clinic data with doctor and slots
 function enrichClinicWithDoctorData(clinic, doctors, slots) {
-  if (clinic.hasCrown) {
-    console.log(
-      '🔸 enrichClinicWithDoctorData:',
-      clinic.name,
-      'featuredDoctorId:',
-      clinic.featuredDoctorId,
-    );
-  }
 
   if (!clinic.featuredDoctorId) {
-    if (clinic.hasCrown) {
-      console.log('🔸 No featuredDoctorId for', clinic.name);
-    }
     return clinic;
   }
 
   const doctor = doctors.find(d => d.id === clinic.featuredDoctorId);
-  if (clinic.hasCrown) {
-    console.log('🔸 Found doctor:', doctor?.name, 'for clinic:', clinic.name);
-  }
 
   if (!doctor) {
-    if (clinic.hasCrown) {
-      console.log(
-        '🔸 Doctor not found for clinic:',
-        clinic.name,
-        'doctorId:',
-        clinic.featuredDoctorId,
-      );
-    }
     return clinic;
   }
 
   const doctorSlots = slots.find(s => s.doctorId === doctor.id);
-  if (clinic.hasCrown) {
-    console.log('🔸 Found slots for doctor:', doctor.name, 'slots:', doctorSlots?.slots);
-  }
 
   const enriched = {
     ...clinic,
@@ -167,16 +142,6 @@ function enrichClinicWithDoctorData(clinic, doctors, slots) {
     },
   };
 
-  if (clinic.hasCrown) {
-    console.log(
-      '🔸 Enriched clinic:',
-      clinic.name,
-      'with doctor:',
-      enriched.availableDoctor.name,
-      'slots:',
-      enriched.availableDoctor.availableSlots.length,
-    );
-  }
   return enriched;
 }
 
@@ -438,7 +403,6 @@ export function useSlots() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log('🔸 Loading slots data...');
     setData(slotsData);
   }, []);
 
@@ -472,14 +436,6 @@ export function useSearchClinics(query, filters) {
   useEffect(() => {
     if (!clinics) return;
 
-    console.log(
-      'useSearchClinics compute:',
-      clinics.length,
-      doctors?.length,
-      slots?.length,
-      query,
-    );
-
     const filteredClinics = searchClinics(clinics, query, filters);
     if (doctors && slots) {
       const enriched = filteredClinics.map(c => enrichClinicWithDoctorData(c, doctors, slots));
@@ -496,10 +452,8 @@ export function useSearchClinics(query, filters) {
 export function useServices(clinicId) {
   return useAsync(
     async () => {
-      console.log(`🔸 useServices: Loading services for clinicId: ${clinicId}`);
       try {
         const data = await fetchData(`services_${clinicId}.json`);
-        console.log(`🔸 useServices: Loaded ${Array.isArray(data) ? data.length : 0} services for clinic ${clinicId}`);
         const result = Array.isArray(data) ? data : (data?.services || []);
         return result;
       } catch (error) {
@@ -523,7 +477,6 @@ export function useServices(clinicId) {
 export function useSpecialists(clinicId) {
   return useAsync(
     async () => {
-      console.log(`🔸 useSpecialists: Loading specialists for clinicId: ${clinicId}`);
       try {
         const data = await fetchData(`specialists_${clinicId}.json`);
         const result = Array.isArray(data) ? data : (data?.specialists || []);

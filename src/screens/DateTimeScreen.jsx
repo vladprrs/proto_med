@@ -543,11 +543,8 @@ const DateTimeScreen = () => {
 
   // Если есть предзаполненное время, автоматически переходим к подтверждению
   useEffect(() => {
-    console.log('🔸 DateTimeScreen: Mounted with prefilledData:', prefilledData);
-    console.log('🔸 DateTimeScreen: Has selectedTime:', prefilledData?.selectedTime);
 
     if (prefilledData && prefilledData.selectedTime) {
-      console.log('🔸 DateTimeScreen: Auto-navigating to confirmation');
 
       const selectedDateTime = {
         date: selectedDate || new Date(), // Используем выбранную дату или сегодня
@@ -570,7 +567,6 @@ const DateTimeScreen = () => {
         clinicData: finalClinicData,
       };
 
-      console.log('🔸 DateTimeScreen: Navigating to confirmation with:', navigationState);
 
       navigate(`/clinic/${fallbackClinicId}/confirmation`, {
         state: navigationState,

@@ -276,10 +276,8 @@ function SpecialistsScreen() {
 
   // Если есть предзаполненные данные и нужно пропустить выбор специалиста
   useEffect(() => {
-    console.log('🔸 SpecialistsScreen: Mounted with prefilledData:', prefilledData);
 
     if (prefilledData && prefilledData.skipSteps?.includes('specialist')) {
-      console.log('🔸 SpecialistsScreen: Skipping specialist selection step');
 
       const fallbackClinicId = clinicId || prefilledData.clinic.id || '1';
       const navigationState = {
@@ -289,7 +287,6 @@ function SpecialistsScreen() {
         prefilledData,
       };
 
-      console.log('🔸 SpecialistsScreen: Navigating to datetime with:', navigationState);
 
       navigate(`/clinic/${fallbackClinicId}/datetime`, {
         state: navigationState,

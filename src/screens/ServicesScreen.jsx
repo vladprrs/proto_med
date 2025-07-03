@@ -545,32 +545,18 @@ const ServicesScreen = () => {
   const { data: clinicData, isLoading: clinicLoading, error: clinicError } = useClinic(clinicId);
 
   // Отладочная информация (можно удалить в продакшене)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('🔸 ServicesScreen render:', {
-      clinicId,
-      servicesData: servicesData?.length || 0,
-      servicesLoading,
-      servicesError,
-      clinicData: clinicData?.name,
-      prefilledData: !!prefilledData,
-    });
-  }
 
   // Обрабатываем предзаполненные данные при загрузке
   useEffect(() => {
     if (prefilledData) {
-      console.log('🔸 ServicesScreen: Processing prefilledData:', prefilledData);
 
       // Если есть предвыбранная услуга, добавляем её в выбранные
       if (prefilledData.service) {
-        console.log('🔸 ServicesScreen: Pre-selecting service:', prefilledData.service);
         setSelectedServices(new Set([prefilledData.service.id]));
       }
 
       // Если нужно пропустить выбор услуг, сразу переходим дальше
       if (prefilledData.skipSteps?.includes('service')) {
-        console.log('🔸 ServicesScreen: Skipping service selection step');
-        console.log('🔸 ServicesScreen: Doctor info:', prefilledData.doctor || prefilledData.specialist);
         
         const fallbackClinicId = clinicId || prefilledData.clinic.id || '1';
         const finalClinicData = clinicData || prefilledData.clinic;
@@ -597,20 +583,11 @@ const ServicesScreen = () => {
           ];
         }
         
-        console.log('🔸 ServicesScreen: Created service data:', selectedServicesData);
-
-        console.log('🔸 ServicesScreen: Navigating to specialists with:', {
-          fallbackClinicId,
-          selectedServicesData,
-          finalClinicData,
-          prefilledData,
-        });
 
         // Проверяем, нужно ли пропустить также выбор специалиста
         let nextRoute = 'specialists';
         if (prefilledData.skipSteps?.includes('specialist')) {
           nextRoute = 'date';
-          console.log('🔸 ServicesScreen: Also skipping specialist selection, going to date');
         }
 
         // Переходим к следующему экрану с предзаполненными данными

@@ -255,13 +255,11 @@ export const useTimer = (name = 'Timer') => {
 
   const startTimer = useCallback(() => {
     startTime.current = performance.now();
-    console.log(`⏱️ ${name} started`);
   }, [name]);
 
   const endTimer = useCallback(() => {
     if (startTime.current) {
       const elapsed = performance.now() - startTime.current;
-      console.log(`⏱️ ${name} completed in ${elapsed.toFixed(2)}ms`);
       startTime.current = null;
       return elapsed;
     }

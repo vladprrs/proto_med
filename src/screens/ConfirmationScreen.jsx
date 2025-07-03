@@ -463,21 +463,11 @@ function ConfirmationScreen() {
   const clinicData = bookingData.clinicData || booking.selectedClinic || {};
 
   useEffect(() => {
-    console.log('🔸 ConfirmationScreen: Received booking data:', bookingData);
-    console.log('🔸 ConfirmationScreen: selectedServices:', selectedServices);
-    console.log('🔸 ConfirmationScreen: selectedSpecialist:', selectedSpecialist);
-    console.log('🔸 ConfirmationScreen: selectedDateTime:', selectedDateTime);
-    console.log('🔸 ConfirmationScreen: Validation checks:');
-    console.log('  - selectedServices.length:', selectedServices.length);
-    console.log('  - selectedSpecialist exists:', !!selectedSpecialist);
-    console.log('  - selectedDateTime exists:', !!selectedDateTime);
 
     // Если нет данных о записи, возвращаемся на начальный экран
     if (!selectedServices.length || !selectedSpecialist || !selectedDateTime) {
-      console.log('🔸 ConfirmationScreen: Missing data, redirecting to home');
       navigate('/');
     } else {
-      console.log('🔸 ConfirmationScreen: All data present, staying on confirmation screen');
     }
   }, [selectedServices, selectedSpecialist, selectedDateTime, navigate]);
 
@@ -567,7 +557,6 @@ function ConfirmationScreen() {
 
     ui.actions.showSuccess('Запись успешно создана!');
 
-    console.log('Appointment created:', appointmentData);
 
     // Переход к экрану успешного завершения записи
     const fallbackClinicId = clinicId || '1';

@@ -654,14 +654,12 @@ const ServicesScreen = () => {
     setExpandedCategories(newExpanded);
   };
 
+  // При выборе услуги разрешаем хранить только одну услугу
+  // и сразу переходим к следующему шагу
   const toggleService = serviceId => {
-    const newSelected = new Set(selectedServices);
-    if (newSelected.has(serviceId)) {
-      newSelected.delete(serviceId);
-    } else {
-      newSelected.add(serviceId);
-    }
+    const newSelected = new Set([serviceId]);
     setSelectedServices(newSelected);
+    handleContinue(newSelected);
   };
 
   const getFilteredServices = () => {
@@ -672,8 +670,8 @@ const ServicesScreen = () => {
     );
   };
 
-  const getSelectedServicesData = () => {
-    return services.filter(service => selectedServices.has(service.id));
+  const getSelectedServicesData = (ids = selectedServices) => {
+    return services.filter(service => ids.has(service.id));
   };
 
   const getTotalPrice = () => {
@@ -685,9 +683,9 @@ const ServicesScreen = () => {
     }, 0);
   };
 
-  const handleContinue = () => {
+  const handleContinue = (ids = selectedServices) => {
     // Navigate to next screen (specialist selection) with selected services
-    const selectedServicesData = getSelectedServicesData();
+    const selectedServicesData = getSelectedServicesData(ids);
     const fallbackClinicId = clinicId || prefilledData?.clinic.id || '1';
 
     // Если есть предзаполненные данные, передаем их дальше

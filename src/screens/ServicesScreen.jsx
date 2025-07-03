@@ -906,7 +906,7 @@ const ServicesScreen = () => {
             <ButtonContainer>
               <PrimaryButton onClick={handleContinue}>
                 <ButtonContent>
-                  <ButtonText>Продолжить • {getTotalPrice().toLocaleString()} ₽</ButtonText>
+                  <ButtonText>Продолжить</ButtonText>
                 </ButtonContent>
               </PrimaryButton>
             </ButtonContainer>

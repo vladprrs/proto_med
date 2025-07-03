@@ -686,7 +686,7 @@ function ConfirmationScreen() {
               style={{ opacity: isFormValid() ? 1 : 0.5 }}
               onClick={handleConfirm}
             >
-              <div>Подтвердить запись • {getTotalPrice()} ₽</div>
+              <div>Подтвердить запись</div>
             </ConfirmButton>
           </ButtonContainer>
 

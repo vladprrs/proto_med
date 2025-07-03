@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  useBookingContext,
-  useUserContext,
-  useAppointmentsContext,
-  useUIContext,
-} from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 
 const Container = styled.div`
   width: 100%;
@@ -448,10 +443,7 @@ function ConfirmationScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const { clinicId } = useParams();
-  const booking = useBookingContext();
-  const user = useUserContext();
-  const appointments = useAppointmentsContext();
-  const ui = useUIContext();
+  const { booking, user, appointments, ui } = useAppContext();
 
   const [formData, setFormData] = useState({
     name: user.currentUser.name,

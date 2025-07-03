@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  useBookingContext,
-  useUserContext,
-  useAppointmentsContext,
-  useUIContext,
-} from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 import { MapScreenLayout } from '../components/layout';
 
 // Удален Container - заменен на MapScreenLayout
@@ -481,10 +476,8 @@ function DoneScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const booking = useBookingContext();
-  const user = useUserContext();
-  const appointments = useAppointmentsContext();
-  const ui = useUIContext();
+  const { booking, user, appointments: appointmentsState, ui } = useAppContext();
+  const appointments = appointmentsState;
 
   // Если мы попали сюда через маршрут /appointment, показываем данные из activeAppointment
   const isAppointmentView = location.pathname === '/appointment';

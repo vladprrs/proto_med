@@ -1,19 +1,11 @@
-import {
-  useBookingContext,
-  useUserContext,
-  useAppointmentsContext,
-  useUIContext,
-} from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 
 /**
  * Специализированный хук для управления процессом бронирования
  * Объединяет логику из BookingContext, UserContext и AppointmentsContext
  */
 export function useBookingFlow() {
-  const booking = useBookingContext();
-  const user = useUserContext();
-  const appointments = useAppointmentsContext();
-  const ui = useUIContext();
+  const { booking, user, appointments, ui } = useAppContext();
 
   // Проверка готовности к бронированию
   const canProceedToBooking = () => {

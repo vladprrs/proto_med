@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppointmentsContext, useUIContext } from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 
 // Новый стиль в духе QuickBookingSection
 const AppointmentCardContainer = styled.div`
@@ -221,8 +221,10 @@ const ConfirmButton = styled.button`
 
 function AppointmentCard({ appointment, onClick }) {
   const navigate = useNavigate();
-  const { removeAppointment, updateAppointment, actions } = useAppointmentsContext();
-  const { actions: uiActions } = useUIContext();
+  const { appointments: appointmentsState, ui } = useAppContext();
+  const { actions } = appointmentsState;
+  const { removeAppointment, updateAppointment } = actions;
+  const { actions: uiActions } = ui;
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const formatDateTime = dateTime => {

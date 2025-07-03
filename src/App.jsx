@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { AppProvider } from './contexts/AppContext';
 import Toast from './components/common/Toast';
 
 // Screens
@@ -30,8 +29,7 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <AppProvider>
-      <AppContainer>
+    <AppContainer>
         <Routes>
           {/* Main routes */}
           <Route element={<Dashboard />} path="/" />
@@ -58,7 +56,6 @@ function App() {
         {/* Global Toast notifications */}
         <Toast />
       </AppContainer>
-    </AppProvider>
   );
 }
 

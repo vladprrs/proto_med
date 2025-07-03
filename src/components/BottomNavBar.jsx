@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppointmentsContext, useUserContext } from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 
 const NavBarContainer = styled.div`
   display: flex;
@@ -114,8 +114,7 @@ const TabLabel = styled.span`
 
 const BottomNavBar = ({ activeTab = 'overview', onTabChange }) => {
   const navigate = useNavigate();
-  const appointments = useAppointmentsContext();
-  const user = useUserContext();
+  const { appointments, user } = useAppContext();
 
   const handleTabClick = tab => {
     switch (tab) {

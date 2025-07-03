@@ -436,13 +436,6 @@ export function useSearchClinics(query, filters) {
   useEffect(() => {
     if (!clinics) return;
 
-      'useSearchClinics compute:',
-      clinics.length,
-      doctors?.length,
-      slots?.length,
-      query,
-    );
-
     const filteredClinics = searchClinics(clinics, query, filters);
     if (doctors && slots) {
       const enriched = filteredClinics.map(c => enrichClinicWithDoctorData(c, doctors, slots));

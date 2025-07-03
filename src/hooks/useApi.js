@@ -639,12 +639,25 @@ export function useSearchClinics(query, filters) {
     if (!clinics) return;
 
     const filteredClinics = searchClinics(clinics, query, filters);
+    let enrichedResults = filteredClinics;
+
     if (doctors && slots) {
-      const enriched = filteredClinics.map(c => enrichClinicWithDoctorData(c, doctors, slots));
-      setResults(enriched);
-    } else {
-      setResults(filteredClinics);
+      enrichedResults = filteredClinics.map(c =>
+        enrichClinicWithDoctorData(c, doctors, slots),
+      );
     }
+
+    if (filters.onlineBooking) {
+      enrichedResults = enrichedResults.filter(
+        c =>
+          c.hasOnlineBooking &&
+          c.availableDoctor &&
+          Array.isArray(c.availableDoctor.availableSlots) &&
+          c.availableDoctor.availableSlots.length > 0,
+      );
+    }
+
+    setResults(enrichedResults);
   }, [clinics, doctors, slots, query, JSON.stringify(filters)]);
 
   return { data: results, isLoading: loading, error };

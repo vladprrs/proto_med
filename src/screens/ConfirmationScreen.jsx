@@ -172,6 +172,7 @@ const InfoCard = styled.div`
     0px 1px 4px 0px rgba(0, 0, 0, 0.08);
   position: relative;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 
 const InfoContent = styled.div`
@@ -482,6 +483,39 @@ function ConfirmationScreen() {
     navigate('/');
   };
 
+  const handleServicesEdit = () => {
+    const fallbackClinicId = clinicId || clinicData.id || '1';
+    navigate(`/clinic/${fallbackClinicId}/services`, {
+      state: {
+        selectedServices,
+        clinicData,
+      },
+    });
+  };
+
+  const handleSpecialistEdit = () => {
+    const fallbackClinicId = clinicId || clinicData.id || '1';
+    navigate(`/clinic/${fallbackClinicId}/specialists`, {
+      state: {
+        selectedServices,
+        selectedSpecialist,
+        clinicData,
+      },
+    });
+  };
+
+  const handleDateTimeEdit = () => {
+    const fallbackClinicId = clinicId || clinicData.id || '1';
+    navigate(`/clinic/${fallbackClinicId}/datetime`, {
+      state: {
+        selectedServices,
+        selectedSpecialist,
+        clinicData,
+        selectedDateTime,
+      },
+    });
+  };
+
   const getTotalPrice = () => {
     return selectedServices.reduce((total, service) => {
       // Извлекаем число из строки типа "800 ₽"
@@ -586,7 +620,7 @@ function ConfirmationScreen() {
 
         <ContentArea>
           {/* Услуги */}
-          <InfoCard>
+          <InfoCard onClick={handleServicesEdit}>
             <InfoContent>
               <InfoTitle>
                 <div>Услуги</div>
@@ -603,7 +637,7 @@ function ConfirmationScreen() {
           </InfoCard>
 
           {/* Специалист */}
-          <InfoCard>
+          <InfoCard onClick={handleSpecialistEdit}>
             <InfoContent>
               <InfoTitle>
                 <div>Специалист</div>
@@ -621,7 +655,7 @@ function ConfirmationScreen() {
           </InfoCard>
 
           {/* Дата и время */}
-          <InfoCard>
+          <InfoCard onClick={handleDateTimeEdit}>
             <InfoContent>
               <InfoTitle>
                 <div>Дата и время</div>

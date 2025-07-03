@@ -114,8 +114,7 @@ function searchClinics(clinics, query, filters = {}) {
 
 // Helper function to combine clinic data with doctor and slots
 function enrichClinicWithDoctorData(clinic, doctors, slots) {
-
-  if (!clinic.featuredDoctorId) {
+  if (!clinic.hasOnlineBooking || !clinic.featuredDoctorId) {
     return clinic;
   }
 

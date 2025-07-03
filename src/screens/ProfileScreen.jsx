@@ -367,7 +367,8 @@ const EmptyText = styled.p`
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
-  const { appointments, user } = useAppContext();
+  const { appointments: appointmentsState, user } = useAppContext();
+  const { appointments } = appointmentsState;
   const [activeTab, setActiveTab] = useState('appointments');
 
   const handleBack = () => {

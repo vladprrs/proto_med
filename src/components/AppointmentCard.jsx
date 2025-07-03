@@ -221,8 +221,9 @@ const ConfirmButton = styled.button`
 
 function AppointmentCard({ appointment, onClick }) {
   const navigate = useNavigate();
-  const { appointments, ui } = useAppContext();
-  const { removeAppointment, updateAppointment, actions } = appointments;
+  const { appointments: appointmentsState, ui } = useAppContext();
+  const { actions } = appointmentsState;
+  const { removeAppointment, updateAppointment } = actions;
   const { actions: uiActions } = ui;
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 

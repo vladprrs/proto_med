@@ -476,7 +476,8 @@ function DoneScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const { booking, user, appointments, ui } = useAppContext();
+  const { booking, user, appointments: appointmentsState, ui } = useAppContext();
+  const appointments = appointmentsState;
 
   // Если мы попали сюда через маршрут /appointment, показываем данные из activeAppointment
   const isAppointmentView = location.pathname === '/appointment';

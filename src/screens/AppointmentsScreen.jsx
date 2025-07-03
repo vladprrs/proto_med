@@ -142,7 +142,8 @@ const SectionTitle = styled.h2`
 
 const AppointmentsScreen = () => {
   const navigate = useNavigate();
-  const { appointments } = useAppContext();
+  const { appointments: appointmentsState } = useAppContext();
+  const { appointments } = appointmentsState;
   const [activeFilter, setActiveFilter] = useState('all');
 
   const handleBack = () => {

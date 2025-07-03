@@ -268,8 +268,14 @@ const BottomSpacing = styled.div`
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { appointments, booking, user, ui } = useAppContext();
-  const { addAppointment } = appointments.actions;
+  const {
+    appointments: appointmentsState,
+    booking,
+    user,
+    ui,
+  } = useAppContext();
+  const { appointments, actions } = appointmentsState;
+  const { addAppointment } = actions;
 
   const handleSearchClick = () => {
     navigate('/search?q=Клиника');

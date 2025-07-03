@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppointmentsContext, useUserContext } from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 import AppointmentCard from '../components/AppointmentCard';
 
 const Container = styled.div`
@@ -367,9 +367,7 @@ const EmptyText = styled.p`
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
-  const appointmentsContext = useAppointmentsContext();
-  const user = useUserContext();
-  const {appointments} = appointmentsContext;
+  const { appointments, user } = useAppContext();
   const [activeTab, setActiveTab] = useState('appointments');
 
   const handleBack = () => {

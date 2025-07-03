@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import {
-  useAppointmentsContext,
-  useBookingContext,
-  useUserContext,
-  useUIContext,
-} from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 import AppointmentCard from '../components/AppointmentCard';
 import BottomNavBar from '../components/BottomNavBar';
 
@@ -273,10 +268,8 @@ const BottomSpacing = styled.div`
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { appointments, addAppointment } = useAppointmentsContext();
-  const booking = useBookingContext();
-  const user = useUserContext();
-  const ui = useUIContext();
+  const { appointments, booking, user, ui } = useAppContext();
+  const { addAppointment } = appointments.actions;
 
   const handleSearchClick = () => {
     navigate('/search?q=Клиника');
@@ -309,12 +302,10 @@ const Dashboard = () => {
         console.log('🔍 localStorage content:', stored);
         console.log('🔍 Parsed:', stored ? JSON.parse(stored) : 'empty');
         console.log('🔍 Context appointments:', appointments);
-        console.log('🔍 Storage loaded flag:', appointments.isStorageLoaded);
         return {
           stored,
           parsed: stored ? JSON.parse(stored) : null,
           context: appointments,
-          isStorageLoaded: appointments.isStorageLoaded,
         };
       },
       clear: () => {
@@ -340,7 +331,7 @@ const Dashboard = () => {
     console.log('  window.debugAppointments.check() - проверить localStorage');
     console.log('  window.debugAppointments.clear() - очистить localStorage');
     console.log('  window.debugAppointments.add() - добавить тестовую запись');
-  }, [appointments, addAppointment, appointments.isStorageLoaded]);
+  }, [appointments, addAppointment]);
 
   const categories = [
     { id: 1, title: 'Поесть', icon: '🍽️' },

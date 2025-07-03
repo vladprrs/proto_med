@@ -1,12 +1,11 @@
-import { useAppointmentsContext, useUIContext } from '../contexts/index.jsx';
+import { useAppContext } from '../contexts/AppContext';
 
 /**
  * Специализированный хук для работы с записями пациента
  * Расширяет AppointmentsContext дополнительной бизнес-логикой
  */
 export function useAppointments() {
-  const appointments = useAppointmentsContext();
-  const ui = useUIContext();
+  const { appointments, ui } = useAppContext();
 
   // Безопасное удаление записи с подтверждением
   const safeRemoveAppointment = async (appointmentId, showConfirmation = true) => {

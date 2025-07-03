@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useUIContext } from '../../contexts/index.jsx';
+import { useAppContext } from '../../contexts/AppContext';
 
 const ToastContainer = styled.div`
   position: fixed;
@@ -56,7 +56,7 @@ const ToastMessage = styled.div`
 `;
 
 const Toast = () => {
-  const ui = useUIContext();
+  const { ui } = useAppContext();
   const { toast } = ui;
 
   useEffect(() => {

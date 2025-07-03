@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import App from './App';
 import GlobalStyles from './styles/GlobalStyles';
-import { ContextProvider } from './contexts/index.jsx';
+import { AppProvider } from './contexts/AppContext';
 import { ErrorBoundary } from './components/common';
 import PerformanceMonitor from './components/common/PerformanceMonitor';
 
@@ -38,12 +38,12 @@ root.render(
     <ErrorBoundary showDetails={process.env.NODE_ENV === 'development'} onError={handleGlobalError}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <ContextProvider>
+          <AppProvider>
             <PerformanceMonitor enabled={process.env.NODE_ENV === 'development'} />
             <GlobalStyles />
             <App />
             {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />} */}
-          </ContextProvider>
+          </AppProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </ErrorBoundary>

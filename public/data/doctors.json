@@ -103,5 +103,20 @@
     "education": "РНИМУ им. Пирогова",
     "category": "Высшая категория",
     "description": "Опытный кардиолог, ведущий приём взрослых пациентов."
+  },
+  {
+    "id": 8,
+    "clinicId": 9,
+    "name": "Сидоров Николай Игоревич",
+    "specialty": "Стоматолог",
+    "experience": "10 лет",
+    "photo": "https://via.placeholder.com/150x150",
+    "price": "1700 ₽",
+    "firstVisitPrice": true,
+    "rating": 4.7,
+    "reviewCount": 142,
+    "education": "МГМСУ имени А.И. Евдокимова",
+    "category": "Высшая категория",
+    "description": "Специалист в области терапевтической и эстетической стоматологии."
   }
 ]

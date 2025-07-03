@@ -1404,7 +1404,7 @@ const ClinicScreen = () => {
                 </SecondaryLine>
               </TopSection>
 
-              {clinicData.hasOnlineBooking && (
+              {clinicData.hasOnlineBooking && enrichedClinicData.availableDoctor && (
                 <QuickBookingSection>
                   <AdButton onClick={handleBookAppointment}>Записаться на прием</AdButton>
                 </QuickBookingSection>

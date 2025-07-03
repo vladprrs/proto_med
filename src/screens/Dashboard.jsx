@@ -305,9 +305,6 @@ const Dashboard = () => {
     window.debugAppointments = {
       check: () => {
         const stored = localStorage.getItem('medpoisk-appointments');
-        console.log('🔍 localStorage content:', stored);
-        console.log('🔍 Parsed:', stored ? JSON.parse(stored) : 'empty');
-        console.log('🔍 Context appointments:', appointments);
         return {
           stored,
           parsed: stored ? JSON.parse(stored) : null,
@@ -316,7 +313,6 @@ const Dashboard = () => {
       },
       clear: () => {
         localStorage.removeItem('medpoisk-appointments');
-        console.log('🧹 localStorage cleared');
         window.location.reload();
       },
       add: () => {
@@ -329,14 +325,9 @@ const Dashboard = () => {
           status: 'active',
         };
         addAppointment(testAppointment);
-        console.log('➕ Test appointment added:', testAppointment);
       },
     };
 
-    console.log('🔧 Debug functions available:');
-    console.log('  window.debugAppointments.check() - проверить localStorage');
-    console.log('  window.debugAppointments.clear() - очистить localStorage');
-    console.log('  window.debugAppointments.add() - добавить тестовую запись');
   }, [appointments, addAppointment]);
 
   const categories = [

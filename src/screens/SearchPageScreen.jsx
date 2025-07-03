@@ -419,7 +419,6 @@ const SearchPageScreen = () => {
   const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQuery, filters);
 
   // Отладочная информация
-  console.log(
     '🔍 SearchPageScreen - searchQuery:',
     searchQuery,
     'filters:',
@@ -434,7 +433,6 @@ const SearchPageScreen = () => {
 
   // Показываем детальную информацию о результатах
   if (searchResults?.length > 0) {
-    console.log(
       '🔍 Results details:',
       searchResults.map(r => ({
         id: r.id,
@@ -449,7 +447,6 @@ const SearchPageScreen = () => {
     // Информация о фильтре онлайн записи
     if (filters.onlineBooking) {
       const onlineBookingCount = searchResults.filter(r => r.hasOnlineBooking).length;
-      console.log(
         '🔍 Online booking filter active - showing',
         onlineBookingCount,
         'clinics with online booking',

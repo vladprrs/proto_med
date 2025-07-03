@@ -259,18 +259,13 @@ function AppointmentCard({ appointment, onClick }) {
   const handleClick = e => {
     // Если клик не по кнопкам действий
     if (!e.target.closest('button')) {
-      console.log('🔸 AppointmentCard: Card clicked, appointment:', appointment);
       if (onClick) {
-        console.log('🔸 AppointmentCard: Using onClick prop');
         onClick();
       } else {
-        console.log('🔸 AppointmentCard: Setting active appointment and navigating to /appointment');
         // Устанавливаем эту запись как активную и переходим к просмотру
         actions.setActiveAppointment(appointment);
         navigate('/appointment');
       }
-    } else {
-      console.log('🔸 AppointmentCard: Click on button, ignoring');
     }
   };
 
@@ -280,7 +275,6 @@ function AppointmentCard({ appointment, onClick }) {
   };
 
   const handleConfirmCancel = () => {
-    console.log('🔸 AppointmentCard: Cancelling appointment:', appointment.id);
     // Обновляем статус записи на "отменена"
     updateAppointment({
       ...appointment,

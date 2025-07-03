@@ -482,9 +482,6 @@ function DoneScreen() {
   // Если мы попали сюда через маршрут /appointment, показываем данные из activeAppointment
   const isAppointmentView = location.pathname === '/appointment';
 
-  console.log('🔸 DoneScreen: isAppointmentView:', isAppointmentView);
-  console.log('🔸 DoneScreen: activeAppointment:', appointments.activeAppointment);
-  console.log('🔸 DoneScreen: location.pathname:', location.pathname);
 
   let displayData;
   if (isAppointmentView && appointments.activeAppointment) {
@@ -527,7 +524,6 @@ function DoneScreen() {
       // Запись уже создана на экране подтверждения (ConfirmationScreen).
       // Здесь мы просто очищаем состояние потока бронирования и возвращаемся на главный экран.
       booking.actions.resetBookingFlow();
-      console.log('🔸 DoneScreen: Booking flow finished, navigating to home.');
       navigate('/');
     }
   };

@@ -951,11 +951,9 @@ const ClinicScreen = () => {
   // Функция для связывания услуг со специалистами
   const getServicesWithSpecialists = () => {
     if (!services || !Array.isArray(services) || !specialists || !Array.isArray(specialists) || !timeSlots) {
-      console.log('🔸 getServicesWithSpecialists: Missing data - services:', !!services && Array.isArray(services), 'specialists:', !!specialists && Array.isArray(specialists), 'timeSlots:', !!timeSlots);
       return [];
     }
 
-    console.log('🔸 getServicesWithSpecialists: services:', services.length, 'specialists:', specialists.length, 'timeSlots:', timeSlots.length);
 
     // Создаем маппинг категорий услуг к специальностям
     const categoryToSpecialty = {
@@ -976,7 +974,6 @@ const ClinicScreen = () => {
           return specialtiesForCategory.includes(specialist.specialty);
         });
 
-        console.log(`🔸 Service "${service.name}" (${service.category}): found ${availableSpecialists.length} specialists`);
 
         // Для каждого специалиста получаем доступные слоты
         const specialistsWithSlots = availableSpecialists.map(specialist => {
@@ -984,7 +981,6 @@ const ClinicScreen = () => {
             slot.specialistId === specialist.id && slot.available
           ).map(slot => slot.time).slice(0, 4) || []; // Показываем максимум 4 слота
 
-          console.log(`🔸 Specialist "${specialist.name}" (id: ${specialist.id}): found ${availableSlots.length} slots`);
 
           return {
             ...specialist,
@@ -1068,7 +1064,6 @@ const ClinicScreen = () => {
     // Добавляем через actions из контекста
     if (actions?.addAppointment) {
       actions.addAppointment(testAppointment);
-      console.log('🎯 Test appointment created for clinic:', testAppointment);
     } else {
       console.error('❌ Actions not available in context');
     }
@@ -1079,17 +1074,10 @@ const ClinicScreen = () => {
     window.debugClinicAppointments = {
       create: createTestAppointmentForClinic,
       check: () => {
-        console.log('🔍 All appointments:', appointments);
-        console.log('🔍 Clinic appointments:', clinicAppointments);
-        console.log('🔍 Current clinic ID:', clinicId);
-        console.log('🔍 Current clinic data:', clinicData);
         return { all: appointments, clinic: clinicAppointments, clinicId, clinicData };
       }
     };
     
-    console.log('🔧 Debug functions for clinic appointments:');
-    console.log('  window.debugClinicAppointments.create() - создать тестовую запись в эту клинику');
-    console.log('  window.debugClinicAppointments.check() - проверить записи');
   }, [appointments, clinicAppointments, clinicId, clinicData]);
 
   // Обработка состояний загрузки и ошибок

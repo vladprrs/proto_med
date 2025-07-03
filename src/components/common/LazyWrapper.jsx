@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import styled, { keyframes } from 'styled-components';
-import ErrorBoundary from './ErrorBoundary';
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -55,11 +54,9 @@ const LoadingFallback = ({ text = 'Загрузка...', minHeight, background }
 const LazyWrapper = ({
   component: Component,
   fallback,
-  errorBoundary = true,
   loadingText,
   minHeight,
   background,
-  onError,
   ...props
 }) => {
   const LoadingComponent = fallback || (
@@ -71,14 +68,6 @@ const LazyWrapper = ({
       <Component {...props} />
     </Suspense>
   );
-
-  if (errorBoundary) {
-    return (
-      <ErrorBoundary onError={onError}>
-        {WrappedComponent}
-      </ErrorBoundary>
-    );
-  }
 
   return WrappedComponent;
 };

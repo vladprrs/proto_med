@@ -545,15 +545,6 @@ const ServicesScreen = () => {
   const { data: clinicData, isLoading: clinicLoading, error: clinicError } = useClinic(clinicId);
 
   // Отладочная информация (можно удалить в продакшене)
-  if (process.env.NODE_ENV === 'development') {
-      clinicId,
-      servicesData: servicesData?.length || 0,
-      servicesLoading,
-      servicesError,
-      clinicData: clinicData?.name,
-      prefilledData: !!prefilledData,
-    });
-  }
 
   // Обрабатываем предзаполненные данные при загрузке
   useEffect(() => {
@@ -592,12 +583,6 @@ const ServicesScreen = () => {
           ];
         }
         
-
-          fallbackClinicId,
-          selectedServicesData,
-          finalClinicData,
-          prefilledData,
-        });
 
         // Проверяем, нужно ли пропустить также выбор специалиста
         let nextRoute = 'specialists';

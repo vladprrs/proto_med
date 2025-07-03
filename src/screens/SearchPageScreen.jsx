@@ -416,43 +416,7 @@ const SearchPageScreen = () => {
   }, [location.search]);
 
   // Используем API хук для получения данных клиник
-  const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQuery, filters);
-
-  // Отладочная информация
-    '🔍 SearchPageScreen - searchQuery:',
-    searchQuery,
-    'filters:',
-    filters,
-    'searchResults:',
-    searchResults?.length,
-    'isLoading:',
-    isLoading,
-    'error:',
-    error,
-  );
-
-  // Показываем детальную информацию о результатах
-  if (searchResults?.length > 0) {
-      '🔍 Results details:',
-      searchResults.map(r => ({
-        id: r.id,
-        name: r.name,
-        hasCrown: r.hasCrown,
-        featuredDoctorId: r.featuredDoctorId,
-        hasAvailableDoctor: !!r.availableDoctor,
-        hasOnlineBooking: r.hasOnlineBooking,
-      })),
-    );
-
-    // Информация о фильтре онлайн записи
-    if (filters.onlineBooking) {
-      const onlineBookingCount = searchResults.filter(r => r.hasOnlineBooking).length;
-        '🔍 Online booking filter active - showing',
-        onlineBookingCount,
-        'clinics with online booking',
-      );
-    }
-  }
+const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQuery, filters);
 
   const handleClose = () => {
     navigate('/');

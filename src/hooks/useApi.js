@@ -283,6 +283,26 @@ const getMockDoctors = () => [
     rating: 4.9,
     reviewCount: 165,
   },
+  {
+    id: 8,
+    clinicId: 11,
+    name: 'Иванов Алексей Петрович',
+    specialty: 'Терапевт',
+    experience: '15 лет',
+    price: '1500 ₽',
+    rating: 4.9,
+    reviewCount: 89,
+  },
+  {
+    id: 9,
+    clinicId: 11,
+    name: 'Петрова Елена Викторовна',
+    specialty: 'Кардиолог',
+    experience: '22 года',
+    price: '2200 ₽',
+    rating: 4.8,
+    reviewCount: 134,
+  },
 ];
 
 const getMockSlots = () => [
@@ -335,6 +355,20 @@ const getMockSlots = () => [
     dateLabel: 'Пятница',
     slots: ['08:00', '09:40', '13:10'],
   },
+  {
+    doctorId: 8,
+    clinicId: 11,
+    date: '2024-01-19',
+    dateLabel: 'Завтра',
+    slots: ['09:00', '10:30', '12:00'],
+  },
+  {
+    doctorId: 9,
+    clinicId: 11,
+    date: '2024-01-20',
+    dateLabel: 'Пятница',
+    slots: ['14:00', '15:45', '17:15'],
+  },
 ];
 
 const getMockServices = () => [
@@ -357,13 +391,45 @@ const getMockServices = () => [
 const getMockSpecialists = () => [
   {
     id: 1,
-    name: 'Петров Петр Петрович',
+    name: 'Иванов Алексей Петрович',
     specialty: 'Терапевт',
     experience: '15 лет',
     rating: 4.9,
-    reviewCount: 234,
-    price: 'от 1500 ₽',
-    nextAvailable: 'Сегодня в 14:00',
+    reviewCount: 89,
+    price: '1500 ₽',
+    firstVisitPrice: true,
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 2,
+    name: 'Петрова Елена Викторовна',
+    specialty: 'Кардиолог',
+    experience: '22 года',
+    rating: 4.8,
+    reviewCount: 134,
+    price: '2200 ₽',
+    firstVisitPrice: true,
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 3,
+    name: 'Смирнов Дмитрий Александрович',
+    specialty: 'Эндокринолог',
+    experience: '18 лет',
+    rating: 4.7,
+    reviewCount: 76,
+    price: '2000 ₽',
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 4,
+    name: 'Козлова Марина Сергеевна',
+    specialty: 'Невролог',
+    experience: '12 лет',
+    rating: 4.6,
+    reviewCount: 52,
+    price: '1900 ₽',
+    photo: 'https://via.placeholder.com/150x150',
   },
 ];
 

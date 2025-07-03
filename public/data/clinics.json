@@ -268,7 +268,8 @@
     "description": "Районная поликлиника с доступными ценами и опытными врачами.",
     "hasCrown": false,
     "hasAd": false,
-    "hasOnlineBooking": true
+    "hasOnlineBooking": true,
+    "featuredDoctorId": 6
   },
   {
     "id": 12,

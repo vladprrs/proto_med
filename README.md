@@ -125,8 +125,7 @@ npm run lint     # Проверка кода линтером
 - **SessionStorage** - персистентность данных
 
 **Работа с данными:**
-- **React Query** - кеширование и синхронизация данных
-- **Custom API hooks** - абстракция над загрузкой данных
+- **useApi** - пользовательский хук для запросов и кеширования
 - **Static JSON** - демо-данные клиник и услуг
 
 **Стилизация:**
@@ -143,10 +142,10 @@ AppContext (Global State)
 ├── UI State (загрузка, ошибки, модалы)
 └── Patient Data (информация пациента)
 
-React Query Cache
+useApi Cache
 ├── Clinics Data (список клиник)
 ├── Services Data (услуги по клиникам)
-├── Specialists Data (врачи по клиникам)  
+├── Specialists Data (врачи по клиникам)
 └── Time Slots Data (расписание врачей)
 ```
 
@@ -166,7 +165,7 @@ src/
 ├── contexts/             # React контексты
 │   └── AppContext.jsx        # Глобальное состояние
 ├── hooks/                # Пользовательские хуки
-│   └── useApi.js             # API интеграция с React Query
+│   └── useApi.js             # универсальный хук запросов и кеша
 ├── styles/               # Глобальные стили
 │   └── GlobalStyles.js       # CSS Reset и базовые стили
 ├── App.jsx               # Главный компонент с роутингом
@@ -235,15 +234,12 @@ const isBookingComplete = getters.isBookingComplete()
 
 ### Кеширование данных
 
-React Query обеспечивает эффективное кеширование:
+Хук `useApi` реализует простое кеширование в памяти и
+возвращает данные вместе со статусом загрузки.
+Пример обращения к данным:
 
 ```javascript
-// Загрузка с кешированием
-const { data: clinics, isLoading } = useClinics()
-const { data: services } = useServices(clinicId)
-
-// Пре-загрузка данных
-const { prefetchClinics } = usePrefetchData()
+const { data: clinics, isLoading } = useApi('clinics.json')
 ```
 
 ### Персистентность
@@ -310,7 +306,7 @@ interface Specialist {
 ### Оптимизации
 
 - **Lazy Loading** изображений с placeholder'ами
-- **React Query** для кеширования API запросов
+- **useApi** с простым кешем для API запросов
 - **Code Splitting** по роутам (готовность)
 - **Мемоизация** тяжелых вычислений
 - **Debouncing** поисковых запросов

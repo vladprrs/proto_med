@@ -892,8 +892,8 @@ const ClinicScreen = () => {
   const [activeTab, setActiveTab] = useState('overview');
   
   // Получаем записи пользователя из контекста
-  const { state } = useAppContext();
-  const { appointments } = state;
+  const { appointments: appointmentsState } = useAppContext();
+  const { appointments, actions } = appointmentsState;
 
   // Используем API хуки для получения данных клиники, докторов и слотов
   const { data: clinicData, isLoading, error } = useClinic(clinicId);
@@ -1066,8 +1066,8 @@ const ClinicScreen = () => {
     };
     
     // Добавляем через actions из контекста
-    if (state?.actions?.addAppointment) {
-      state.actions.addAppointment(testAppointment);
+    if (actions?.addAppointment) {
+      actions.addAppointment(testAppointment);
       console.log('🎯 Test appointment created for clinic:', testAppointment);
     } else {
       console.error('❌ Actions not available in context');

@@ -682,6 +682,7 @@ const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQu
         <DropdownContainer onClick={e => e.stopPropagation()}>
           <DropdownOption onClick={() => selectDate('today')}>Сегодня</DropdownOption>
           <DropdownOption onClick={() => selectDate('tomorrow')}>Завтра</DropdownOption>
+          <DropdownOption onClick={() => selectDate('')}>Любое</DropdownOption>
           <DateInput type="date" onChange={e => selectDate(e.target.value)} />
         </DropdownContainer>
       </Overlay>

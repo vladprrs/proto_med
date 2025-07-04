@@ -404,6 +404,8 @@ const SearchPageScreen = () => {
     rating: false,
     friends: false,
     onlineBooking: false,
+    specialty: '',
+    date: '',
   });
 
   // Инициализация поискового запроса из URL параметров
@@ -429,9 +431,33 @@ const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQu
     }));
   };
 
-  const getActiveFiltersCount = () => {
-    return Object.values(filters).filter(Boolean).length;
+  const handleSpecialtySelect = () => {
+    const input = window.prompt(
+      'Введите специализацию врача',
+      filters.specialty || '',
+    );
+    if (input !== null) {
+      setFilters(prev => ({ ...prev, specialty: input.trim() }));
+    }
   };
+
+  const handleDateSelect = () => {
+    const input = window.prompt(
+      'Введите дату: сегодня | завтра | YYYY-MM-DD',
+      filters.date || '',
+    );
+    if (input !== null) {
+      const value = input.trim().toLowerCase();
+      let normalized = input.trim();
+      if (value === 'сегодня' || value === 'today') {
+        normalized = 'today';
+      } else if (value === 'завтра' || value === 'tomorrow') {
+        normalized = 'tomorrow';
+      }
+      setFilters(prev => ({ ...prev, date: normalized }));
+    }
+  };
+
 
   return (
     <MapScreenLayout mapImage="/assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg">
@@ -499,6 +525,24 @@ const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQu
         <FilterButton $active={filters.rating} onClick={() => handleFilterToggle('rating')}>
           <FilterLabel $active={filters.rating}>Рейтинг</FilterLabel>
           <FilterArrow $active={filters.rating}>▼</FilterArrow>
+        </FilterButton>
+
+        {/* Кнопка "Специализация" */}
+        <FilterButton $active={!!filters.specialty} onClick={handleSpecialtySelect}>
+          <FilterLabel $active={!!filters.specialty}>
+            {filters.specialty || 'Специализация'}
+          </FilterLabel>
+        </FilterButton>
+
+        {/* Кнопка "Время" */}
+        <FilterButton $active={!!filters.date} onClick={handleDateSelect}>
+          <FilterLabel $active={!!filters.date}>
+            {filters.date === 'today'
+              ? 'Сегодня'
+              : filters.date === 'tomorrow'
+              ? 'Завтра'
+              : filters.date || 'Время'}
+          </FilterLabel>
         </FilterButton>
 
         {/* Кнопка "Были друзья" */}

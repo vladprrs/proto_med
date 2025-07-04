@@ -917,7 +917,7 @@ const ClinicScreen = () => {
 
   // Функция для обогащения данных клиники информацией о докторе
   const enrichClinicWithDoctorData = (clinic, doctors, slots) => {
-    if (!clinic.featuredDoctorId || !doctors || !slots) {
+    if (!clinic.hasOnlineBooking || !clinic.featuredDoctorId || !doctors || !slots) {
       return clinic;
     }
 
@@ -1126,7 +1126,7 @@ const ClinicScreen = () => {
               </ContentText>
             </ContentCard>
 
-            {clinicData.hasCrown && enrichedClinicData.availableDoctor && (
+            {clinicData.hasCrown && clinicData.hasOnlineBooking && enrichedClinicData.availableDoctor && (
               <ContentCard>
                 <ContentTitle>Ближайшие доступные слоты</ContentTitle>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
@@ -1404,7 +1404,7 @@ const ClinicScreen = () => {
                 </SecondaryLine>
               </TopSection>
 
-              {clinicData.hasOnlineBooking && (
+              {clinicData.hasOnlineBooking && enrichedClinicData.availableDoctor && (
                 <QuickBookingSection>
                   <AdButton onClick={handleBookAppointment}>Записаться на прием</AdButton>
                 </QuickBookingSection>

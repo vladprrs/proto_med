@@ -114,8 +114,7 @@ function searchClinics(clinics, query, filters = {}) {
 
 // Helper function to combine clinic data with doctor and slots
 function enrichClinicWithDoctorData(clinic, doctors, slots) {
-
-  if (!clinic.featuredDoctorId) {
+  if (!clinic.hasOnlineBooking || !clinic.featuredDoctorId) {
     return clinic;
   }
 
@@ -224,6 +223,96 @@ const getMockDoctors = () => [
     rating: 4.8,
     reviewCount: 120,
   },
+  {
+    id: 2,
+    clinicId: 2,
+    name: 'Петров Дмитрий Сергеевич',
+    specialty: 'Кардиолог',
+    experience: 'Стаж 15 лет',
+    price: 'от 1500 ₽',
+    rating: 4.7,
+    reviewCount: 156,
+  },
+  {
+    id: 3,
+    clinicId: 3,
+    name: 'Сидорова Анна Дмитриевна',
+    specialty: 'Невролог',
+    experience: 'Стаж 7 лет',
+    price: 'от 1400 ₽',
+    rating: 4.5,
+    reviewCount: 98,
+  },
+  {
+    id: 4,
+    clinicId: 4,
+    name: 'Королева Анна Викторовна',
+    specialty: 'Гинеколог',
+    experience: 'Стаж 14 лет',
+    price: 'от 1600 ₽',
+    rating: 4.8,
+    reviewCount: 203,
+  },
+  {
+    id: 5,
+    clinicId: 5,
+    name: 'Комогоров Александр Иванович',
+    specialty: 'Стоматолог',
+    experience: 'Стаж 29 лет',
+    price: 'от 800 ₽',
+    rating: 4.3,
+    reviewCount: 312,
+  },
+  {
+    id: 6,
+    clinicId: 6,
+    name: 'Фролов Сергей Павлович',
+    specialty: 'Ортопед',
+    experience: 'Стаж 8 лет',
+    price: 'от 1800 ₽',
+    rating: 4.6,
+    reviewCount: 87,
+  },
+  {
+    id: 7,
+    clinicId: 7,
+    name: 'Лебедева Юлия Николаевна',
+    specialty: 'Кардиолог',
+    experience: 'Стаж 12 лет',
+    price: 'от 2000 ₽',
+    rating: 4.9,
+    reviewCount: 165,
+  },
+  {
+    id: 8,
+    clinicId: 9,
+    name: 'Сидоров Николай Игоревич',
+    specialty: 'Стоматолог',
+    experience: 'Стаж 10 лет',
+    price: 'от 1700 ₽',
+    rating: 4.7,
+    reviewCount: 142,
+  },
+  {
+    id: 9,
+    clinicId: 11,
+    name: 'Иванов Алексей Петрович',
+    specialty: 'Терапевт',
+    experience: '15 лет',
+    price: '1500 ₽',
+    rating: 4.9,
+    reviewCount: 89,
+  },
+  {
+    id: 10,
+    clinicId: 11,
+    name: 'Петрова Елена Викторовна',
+    specialty: 'Кардиолог',
+    experience: '22 года',
+    price: '2200 ₽',
+    rating: 4.8,
+    reviewCount: 134,
+  },
 ];
 
 const getMockSlots = () => [
@@ -233,6 +322,69 @@ const getMockSlots = () => [
     date: '2024-01-18',
     dateLabel: 'Сегодня',
     slots: ['14:00', '15:30', '16:15'],
+  },
+  {
+    doctorId: 2,
+    clinicId: 2,
+    date: '2024-01-19',
+    dateLabel: 'Завтра',
+    slots: ['10:00', '12:30', '14:45'],
+  },
+  {
+    doctorId: 3,
+    clinicId: 3,
+    date: '2024-01-20',
+    dateLabel: 'Пятница',
+    slots: ['09:00', '10:30', '11:15'],
+  },
+  {
+    doctorId: 4,
+    clinicId: 4,
+    date: '2024-01-23',
+    dateLabel: 'Понедельник',
+    slots: ['11:00', '13:20', '15:00'],
+  },
+  {
+    doctorId: 5,
+    clinicId: 5,
+    date: '2024-01-25',
+    dateLabel: 'Среда',
+    slots: ['09:30', '11:15', '14:30'],
+  },
+  {
+    doctorId: 6,
+    clinicId: 6,
+    date: '2024-01-26',
+    dateLabel: 'Четверг',
+    slots: ['17:30', '18:00'],
+  },
+  {
+    doctorId: 7,
+    clinicId: 7,
+    date: '2024-01-27',
+    dateLabel: 'Пятница',
+    slots: ['08:00', '09:40', '13:10'],
+  },
+  {
+    doctorId: 8,
+    clinicId: 9,
+    date: '2024-01-19',
+    dateLabel: 'Завтра',
+    slots: ['10:00', '11:30', '13:00'],
+  },
+  {
+    doctorId: 9,
+    clinicId: 11,
+    date: '2024-01-19',
+    dateLabel: 'Завтра',
+    slots: ['09:00', '10:30', '12:00'],
+  },
+  {
+    doctorId: 10,
+    clinicId: 11,
+    date: '2024-01-20',
+    dateLabel: 'Пятница',
+    slots: ['14:00', '15:45', '17:15'],
   },
 ];
 
@@ -256,13 +408,56 @@ const getMockServices = () => [
 const getMockSpecialists = () => [
   {
     id: 1,
-    name: 'Петров Петр Петрович',
+    name: 'Иванов Алексей Петрович',
     specialty: 'Терапевт',
     experience: '15 лет',
     rating: 4.9,
-    reviewCount: 234,
-    price: 'от 1500 ₽',
-    nextAvailable: 'Сегодня в 14:00',
+    reviewCount: 89,
+    price: '1500 ₽',
+    firstVisitPrice: true,
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 2,
+    name: 'Петрова Елена Викторовна',
+    specialty: 'Кардиолог',
+    experience: '22 года',
+    rating: 4.8,
+    reviewCount: 134,
+    price: '2200 ₽',
+    firstVisitPrice: true,
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 3,
+    name: 'Смирнов Дмитрий Александрович',
+    specialty: 'Эндокринолог',
+    experience: '18 лет',
+    rating: 4.7,
+    reviewCount: 76,
+    price: '2000 ₽',
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 4,
+    name: 'Козлова Марина Сергеевна',
+    specialty: 'Невролог',
+    experience: '12 лет',
+    rating: 4.6,
+    reviewCount: 52,
+    price: '1900 ₽',
+    photo: 'https://via.placeholder.com/150x150',
+  },
+  {
+    id: 5,
+    name: 'Сидоров Николай Игоревич',
+    specialty: 'Стоматолог',
+    experience: '10 лет',
+    rating: 4.7,
+    reviewCount: 142,
+    price: '1700 ₽',
+    firstVisitPrice: true,
+    photo: 'https://via.placeholder.com/150x150',
   },
 ];
 
@@ -363,41 +558,48 @@ export function useSlots() {
         dateLabel: 'Сегодня, 18.06',
         slots: ['14:00', '15:30', '16:15'],
       },
-        {
-          doctorId: 2,
-          clinicId: 3,
-          date: '2024-01-20',
-          dateLabel: 'Пятница, 20.06',
-          slots: ['09:00', '09:45', '10:30', '11:15'],
-        },
-        {
-          doctorId: 3,
-          clinicId: 4,
-          date: '2024-01-23',
-          dateLabel: 'Понедельник, 23.06',
-          slots: ['11:00', '13:20', '15:00', '16:40'],
-        },
-        {
-          doctorId: 4,
-          clinicId: 5,
-          date: '2024-01-25',
-          dateLabel: 'Среда, 25.06',
-          slots: ['09:30', '11:15', '14:30'],
-        },
-        {
-          doctorId: 5,
-          clinicId: 6,
-          date: '2024-01-18',
-          dateLabel: 'Сегодня, 18.06',
-          slots: ['17:30'],
-        },
-        {
-          doctorId: 6,
-          clinicId: 2,
-          date: '2024-01-19',
-          dateLabel: 'Завтра, 19.06',
-          slots: ['10:00', '12:30', '14:45'],
-        },
+      {
+        doctorId: 2,
+        clinicId: 2,
+        date: '2024-01-19',
+        dateLabel: 'Завтра, 19.06',
+        slots: ['10:00', '12:30', '14:45'],
+      },
+      {
+        doctorId: 3,
+        clinicId: 3,
+        date: '2024-01-20',
+        dateLabel: 'Пятница, 20.06',
+        slots: ['09:00', '10:30', '11:15'],
+      },
+      {
+        doctorId: 4,
+        clinicId: 4,
+        date: '2024-01-23',
+        dateLabel: 'Понедельник, 23.06',
+        slots: ['11:00', '13:20', '15:00'],
+      },
+      {
+        doctorId: 5,
+        clinicId: 5,
+        date: '2024-01-25',
+        dateLabel: 'Среда, 25.06',
+        slots: ['09:30', '11:15', '14:30'],
+      },
+      {
+        doctorId: 6,
+        clinicId: 6,
+        date: '2024-01-26',
+        dateLabel: 'Четверг, 26.06',
+        slots: ['17:30', '18:00'],
+      },
+      {
+        doctorId: 7,
+        clinicId: 7,
+        date: '2024-01-27',
+        dateLabel: 'Пятница, 27.06',
+        slots: ['08:00', '09:40', '13:10'],
+      },
       ];
 
   const [data, setData] = useState([]);
@@ -437,12 +639,25 @@ export function useSearchClinics(query, filters) {
     if (!clinics) return;
 
     const filteredClinics = searchClinics(clinics, query, filters);
+    let enrichedResults = filteredClinics;
+
     if (doctors && slots) {
-      const enriched = filteredClinics.map(c => enrichClinicWithDoctorData(c, doctors, slots));
-      setResults(enriched);
-    } else {
-      setResults(filteredClinics);
+      enrichedResults = filteredClinics.map(c =>
+        enrichClinicWithDoctorData(c, doctors, slots),
+      );
     }
+
+    if (filters.onlineBooking) {
+      enrichedResults = enrichedResults.filter(
+        c =>
+          c.hasOnlineBooking &&
+          c.availableDoctor &&
+          Array.isArray(c.availableDoctor.availableSlots) &&
+          c.availableDoctor.availableSlots.length > 0,
+      );
+    }
+
+    setResults(enrichedResults);
   }, [clinics, doctors, slots, query, JSON.stringify(filters)]);
 
   return { data: results, isLoading: loading, error };

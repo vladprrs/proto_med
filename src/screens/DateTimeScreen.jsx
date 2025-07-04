@@ -453,6 +453,128 @@ const TimeSlotLabel = styled.div`
   position: relative;
 `;
 
+// Баннер с предложением услуги от рекламодателя
+const PromoBanner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  position: relative;
+`;
+
+const PromoBannerCard = styled.div`
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 12px;
+  background: #fff;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+`;
+
+const PromoImageContainer = styled.div`
+  display: flex;
+  padding: 12px 0px 12px 16px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  position: relative;
+`;
+
+const PromoImage = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 40px;
+  border: 0.5px solid rgba(137, 137, 137, 0.3);
+  position: relative;
+`;
+
+const PromoContent = styled.div`
+  display: flex;
+  padding: 0px 16px 0px 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  position: relative;
+  min-width: 0;
+  overflow-x: hidden;
+`;
+
+const PromoTitle = styled.div`
+  flex: 1 0 0;
+  color: #141414;
+  font-family: 'SB Sans Text';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+  padding: 14px 0px 4px 0px;
+  position: relative;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+`;
+
+const PromoDescription = styled.div`
+  flex: 1 0 0;
+  color: #141414;
+  font-family: 'SB Sans Text';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.28px;
+  padding-bottom: 4px;
+  position: relative;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+`;
+
+const PromoButton = styled.div`
+  color: #5a5a5a;
+  font-family: 'SB Sans Text';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.28px;
+  padding: 6px 0px 16px 0px;
+  position: relative;
+  cursor: pointer;
+`;
+
+const PromoDisclaimer = styled.div`
+  display: flex;
+  padding: 0px 4px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  position: relative;
+`;
+
+const PromoDisclaimerText = styled.div`
+  height: 16px;
+  flex: 1 0 0;
+  overflow: hidden;
+  color: #b8b8b8;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'SB Sans Text';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: -0.176px;
+  padding: 7px 0px 1px 0px;
+  position: relative;
+`;
+
 const Footer = styled.div`
   display: flex;
   padding: 0px 12px;
@@ -523,6 +645,10 @@ const DateTimeScreen = () => {
     clinicData = null,
     prefilledData = null,
   } = location.state || {};
+
+  // Название первой выбранной услуги для динамического баннера
+  const serviceName = selectedServices[0]?.name;
+  const clinicHasAd = clinicData?.hasAd;
 
   useEffect(() => {
     loadSpecialists();
@@ -967,6 +1093,31 @@ const DateTimeScreen = () => {
             )}
           </Content>
         </ContentArea>
+
+        {!clinicHasAd && (
+          <PromoBanner>
+            <PromoBannerCard>
+              <PromoImageContainer>
+                <PromoImage alt="" src="/assets/clinic_placeholder.svg" />
+              </PromoImageContainer>
+              <PromoContent>
+                <PromoTitle>МедКлиника «ЗдоровьеПлюс»</PromoTitle>
+                <PromoDescription>
+                  {serviceName
+                    ? `Запись на ${serviceName} доступна в клинике рядом`
+                    : 'Запись доступна в клинике рядом'}
+                </PromoDescription>
+                <PromoButton>Подобрать время</PromoButton>
+              </PromoContent>
+            </PromoBannerCard>
+            <PromoDisclaimer>
+              <PromoDisclaimerText>
+                Реклама • Есть противопоказания, требуется консультация
+                специалиста
+              </PromoDisclaimerText>
+            </PromoDisclaimer>
+          </PromoBanner>
+        )}
 
         <Footer>
           <FooterContent>

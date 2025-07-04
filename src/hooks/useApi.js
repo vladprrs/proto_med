@@ -80,7 +80,10 @@ function searchClinics(clinics, query, filters = {}) {
 
   // Apply filters
   if (filters.rating) {
-    results = results.filter(clinic => clinic.rating >= 4.5);
+    const threshold = parseFloat(filters.rating);
+    if (!Number.isNaN(threshold)) {
+      results = results.filter(clinic => clinic.rating >= threshold);
+    }
   }
 
   if (filters.specialty) {

@@ -236,6 +236,53 @@ const FilterArrow = styled.span`
   font-weight: 500;
 `;
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+`;
+
+const DropdownContainer = styled.div`
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+`;
+
+const DropdownOption = styled.button`
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  color: #141414;
+  font-family: 'SB Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(20, 20, 20, 0.06);
+  }
+`;
+
+const DateInput = styled.input`
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 14px;
+`;
+
 const CloseIcon = styled.div`
   width: 13px;
   height: 13px;
@@ -401,12 +448,16 @@ const SearchPageScreen = () => {
   const [filters, setFilters] = useState({
     nearby: false,
     open: false,
-    rating: false,
+    rating: '',
     friends: false,
     onlineBooking: false,
     specialty: '',
     date: '',
   });
+
+  const [showRatingSheet, setShowRatingSheet] = useState(false);
+  const [showSpecialtySheet, setShowSpecialtySheet] = useState(false);
+  const [showDateSheet, setShowDateSheet] = useState(false);
 
   // Инициализация поискового запроса из URL параметров
   useEffect(() => {
@@ -431,35 +482,36 @@ const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQu
     }));
   };
 
+  const openRatingSheet = () => setShowRatingSheet(true);
+  const openSpecialtySheet = () => setShowSpecialtySheet(true);
+  const openDateSheet = () => setShowDateSheet(true);
+
+  const selectRating = value => {
+    setFilters(prev => ({ ...prev, rating: value }));
+    setShowRatingSheet(false);
+  };
+
+  const selectSpecialty = value => {
+    setFilters(prev => ({ ...prev, specialty: value }));
+    setShowSpecialtySheet(false);
+  };
+
+  const selectDate = value => {
+    setFilters(prev => ({ ...prev, date: value }));
+    setShowDateSheet(false);
+  };
+
   const handleSpecialtySelect = () => {
-    const input = window.prompt(
-      'Введите специализацию врача',
-      filters.specialty || '',
-    );
-    if (input !== null) {
-      setFilters(prev => ({ ...prev, specialty: input.trim() }));
-    }
+    openSpecialtySheet();
   };
 
   const handleDateSelect = () => {
-    const input = window.prompt(
-      'Введите дату: сегодня | завтра | YYYY-MM-DD',
-      filters.date || '',
-    );
-    if (input !== null) {
-      const value = input.trim().toLowerCase();
-      let normalized = input.trim();
-      if (value === 'сегодня' || value === 'today') {
-        normalized = 'today';
-      } else if (value === 'завтра' || value === 'tomorrow') {
-        normalized = 'tomorrow';
-      }
-      setFilters(prev => ({ ...prev, date: normalized }));
-    }
+    openDateSheet();
   };
 
 
   return (
+    <>
     <MapScreenLayout mapImage="/assets/images/dbeabc5ac0f4d8edc9feb4b0b06f4520eafc61ab_750.jpg">
       <TopSection>
         <BottomSheetHeader>
@@ -522,9 +574,11 @@ const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQu
         </FilterButton>
 
         {/* Кнопка "Рейтинг" */}
-        <FilterButton $active={filters.rating} onClick={() => handleFilterToggle('rating')}>
-          <FilterLabel $active={filters.rating}>Рейтинг</FilterLabel>
-          <FilterArrow $active={filters.rating}>▼</FilterArrow>
+        <FilterButton $active={!!filters.rating} onClick={openRatingSheet}>
+          <FilterLabel $active={!!filters.rating}>
+            {filters.rating ? `Рейтинг ${filters.rating}+` : 'Рейтинг'}
+          </FilterLabel>
+          <FilterArrow $active={!!filters.rating}>▼</FilterArrow>
         </FilterButton>
 
         {/* Кнопка "Специализация" */}
@@ -598,6 +652,41 @@ const { data: searchResults = [], isLoading, error } = useSearchClinics(searchQu
         </ResultsList>
       </ContentSection>
     </MapScreenLayout>
+
+    {showRatingSheet && (
+      <Overlay onClick={() => setShowRatingSheet(false)}>
+        <DropdownContainer onClick={e => e.stopPropagation()}>
+          <DropdownOption onClick={() => selectRating('4')}>Рейтинг 4+</DropdownOption>
+          <DropdownOption onClick={() => selectRating('4.5')}>Рейтинг 4.5+</DropdownOption>
+          <DropdownOption onClick={() => selectRating('5')}>Только 5</DropdownOption>
+          <DropdownOption onClick={() => selectRating('')}>Любой</DropdownOption>
+        </DropdownContainer>
+      </Overlay>
+    )}
+
+    {showSpecialtySheet && (
+      <Overlay onClick={() => setShowSpecialtySheet(false)}>
+        <DropdownContainer onClick={e => e.stopPropagation()}>
+          {['Терапевт', 'Кардиолог', 'Невролог', 'Гинеколог', 'Стоматолог'].map(opt => (
+            <DropdownOption key={opt} onClick={() => selectSpecialty(opt)}>
+              {opt}
+            </DropdownOption>
+          ))}
+          <DropdownOption onClick={() => selectSpecialty('')}>Все</DropdownOption>
+        </DropdownContainer>
+      </Overlay>
+    )}
+
+    {showDateSheet && (
+      <Overlay onClick={() => setShowDateSheet(false)}>
+        <DropdownContainer onClick={e => e.stopPropagation()}>
+          <DropdownOption onClick={() => selectDate('today')}>Сегодня</DropdownOption>
+          <DropdownOption onClick={() => selectDate('tomorrow')}>Завтра</DropdownOption>
+          <DateInput type="date" onChange={e => selectDate(e.target.value)} />
+        </DropdownContainer>
+      </Overlay>
+    )}
+    </>
   );
 };
 

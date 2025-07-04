@@ -80,7 +80,19 @@ function searchClinics(clinics, query, filters = {}) {
 
   // Apply filters
   if (filters.rating) {
-    results = results.filter(clinic => clinic.rating >= 4.5);
+    const threshold = parseFloat(filters.rating);
+    if (!Number.isNaN(threshold)) {
+      results = results.filter(clinic => clinic.rating >= threshold);
+    }
+  }
+
+  if (filters.specialty) {
+    const spec = filters.specialty.toLowerCase();
+    results = results.filter(
+      clinic =>
+        clinic.specialties &&
+        clinic.specialties.some(s => s.toLowerCase().includes(spec)),
+    );
   }
 
   if (filters.price) {
@@ -654,6 +666,24 @@ export function useSearchClinics(query, filters) {
           c.availableDoctor &&
           Array.isArray(c.availableDoctor.availableSlots) &&
           c.availableDoctor.availableSlots.length > 0,
+      );
+    }
+
+    if (filters.date) {
+      const resolveDate = value => {
+        const today = new Date();
+        if (value === 'today') return today.toISOString().split('T')[0];
+        if (value === 'tomorrow') {
+          const d = new Date(today);
+          d.setDate(d.getDate() + 1);
+          return d.toISOString().split('T')[0];
+        }
+        return value;
+      };
+
+      const targetDate = resolveDate(filters.date);
+      enrichedResults = enrichedResults.filter(
+        c => c.availableDoctor && c.availableDoctor.date === targetDate,
       );
     }
 
